@@ -29,6 +29,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#project">Projects</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li>
                 </ul>
             </div>
@@ -126,7 +127,7 @@
                                 </p>
                         </div>
                     </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="d-flex flex-column flex-md-row justify-content-between">
                         <div class="flex-grow-1">
                             <a href="https://github.com/radityarin/Nulungi"><h3 class="mb-0" >Nulungi</h3></a>
                             <div class="subheading mb-3">Android Application</div>
@@ -134,14 +135,6 @@
                                 to the people in need such as, mosque, shelter, community,
                                 and nursing home. This app was created for software
                                 development competition purpose.
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1">
-                            <a href="https://polkaparty.io"><h3 class="mb-0" >Polka Party</h3></a>
-                            <div class="subheading mb-3">DeFi service</div>
-                            <p>Create secure and reliable smart contract for polka party DApps. PolkaParty is a platform focused on user created decentralized autonomous organizations. 
                                 </p>
                         </div>
                     </div>
@@ -213,6 +206,20 @@
                             Agile Development & Scrum
                         </li>
                     </ul> -->
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Interests-->
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Interests</h2>
+                    <p>Apart from being a web developer, I enjoy most of my time being outdoors. 
+                        I drove towards the mountains to relieve the stress caused by the atmosphere in the city.
+                        I enjoy watching anime, and playing some gacha games. And i have a willing to learn something new to me because
+                        i take that as a challenge for my self. I'm interested in how blockchain works especially smart contract mechanism,
+                        because I think smart contracts can solve problems related to general public data like KTP. 
+                        Because the implementation of E-KTP is still poor. 
+                    </p>
                 </div>
             </section>
             <hr class="m-0" />
