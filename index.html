@@ -1,249 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Resume" />
-        <meta name="author" content="Irfan Maulana Akbar" />
-        <title>Resume - Irfan Maulana Akbar</title>
-        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                <span class="d-block d-lg-none">Irfan Maulana Akbar</span>
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-square mx-auto mb-2" src="assets/img/profile.jpg" alt="Image Not Found" /></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#project">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li>
-                </ul>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Irfan Maulana Akbar - Web3 + AI Engineer specializing in blockchain, backend development, and AI automation">
+    <meta name="author" content="Irfan Maulana Akbar">
+    <meta name="keywords" content="Web3, Blockchain, AI, Developer, Solidity, JavaScript, n8n, LLM">
+    <title>Irfan Maulana Akbar | Web3 + AI Engineer</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-ring">
+                <div class="loader-ring-inner"></div>
             </div>
-        </nav>
-        <!-- Page Content-->
-        <div class="container-fluid p-0">
-            <!-- About-->
-            <section class="resume-section" id="about">
-                <div class="resume-section-content">
-                    <h1 class="mb-0">
-                        <span class="text-primary">Irfan</span>
-                        <span class="">Maulana Akbar</span>
-                    </h1>
-                    <div class="subheading mb-5">
-                        Kedurus Dukuh V/11A · Surabaya, Jawa Timur 60223 · (+62) 81334090787 ·
-                        <a class="text-primary" href="mailto:irfanmaulanaaaaa.im@gmail.com">irfanmaulanaaaaa.im@gmail.com</a>
-                    </div>
-                    <p class="lead mb-5">I am a self-taught developer with
-                        willing to learn something new. i
-                        have quite experience with linux
-                        and virtual server such as GCP or
-                        AWS. Currently focused on learning to develop dapps application 
-                        including solidity smart contract and ethereum blockchain. I'm undergraduate student in Brawijaya University 
-                        and still working on my thesis.</p>
-                    <div class="social-icons">
-                        <a class="social-icon" href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-icon" href="https://github.com/irfanmaulanaak"><i class="fab fa-github"></i></a>
-                        <a class="social-icon" href="https://twitter.com/irfanmaulanaak"><i class="fab fa-twitter"></i></a>
-                        <a class="social-icon" href="https://www.facebook.com/aq.n.kedubest/"><i class="fab fa-facebook-f"></i></a>
-                        <a class="social-icon" href="https://www.instagram.com/irfanmaulanaak/"><i class="fab fa-instagram"></i></a>
-                        <a class="social-icon" href="https://www.twitch.tv/irfanmaulanaak"><i class="fab fa-twitch"></i></a>
-                    </div>
-                </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Project-->
-            <section class="resume-section" id="project">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Projects</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <a href="https://github.com/irfanmaulanaak/tasty"><h3 class="mb-0" >Tasty</h3></a>
-                            <div class="subheading mb-3">Web Application</div>
-                            <p>Final assignment for web programming courses in college.
-                                This web application contains only front-end. And didn't fully
-                                functional.
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <a href=" https://github.com/irfanmaulanaak/ListHeadphone"><h3 class="mb-0" >ListHeadphone</h3></a>
-                            <div class="subheading mb-3">Android Application</div>
-                            <p>Final assignment for Beginner Android Developer Dicoding
-                                courses. This application is created using java programming
-                                language.
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <a href=" https://github.com/irfanmaulanaak/carkerid"><h3 class="mb-0" >CarkerID</h3></a>
-                            <div class="subheading mb-3">Web Application</div>
-                            <p>Final assignment for RPL courses in college. This application
-                                is created using laravel framework. Purpose of this project is to make it easier for job seekers.                                
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <a href=" https://github.com/irfanmaulanaak/ehealth"><h3 class="mb-0" >E-Health</h3></a>
-                            <div class="subheading mb-3">D-Apps Application</div>
-                            <p>Web service for E-Health DApps Application. You can access
-                                this web service using postman. Currently working on this project, 
-                                because my thesis is discussing about how to implement ethereum network in electonic medical record
-                                to solve data sharing problem.            
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <a href="https://github.com/irfanmaulanaak/backend-healthrecord"><h3 class="mb-0" >E-Health</h3></a>
-                            <div class="subheading mb-3">Web Service</div>
-                            <p>Web service for E-Health DApps Application. You can access
-                                this web service using postman.            
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <a href="https://github.com/rizalbayyu/PKL-FILKOM"><h3 class="mb-0" >Apps To Control IOT (PKL Project)</h3></a>
-                            <div class="subheading mb-3">Cross-Platform Application</div>
-                            <p>Cross-platform application for viewing or controlling an IoT
-                                devices. This application can run on android, ios, and web.                                          
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <a href="https://github.com/radityarin/Nulungi"><h3 class="mb-0" >Nulungi</h3></a>
-                            <div class="subheading mb-3">Android Application</div>
-                            <p>An app to help people that want to get rid their unused stuff
-                                to the people in need such as, mosque, shelter, community,
-                                and nursing home. This app was created for software
-                                development competition purpose.
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <a href="https://polkaparty.io"><h3 class="mb-0" >Polka Party</h3></a>
-                            <div class="subheading mb-3">DeFi service</div>
-                            <p>Create secure and reliable smart contract for polka party DApps. PolkaParty is a platform focused on user created decentralized autonomous organizations. 
-                                </p>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1">
-                            <a href="https://polkaparty.io"><h3 class="mb-0" >NFT Infynyty</h3></a>
-                            <div class="subheading mb-3">NFT Marketplace</div>
-                            <p>Creating smart contract for NFT Marketplace platform. This platform will help you to buy or sell your NFT based on POLYGON and BSC Network.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Education-->
-            <section class="resume-section" id="education">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Education</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Universitas Brawijaya</h3>
-                            <div class="subheading mb-3">Informatics Engineering</div>
-                            <div>Major in Computer Networking</div>
-                            <div>Thesis: <a href="https://doi.org/10.1145/3479645.3479699">An Ethereum Blockchain Based Electronic Health Record System for Inter-Hospital Secure Data Sharing</a> </div>
-                            <p>GPA: 3.61</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">August 2017 - April 2021</span></div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">SMA Negeri 15 Surabaya</h3>
-                            <div class="subheading mb-3"></div>
-                            <div></div>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">July 2014 - May 2017</span></div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">SMP Negeri 24 Surabaya</h3>
-                            <div class="subheading mb-3"></div>
-                            <div></div>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">2011 - 2014</span></div>
-                    </div>
-                </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Skills-->
-            <section class="resume-section" id="skills">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Skills</h2>
-                    <div class="subheading mb-3">Programming Languages & Tools</div>
-                    <ul class="list-inline dev-icons">
-                        <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-ethereum"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-react"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-node-js"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-linux"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-laravel"></i></li>
-                    </ul>
-                    <!-- <div class="subheading mb-3">Workflow</div>
-                    <ul class="fa-ul mb-0">
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Mobile-First, Responsive Design
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Cross Browser Testing & Debugging
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Cross Functional Teams
-                        </li>
-                        <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
-                            Agile Development & Scrum
-                        </li>
-                    </ul> -->
-                </div>
-            </section>
-            <hr class="m-0" />
-            <!-- Awards-->
-            <section class="resume-section" id="awards">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">Awards & Certifications</h2>
-                    <ul class="fa-ul mb-0">
-                        <li>
-                            <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
-                            1
-                            <sup>st</sup>
-                            Place - Software Development Competition UNITY 2019
-                        </li>
-                    </ul>
-                </div>
-            </section>
+            <div class="loader-text">
+                <span>I</span><span>M</span><span>A</span>
+            </div>
         </div>
-        <!-- Bootstrap core JS-->
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+    </div>
+
+    <!-- Three.js Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <a href="#hero">IMA</a>
+        </div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#publications" class="nav-link">Publications</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">
+                <span class="name-part first">Irfan</span>
+                <span class="name-part last">Maulana Akbar</span>
+            </h1>
+            <h2 class="hero-title">
+                <span class="title-text">Web3 + AI Engineer</span>
+            </h2>
+            <p class="hero-tagline">Building the future with blockchain, AI automation & scalable backend systems</p>
+            <div class="hero-cta">
+                <a href="#about" class="btn btn-primary">Explore My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+        <div class="hero-social">
+            <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub"><i
+                    class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener"
+                aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter"><i
+                    class="fab fa-twitter"></i></a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <p>Scroll to explore</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">01.</span>
+                <span class="title-text">About Me</span>
+                <span class="title-line"></span>
+            </h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-wrapper">
+                        <img src="assets/img/profile.jpg" alt="Irfan Maulana Akbar">
+                        <div class="image-border"></div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>A highly motivated software developer with deep-seated expertise in <span
+                            class="highlight">backend engineering</span>, <span class="highlight">blockchain
+                            technology</span>, and the practical application of <span class="highlight">artificial
+                            intelligence</span>.</p>
+                    <p>My technical foundation is built on a strong command of JavaScript, Solidity, and Python, which I
+                        have consistently leveraged to architect resilient backend systems, build secure decentralized
+                        applications, and implement sophisticated machine learning solutions.</p>
+                    <p>A significant focus of my work has been pioneering <span class="highlight">advanced automation
+                            and integration</span>, where I have established myself as an expert in utilizing <span
+                            class="highlight">n8n</span> as a core platform. I specialize in architecting and deploying
+                        complex workflows to seamlessly bridge disparate systems and integrate <span
+                            class="highlight">Large Language Models (LLMs)</span> directly into internal development
+                        pipelines.</p>
+                    <p>I am fundamentally driven by the challenge of solving complex problems and am passionate about
+                        contributing to pioneering projects that push the boundaries of technology.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">4+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">6+</span>
+                            <span class="stat-label">Companies</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">20+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">02.</span>
+                <span class="title-text">Work Experience</span>
+                <span class="title-line"></span>
+            </h2>
+            <div class="experience-timeline">
+                <!-- ACRES -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <div class="timeline-info">
+                                <h3 class="company">ACRES</h3>
+                                <p class="role">Web3 Fullstack Developer | AI Infrastructure Engineer</p>
+                            </div>
+                            <div class="timeline-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> New York, USA</span>
+                                <span class="date"><i class="fas fa-calendar"></i> June 2024 - Present</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Building perpetual trading bots for multiple DEX platforms including Lighter, Apex,
+                                Extended, Nado, and Variational</li>
+                            <li>Develop and implement user account registration and profile setup using web3 crypto
+                                wallet connections</li>
+                            <li>Built and managed internal AI infrastructure, utilizing n8n to create robust workflows
+                                integrating LLMs</li>
+                            <li>Implementing OpenAI API for internal uses and automating key developer tasks</li>
+                            <li>Set up scripts for running automation airdrop farms</li>
+                            <li>Implement security protocols and best practices for crypto applications</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">Perp Trading</span>
+                            <span class="tag">Web3</span>
+                            <span class="tag">n8n</span>
+                            <span class="tag">LLM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bitzaro Pay -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <div class="timeline-info">
+                                <h3 class="company">Bitzaro Pay Sdn. Bhd.</h3>
+                                <p class="role">Web3 Developer</p>
+                            </div>
+                            <div class="timeline-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Petaling Jaya,
+                                    Malaysia</span>
+                                <span class="date"><i class="fas fa-calendar"></i> June 2024 - Present</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Develop and implement transaction indexer for WaaS (wallet as a service) platform</li>
+                            <li>Set up scripts for deploying smart contracts</li>
+                            <li>Enhancing listener system to detect blockchain transactions</li>
+                            <li>Creating test units for each new feature</li>
+                            <li>Enhancing security for the platform</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">WaaS</span>
+                            <span class="tag">Smart Contracts</span>
+                            <span class="tag">Blockchain</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 80&Co -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <div class="timeline-info">
+                                <h3 class="company">80&Co (Freelance)</h3>
+                                <p class="role">Backend Developer (JavaScript/TypeScript)</p>
+                            </div>
+                            <div class="timeline-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Kyoto, Japan</span>
+                                <span class="date"><i class="fas fa-calendar"></i> Nov 2023 - Jan 2025</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Executing websocket integration to synchronize on-chain and off-chain data</li>
+                            <li>Developed robust API to accurately verify NFT ownership, enhancing system reliability
+                            </li>
+                            <li>Setting up CRON services to fetch missed events</li>
+                            <li>Researching dynamic on-chain metadata NFTs</li>
+                            <li>Setup blockchain event indexer using GraphQL</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">WebSocket</span>
+                            <span class="tag">GraphQL</span>
+                            <span class="tag">NFT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shinta VR -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <div class="timeline-info">
+                                <h3 class="company">Shinta VR</h3>
+                                <p class="role">Blockchain Backend Developer</p>
+                            </div>
+                            <div class="timeline-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> South Jakarta,
+                                    Indonesia</span>
+                                <span class="date"><i class="fas fa-calendar"></i> April 2022 - April 2024</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Collaborating closely with the CTO to strategize the development of the metaverse
+                                project</li>
+                            <li>Provided expertise in solutions development and smart contract creation for the
+                                metaverse initiative</li>
+                            <li>Pioneered the development of a first metaverse project within the Astar blockchain
+                                network</li>
+                            <li>Setting up custom Chainsafe-Gaming API for creating secure login wallets across
+                                platforms</li>
+                            <li>Deploying custom RPC to ensure optimal performance and reliability</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">Metaverse</span>
+                            <span class="tag">Astar</span>
+                            <span class="tag">Smart Contracts</span>
+                            <span class="tag">VR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YCP Solidiance -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <div class="timeline-info">
+                                <h3 class="company">YCP Solidiance</h3>
+                                <p class="role">Blockchain Expert</p>
+                            </div>
+                            <div class="timeline-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</span>
+                                <span class="date"><i class="fas fa-calendar"></i> Feb 2022 - Jan 2023</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Leading blockchain expertise for a high-profile NFT Marketplace serving a Japanese
+                                basketball team and idol</li>
+                            <li>Implemented secure credit card payment integration for pack purchases and NFT
+                                transactions</li>
+                            <li>Implementing and deploying ERC721A for cost-effective gas fee transactions</li>
+                            <li>Working closely with stakeholders including Client, Project Owner, and third-party
+                                vendors</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">NFT Marketplace</span>
+                            <span class="tag">ERC721A</span>
+                            <span class="tag">Payments</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOT Indonesia -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-header">
+                            <div class="timeline-info">
+                                <h3 class="company">DOT Indonesia</h3>
+                                <p class="role">Blockchain Developer</p>
+                            </div>
+                            <div class="timeline-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Malang, Indonesia</span>
+                                <span class="date"><i class="fas fa-calendar"></i> June 2021 - May 2023</span>
+                            </div>
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Designed and developed a DAO solution to facilitate crypto investment for individuals
+                            </li>
+                            <li>Contributed to an innovative NFT marketplace offering multi-chain transactions</li>
+                            <li>Implemented the 0x swap protocol to enhance ease of investing</li>
+                            <li>Established comprehensive guidelines for smart contract logic</li>
+                        </ul>
+                        <div class="timeline-tags">
+                            <span class="tag">DAO</span>
+                            <span class="tag">Multi-chain</span>
+                            <span class="tag">0x Protocol</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">03.</span>
+                <span class="title-text">Featured Projects</span>
+                <span class="title-line"></span>
+            </h2>
+            <div class="projects-grid">
+                <!-- Project 1: Perp Trade Bots -->
+                <div class="project-card glass-card">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="project-title">Perpetual Trading Bots</h3>
+                    <p class="project-description">Building automated perpetual trading bots for multiple DEX platforms
+                        including Lighter, Apex, Extended, Nado, and Variational with advanced execution strategies.</p>
+                    <div class="project-tags">
+                        <span class="tag">Trading</span>
+                        <span class="tag">DeFi</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: AI Automation -->
+                <div class="project-card glass-card">
+                    <div class="project-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="project-title">AI Automation Pipeline</h3>
+                    <p class="project-description">Built internal AI infrastructure using n8n to create robust workflows
+                        that integrate Large Language Models (LLMs) into development pipelines, automating code reviews
+                        and documentation generation.</p>
+                    <div class="project-tags">
+                        <span class="tag">n8n</span>
+                        <span class="tag">OpenAI</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                    <a href="https://www.chronologic.pro/" class="project-link" target="_blank" rel="noopener">
+                        Chronologic <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Project 3: COSMIZE Metaverse -->
+                <div class="project-card glass-card">
+                    <div class="project-icon">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </div>
+                    <h3 class="project-title">COSMIZE Metaverse</h3>
+                    <p class="project-description">Pioneered the development of COSMIZE metaverse project on Astar
+                        blockchain network with smart contracts, custom RPC deployment, and Chainsafe-Gaming API
+                        integration.</p>
+                    <div class="project-tags">
+                        <span class="tag">Astar</span>
+                        <span class="tag">Solidity</span>
+                        <span class="tag">VR</span>
+                    </div>
+                    <a href="https://cosmize.io" class="project-link" target="_blank" rel="noopener">
+                        Visit COSMIZE <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Project 4: NFT Sakeworld -->
+                <div class="project-card glass-card">
+                    <div class="project-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3 class="project-title">NFT Sakeworld & Dragonflies</h3>
+                    <p class="project-description">High-profile NFT Marketplaces serving a prominent Japanese basketball
+                        team (Hiroshima Dragonflies) with secure payment integration, ERC721A implementation, and wallet
+                        payment orchestration.</p>
+                    <div class="project-tags">
+                        <span class="tag">ERC721A</span>
+                        <span class="tag">Payments</span>
+                        <span class="tag">NFT</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://nft.sakeworld.jp/en" class="project-link" target="_blank" rel="noopener">
+                            Sakeworld <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://linktr.ee/hiroshimadragonfliesnft" class="project-link" target="_blank"
+                            rel="noopener">
+                            Dragonflies <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 5: Bitzaro WaaS -->
+                <div class="project-card glass-card">
+                    <div class="project-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="project-title">Bitzaro WaaS Platform</h3>
+                    <p class="project-description">Developed transaction indexer for Bitzaro Wallet as a Service
+                        platform, including smart contract deployment scripts, blockchain listener systems, and security
+                        enhancements.</p>
+                    <div class="project-tags">
+                        <span class="tag">WaaS</span>
+                        <span class="tag">Indexer</span>
+                        <span class="tag">Security</span>
+                    </div>
+                    <a href="https://bitzaro.com" class="project-link" target="_blank" rel="noopener">
+                        Visit Bitzaro <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <!-- Project 6: E-Health DApp -->
+                <div class="project-card glass-card">
+                    <div class="project-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3 class="project-title">E-Health DApp</h3>
+                    <p class="project-description">Ethereum blockchain-based Electronic Health Record System for
+                        inter-hospital secure data sharing. Published in SIET '21 Conference proceedings.</p>
+                    <div class="project-tags">
+                        <span class="tag">Ethereum</span>
+                        <span class="tag">Healthcare</span>
+                        <span class="tag">Research</span>
+                    </div>
+                    <a href="https://dl.acm.org/doi/10.1145/3479645.3479699" class="project-link" target="_blank"
+                        rel="noopener">
+                        View Publication <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section skills" id="skills">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">04.</span>
+                <span class="title-text">Technical Skills</span>
+                <span class="title-line"></span>
+            </h2>
+            <div class="skills-grid">
+                <!-- Languages -->
+                <div class="skill-category glass-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="skill-title">Languages</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">JavaScript</span>
+                        <span class="skill-item">TypeScript</span>
+                        <span class="skill-item">Solidity</span>
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">Kotlin</span>
+                        <span class="skill-item">Rust</span>
+                    </div>
+                </div>
+
+                <!-- Blockchain -->
+                <div class="skill-category glass-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-ethereum"></i>
+                    </div>
+                    <h3 class="skill-title">Blockchain</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">Hardhat</span>
+                        <span class="skill-item">Truffle</span>
+                        <span class="skill-item">OpenZeppelin</span>
+                        <span class="skill-item">Ethers.js</span>
+                        <span class="skill-item">Web3.js</span>
+                        <span class="skill-item">Substrate</span>
+                    </div>
+                </div>
+
+                <!-- AI/ML -->
+                <div class="skill-category glass-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="skill-title">AI & Automation</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">n8n</span>
+                        <span class="skill-item">LLM Integration</span>
+                        <span class="skill-item">OpenAI API</span>
+                        <span class="skill-item">TensorFlow</span>
+                        <span class="skill-item">spaCy</span>
+                        <span class="skill-item">NLP</span>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="skill-category glass-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="skill-title">Backend & DevOps</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">Jenkins</span>
+                        <span class="skill-item">MongoDB</span>
+                        <span class="skill-item">MySQL</span>
+                        <span class="skill-item">Git</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section class="section publications" id="publications">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">05.</span>
+                <span class="title-text">Publications</span>
+                <span class="title-line"></span>
+            </h2>
+            <div class="publication-card glass-card">
+                <div class="publication-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="publication-content">
+                    <h3 class="publication-title">An Ethereum Blockchain Based Electronic Health Record System for
+                        Inter-Hospital Secure Data Sharing</h3>
+                    <p class="publication-venue">SIET '21: Proceedings of the 6th International Conference on
+                        Sustainable Information Engineering and Technology</p>
+                    <p class="publication-details">Pages 226-230 • September 2021</p>
+                    <a href="https://dl.acm.org/doi/10.1145/3479645.3479699" class="publication-link" target="_blank"
+                        rel="noopener">
+                        <i class="fas fa-external-link-alt"></i> View Publication
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Awards Section -->
+    <section class="section education" id="education">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">06.</span>
+                <span class="title-text">Education & Awards</span>
+                <span class="title-line"></span>
+            </h2>
+            <div class="education-grid">
+                <div class="education-card glass-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="education-degree">Bachelor of Engineering</h3>
+                    <p class="education-school">Brawijaya University</p>
+                    <p class="education-major">Major in Computer Science</p>
+                    <p class="education-date">2017 - 2021 • Malang, Indonesia</p>
+                </div>
+                <div class="award-card glass-card">
+                    <div class="award-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="award-title">1st Place</h3>
+                    <p class="award-name">Software Development Competition</p>
+                    <p class="award-org">UNITY 2019 - Yogyakarta State University</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-number">07.</span>
+                <span class="title-text">Get In Touch</span>
+                <span class="title-line"></span>
+            </h2>
+            <div class="contact-content">
+                <p class="contact-text">I'm currently seeking a demanding role that will fully leverage my skills across
+                    blockchain, backend systems, and AI-driven automation. Whether you have a project in mind or just
+                    want to connect, feel free to reach out!</p>
+                <div class="contact-info">
+                    <a href="mailto:irfanmaulanaaaaa.im@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>irfanmaulanaaaaa.im@gmail.com</span>
+                    </a>
+                    <a href="tel:+6281334090787" class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+62 81334090787</span>
+                    </a>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>South Jakarta, Indonesia</span>
+                    </div>
+                </div>
+                <div class="contact-social">
+                    <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" class="social-link"
+                        aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener"
+                        class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" class="social-link"
+                        aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/irfanmaulanaak/" target="_blank" rel="noopener"
+                        class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <a href="mailto:irfanmaulanaaaaa.im@gmail.com" class="btn btn-primary btn-large">Say Hello</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Designed & Built by <span class="highlight">Irfan Maulana Akbar</span></p>
+        <p class="footer-year">© 2024</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/three-bg.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+
 </html>
