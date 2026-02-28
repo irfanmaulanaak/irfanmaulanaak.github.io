@@ -1312,3 +1312,166 @@ a:hover {
         font-size: 1.5rem;
     }
 }
+
+/* ==========================================
+   Robust Mobile Layout Overrides
+   ========================================== */
+@media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        max-width: 100% !important;
+        position: relative !important;
+    }
+
+    #navbar {
+        width: 100vw !important;
+        max-width: 100% !important;
+    }
+
+    .container,
+    .hero-content,
+    .about-content {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    .experience-timeline,
+    .projects-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    .timeline-item,
+    .project-card,
+    .timeline-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important;
+    }
+
+    .timeline-marker {
+        display: none !important;
+        /* hide confusing marker if it breaks flow */
+    }
+
+    .nav-toggle {
+        display: flex !important;
+        position: fixed !important;
+        right: 20px !important;
+        top: 20px !important;
+    }
+
+    .chatbot-container {
+        right: 16px !important;
+        max-width: calc(100vw - 32px) !important;
+    }
+
+    .chatbot-window {
+        right: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .hero-cta {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .hero-cta .btn,
+    .btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .hero-tagline {
+        color: var(--text-primary) !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .section-title {
+        overflow: visible !important;
+        white-space: normal !important;
+        width: 100% !important;
+    }
+
+    .title-number {
+        transform: none !important;
+        display: inline-block !important;
+        left: 0 !important;
+    }
+
+    /* Additional 375px/768px fixes */
+    .about-stats {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 16px !important;
+    }
+
+    .about-image .image-wrapper {
+        max-width: 240px !important;
+        margin: 0 auto !important;
+    }
+
+    .chatbot-messages,
+    .message {
+        max-width: 100% !important;
+        word-wrap: break-word !important;
+    }
+
+    .section-title {
+        overflow: visible !important;
+        white-space: normal !important;
+        width: 100% !important;
+        padding-left: 16px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .hero-tagline,
+    .hero-greeting {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .hero-name {
+        font-size: clamp(2.2rem, 10vw, 3.2rem) !important;
+    }
+
+    .section {
+        padding: 60px 0 !important;
+    }
+
+    .project-link {
+        min-height: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+    }
+
+    .skill-title {
+        background: var(--bg) !important;
+        position: relative !important;
+        z-index: 1 !important;
+        padding: 4px 8px !important;
+        display: inline-block !important;
+    }
+
+    .container {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    /* Force all text/content wrappers to stay within 100vw */
+    * {
+        max-width: 100vw !important;
+    }
+}
