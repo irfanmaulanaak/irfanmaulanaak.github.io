@@ -25,6 +25,23 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x0a0a0a, 1);
 
+    // Post-processing setup for Bloom
+    const renderScene = new THREE.RenderPass(scene, camera);
+    const bloomPass = new THREE.UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        1.5, // strength
+        0.4, // radius
+        0.85 // threshold
+    );
+    // Tweak these values for the neon glow effect
+    bloomPass.threshold = 0;
+    bloomPass.strength = 1.0;
+    bloomPass.radius = 0.5;
+
+    const composer = new THREE.EffectComposer(renderer);
+    composer.addPass(renderScene);
+    composer.addPass(bloomPass);
+
     // Particle system configuration
     const config = {
         particleCount: 200,
@@ -110,6 +127,7 @@
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
     }
 
     window.addEventListener('resize', onWindowResize);
@@ -177,7 +195,8 @@
         scene.rotation.y += 0.0005;
         scene.rotation.x = mouse.y * 0.1;
 
-        renderer.render(scene, camera);
+        // Use composer instead of renderer
+        composer.render();
     }
 
     // Start animation

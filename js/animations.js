@@ -303,48 +303,109 @@
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
 
-        function highlightNavLink() {
-            const scrollY = window.scrollY;
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0
+        };
 
-            sections.forEach(section => {
-                const sectionHeight = section.offsetHeight;
-                const sectionTop = section.offsetTop - 100;
-                const sectionId = section.getAttribute('id');
-
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
                     navLinks.forEach(link => {
                         link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${sectionId}`) {
+                        if (link.getAttribute('href') === `#${entry.target.id}`) {
                             link.classList.add('active');
                         }
                     });
                 }
             });
-        }
+        }, observerOptions);
 
-        window.addEventListener('scroll', highlightNavLink);
+        sections.forEach(section => {
+            observer.observe(section);
+        });
     }
 
     // ==========================================
-    // Smooth Scroll
+    // Smooth Scroll & Lenis
     // ==========================================
 
+    let lenis;
+
     function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+        // Initialize Lenis
+        if (typeof Lenis !== 'undefined') {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+                infinite: false,
+            });
 
-                if (targetElement) {
-                    const offsetTop = targetElement.offsetTop - 80;
+            // Get scroll value
+            lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
+                ScrollTrigger.update();
+            });
 
-                    gsap.to(window, {
-                        scrollTo: offsetTop,
-                        duration: 1,
-                        ease: 'power3.inOut'
-                    });
-                }
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+
+            gsap.ticker.lagSmoothing(0, 0);
+
+            // Handle anchor link clicks
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        lenis.scrollTo(targetElement, { offset: -80 });
+                    }
+                });
+            });
+        }
+    }
+
+    // ==========================================
+    // Magnetic Micro-Interactions
+    // ==========================================
+
+    function initMagneticEffects() {
+        const magneticElements = document.querySelectorAll('.btn, .social-link, .nav-link, .hero-social a');
+
+        magneticElements.forEach((elem) => {
+            elem.addEventListener('mousemove', (e) => {
+                // Return if mobile
+                if (window.innerWidth < 768) return;
+
+                const { clientX, clientY } = e;
+                const { height, width, left, top } = elem.getBoundingClientRect();
+                const x = clientX - (left + width / 2);
+                const y = clientY - (top + height / 2);
+
+                gsap.to(elem, {
+                    x: x * 0.3,
+                    y: y * 0.3,
+                    duration: 0.5,
+                    ease: "power3.out"
+                });
+            });
+
+            elem.addEventListener('mouseleave', () => {
+                gsap.to(elem, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.3)"
+                });
             });
         });
     }
@@ -359,11 +420,11 @@
             scrollTrigger: {
                 trigger: '.hero',
                 start: 'top top',
-                end: 'bottom top',
+                end: 'center top',
                 scrub: true
             },
             y: 100,
-            opacity: 0.3
+            opacity: 0
         });
     }
 
@@ -406,38 +467,40 @@
         // Reset scroll position on page load to prevent starting at wrong section
         window.scrollTo(0, 0);
 
-        // Setup pinned horizontal scroll for sections with horizontal content
-        const horizontalSections = [
-            { wrapper: '.experience', container: '.experience-timeline' },
-            { wrapper: '.projects', container: '.projects-grid' }
-        ];
+        let mm = gsap.matchMedia();
 
-        horizontalSections.forEach(({ wrapper, container }) => {
-            const wrapperEl = document.querySelector(wrapper);
-            const containerEl = document.querySelector(container);
+        // Only apply horizontal scroll on desktop
+        mm.add("(min-width: 769px)", () => {
+            const horizontalSections = [
+                { wrapper: '.experience', container: '.experience-timeline' },
+                { wrapper: '.projects', container: '.projects-grid' }
+            ];
 
-            if (!wrapperEl || !containerEl) return;
+            horizontalSections.forEach(({ wrapper, container }) => {
+                const wrapperEl = document.querySelector(wrapper);
+                const containerEl = document.querySelector(container);
 
-            // Calculate horizontal scroll distance: total content width minus viewport width
-            const getScrollAmount = () => {
-                return containerEl.scrollWidth - window.innerWidth;
-            };
+                if (!wrapperEl || !containerEl) return;
 
-            // Only set up if there's content to scroll
-            if (getScrollAmount() <= 0) return;
+                const getScrollAmount = () => {
+                    return Math.max(0, containerEl.scrollWidth - window.innerWidth);
+                };
 
-            gsap.to(containerEl, {
-                x: () => -getScrollAmount(),
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: wrapperEl,
-                    start: 'top top',
-                    end: () => `+=${getScrollAmount()}`,
-                    scrub: 1,
-                    pin: true,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true
-                }
+                if (getScrollAmount() <= 0) return;
+
+                gsap.to(containerEl, {
+                    x: () => -getScrollAmount(),
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: wrapperEl,
+                        start: 'top top',
+                        end: () => `+=${getScrollAmount()}`,
+                        scrub: true, // Switched to true to fix Lenis stuck scrolling
+                        pin: true,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true
+                    }
+                });
             });
         });
     }
@@ -457,6 +520,8 @@
         initContactAnimations();
         initParallaxEffects();
         initHorizontalScroll();
+        initSmoothScroll();
+        initMagneticEffects();
     }
 
     // Wait for DOM to be ready

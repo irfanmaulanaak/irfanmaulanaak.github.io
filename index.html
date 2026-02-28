@@ -21,7 +21,6 @@
         rel="stylesheet">
 
     <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Styles -->
@@ -661,16 +660,50 @@
 
     <!-- Footer -->
     <footer class="footer">
+        <div class="footer-live-activity" id="github-activity">
+            <div class="activity-pulse"></div>
+            <p><i class="fas fa-circle-notch fa-spin"></i> Fetching latest GitHub activity...</p>
+        </div>
         <p>Designed & Built by <span class="highlight">Irfan Maulana Akbar</span></p>
         <p class="footer-year">© 2024</p>
     </footer>
 
+    <!-- AI Chatbot Widget -->
+    <div id="ai-chatbot" class="chatbot-container">
+        <button id="chatbot-toggle" class="chatbot-toggle glass-card">
+            <i class="fas fa-robot"></i> <span class="tooltip">Ask AI Clone</span>
+        </button>
+        <div id="chatbot-window" class="chatbot-window glass-card hidden">
+            <div class="chatbot-header">
+                <h3><i class="fas fa-robot"></i> IMA AI Clone</h3>
+                <button id="chatbot-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message ai-message">Hi! I'm Irfan's AI proxy. I've been trained on his resume and projects.
+                    Ask me anything about his Web3 or AI experience!</div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input-field" placeholder="E.g., Does Irfan know Solidity?">
+                <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="js/three-bg.js"></script>
     <script src="js/animations.js"></script>
+    <script src="js/github-activity.js"></script>
+    <script src="js/chatbot.js"></script>
 </body>
 
 </html>
