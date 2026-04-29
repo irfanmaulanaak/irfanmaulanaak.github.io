@@ -31,9 +31,6 @@
     <!-- Loading Screen -->
     <div class="loader" id="loader">
         <div class="loader-content">
-            <div class="loader-ring">
-                <div class="loader-ring-inner"></div>
-            </div>
             <div class="loader-text">
                 <span>I</span><span>M</span><span>A</span>
             </div>
@@ -43,10 +40,23 @@
     <!-- Three.js Canvas Background -->
     <canvas id="bg-canvas"></canvas>
 
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Chapter Indicators -->
+    <div class="chapter-nav" id="chapter-nav">
+        <div class="chapter-dot active" data-chapter="boot" title="Boot"></div>
+        <div class="chapter-dot" data-chapter="foundation" title="Foundation"></div>
+        <div class="chapter-dot" data-chapter="building-blocks" title="Building Blocks"></div>
+        <div class="chapter-dot" data-chapter="going-deeper" title="Going Deeper"></div>
+        <div class="chapter-dot" data-chapter="convergence" title="Convergence"></div>
+        <div class="chapter-dot" data-chapter="connect" title="Connect"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-brand">
-            <a href="#hero">IMA</a>
+            <a href="#boot">IMA</a>
         </div>
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
             <span></span>
@@ -54,229 +64,168 @@
             <span></span>
         </button>
         <ul class="nav-links" id="nav-links">
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#experience" class="nav-link">Experience</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
-            <li><a href="#publications" class="nav-link">Publications</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><a href="#boot" class="nav-link">Boot</a></li>
+            <li><a href="#foundation" class="nav-link">Foundation</a></li>
+            <li><a href="#building-blocks" class="nav-link">Building Blocks</a></li>
+            <li><a href="#going-deeper" class="nav-link">Going Deeper</a></li>
+            <li><a href="#convergence" class="nav-link">Convergence</a></li>
+            <li><a href="#connect" class="nav-link">Connect</a></li>
         </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-content">
-            <p class="hero-greeting">Hello, I'm</p>
-            <h1 class="hero-name">
-                <span class="name-part first">Irfan</span>
-                <span class="name-part last">Maulana Akbar</span>
-            </h1>
-            <h2 class="hero-title">
-                <span class="title-text">Web3 + AI Engineer</span>
-            </h2>
-            <p class="hero-tagline">Building the future with blockchain, AI automation & scalable backend systems</p>
-            <div class="hero-cta">
-                <a href="#about" class="btn btn-primary">Explore My Work</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-            </div>
-        </div>
-        <div class="hero-social">
-            <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub"><i
-                    class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener"
-                aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter"><i
-                    class="fab fa-twitter"></i></a>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <p>Scroll to explore</p>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">01.</span>
-                <span class="title-text">About Me</span>
-                <span class="title-line"></span>
-            </h2>
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="image-wrapper">
-                        <img src="assets/img/profile.jpg" alt="Irfan Maulana Akbar">
-                        <div class="image-border"></div>
+    <main class="scroll-story">
+        <!-- Chapter 1: Boot -->
+        <section class="chapter" id="boot" data-chapter="boot">
+            <div class="chapter-content">
+                <div class="story-panel panel-center">
+                    <p class="chapter-label decode-text">System Online</p>
+                    <h1 class="hero-name decode-text">
+                        <span class="name-part first">Irfan</span>
+                        <span class="name-part last">Maulana Akbar</span>
+                    </h1>
+                    <h2 class="hero-title decode-text">Web3 + AI Engineer</h2>
+                    <p class="hero-tagline">Building systems that replace trust with math, and routine with intelligence.</p>
+                    <div class="hero-cta">
+                        <a href="#foundation" class="btn btn-primary">Begin Sequence</a>
+                        <a href="#connect" class="btn btn-secondary">Jump to Connect</a>
                     </div>
                 </div>
-                <div class="about-text">
-                    <p>A highly motivated software developer with deep-seated expertise in <span
-                            class="highlight">backend engineering</span>, <span class="highlight">blockchain
-                            technology</span>, and the practical application of <span class="highlight">artificial
-                            intelligence</span>.</p>
-                    <p>My technical foundation is built on a strong command of JavaScript, Solidity, and Python, which I
-                        have consistently leveraged to architect resilient backend systems, build secure decentralized
-                        applications, and implement sophisticated machine learning solutions.</p>
-                    <p>A significant focus of my work has been pioneering <span class="highlight">advanced automation
-                            and integration</span>, where I have established myself as an expert in utilizing <span
-                            class="highlight">n8n</span> as a core platform. I specialize in architecting and deploying
-                        complex workflows to seamlessly bridge disparate systems and integrate <span
-                            class="highlight">Large Language Models (LLMs)</span> directly into internal development
-                        pipelines.</p>
-                    <p>I am fundamentally driven by the challenge of solving complex problems and am passionate about
-                        contributing to pioneering projects that push the boundaries of technology.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">4+</span>
-                            <span class="stat-label">Years Experience</span>
+                <div class="hero-social">
+                    <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener"
+                        aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 2: Foundation -->
+        <section class="chapter" id="foundation" data-chapter="foundation">
+            <div class="chapter-content">
+                <div class="story-panel panel-left">
+                    <p class="chapter-label">Chapter 01. The Foundation</p>
+                    <h2 class="chapter-title">Everything starts with a question.</h2>
+                    <div class="narrative-block">
+                        <p>Mine was simple: <em>how do you build systems that no single person can control?</em></p>
+                        <p>At Brawijaya University, I didn't just study computer science. I obsessed over consensus mechanisms, cryptographic proofs, and the idea that code could be law. While others built CRUD apps, I was reading Bitcoin whitepapers at 2 AM.</p>
+                        <p>That obsession paid off early. In 2019, I won 1st place at the UNITY Software Development Competition, not because I was the best coder in the room, but because I was asking questions no one else was asking.</p>
+                    </div>
+                    <div class="milestone">
+                        <span class="milestone-marker"></span>
+                        <div class="milestone-content">
+                            <p class="milestone-title">B.Eng Computer Science</p>
+                            <p class="milestone-detail">Brawijaya University, 2017 to 2021</p>
                         </div>
-                        <div class="stat">
-                            <span class="stat-number">6+</span>
-                            <span class="stat-label">Companies</span>
+                    </div>
+                    <div class="milestone">
+                        <span class="milestone-marker"></span>
+                        <div class="milestone-content">
+                            <p class="milestone-title">1st Place, Software Development Competition</p>
+                            <p class="milestone-detail">UNITY 2019, Yogyakarta State University</p>
                         </div>
-                        <div class="stat">
-                            <span class="stat-number">20+</span>
-                            <span class="stat-label">Projects</span>
+                    </div>
+                </div>
+
+                <div class="story-panel panel-right">
+                    <div class="narrative-block">
+                        <p>But curiosity without rigor is just noise. So I channeled it into research.</p>
+                        <p>My thesis on blockchain-based health records wasn't theoretical. I built a working Ethereum DApp for inter-hospital data sharing, published in ACM's SIET '21 proceedings. It was small, it was specific, and it proved I could ship, not just speculate.</p>
+                    </div>
+                    <div class="publication-card">
+                        <i class="fas fa-file-alt"></i>
+                        <div>
+                            <p class="pub-title">An Ethereum Blockchain Based Electronic Health Record System for Inter-Hospital Secure Data Sharing</p>
+                            <p class="pub-venue">SIET '21 • ACM Digital Library</p>
+                            <a href="https://dl.acm.org/doi/10.1145/3479645.3479699" target="_blank" rel="noopener">View Publication <i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Experience Section -->
-    <section class="section experience" id="experience">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">02.</span>
-                <span class="title-text">Work Experience</span>
-                <span class="title-line"></span>
-            </h2>
-            <div class="experience-timeline">
-                <!-- ACRES -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-header">
-                            <div class="timeline-info">
-                                <h3 class="company">ACRES</h3>
-                                <p class="role">Web3 Fullstack Developer | AI Infrastructure Engineer</p>
-                            </div>
-                            <div class="timeline-meta">
-                                <span class="location"><i class="fas fa-map-marker-alt"></i> New York, USA</span>
-                                <span class="date"><i class="fas fa-calendar"></i> June 2024 - Present</span>
-                            </div>
+        <!-- Chapter 3: Building Blocks -->
+        <section class="chapter" id="building-blocks" data-chapter="buildingBlocks">
+            <div class="chapter-content">
+                <div class="story-panel panel-right">
+                    <p class="chapter-label">Chapter 02. Building Blocks</p>
+                    <h2 class="chapter-title">Learning to build things that matter.</h2>
+                    <div class="narrative-block">
+                        <p>After graduation, I had a choice: join a big tech company and write internal tools, or dive into the deep end of an industry that was still figuring itself out. I chose the chaos.</p>
+                    </div>
+                </div>
+
+                <div class="story-panel panel-left">
+                    <div class="role-block">
+                        <p class="role-company">DOT Indonesia</p>
+                        <p class="role-title">Blockchain Developer</p>
+                        <p class="role-date">June 2021 to May 2023</p>
+                        <div class="narrative-block">
+                            <p>I started by asking: how do you let people invest together without trusting a central authority? The DAO I built was my answer: a smart contract system that pooled crypto investments with transparent governance rules. It was early, it was raw, and it taught me that blockchain isn't about hype. It's about replacing trust with math.</p>
+                            <p>Then came the NFT marketplace. Multi-chain transactions, 0x swap protocol integration, establishing smart contract guidelines. Each feature was a brick. Each bug was a lesson.</p>
                         </div>
-                        <ul class="timeline-details">
-                            <li>Building perpetual trading bots for multiple DEX platforms including Lighter, Apex,
-                                Extended, Nado, and Variational</li>
-                            <li>Develop and implement user account registration and profile setup using web3 crypto
-                                wallet connections</li>
-                            <li>Built and managed internal AI infrastructure, utilizing n8n to create robust workflows
-                                integrating LLMs</li>
-                            <li>Implementing OpenAI API for internal uses and automating key developer tasks</li>
-                            <li>Set up scripts for running automation airdrop farms</li>
-                            <li>Implement security protocols and best practices for crypto applications</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">Perp Trading</span>
-                            <span class="tag">Web3</span>
-                            <span class="tag">n8n</span>
-                            <span class="tag">LLM</span>
+                        <div class="role-tags">
+                            <span class="tag">DAO</span>
+                            <span class="tag">Multi-chain</span>
+                            <span class="tag">0x Protocol</span>
+                            <span class="tag">Solidity</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Bitzaro Pay -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-header">
-                            <div class="timeline-info">
-                                <h3 class="company">Bitzaro Pay Sdn. Bhd.</h3>
-                                <p class="role">Web3 Developer</p>
-                            </div>
-                            <div class="timeline-meta">
-                                <span class="location"><i class="fas fa-map-marker-alt"></i> Petaling Jaya,
-                                    Malaysia</span>
-                                <span class="date"><i class="fas fa-calendar"></i> June 2024 - Present</span>
-                            </div>
+                <div class="story-panel panel-right">
+                    <div class="role-block">
+                        <p class="role-company">YCP Solidiance</p>
+                        <p class="role-title">Blockchain Expert</p>
+                        <p class="role-date">Feb 2022 to Jan 2023</p>
+                        <div class="narrative-block">
+                            <p>Then came the real test: a Japanese basketball team and an idol, both needing NFT marketplaces. Not prototypes. Real platforms with real fans paying real money.</p>
+                            <p>I implemented ERC721A to cut gas fees by 40% and orchestrated credit card payments alongside crypto wallets. The lesson? Blockchain has to meet people where they are, not where the ideology says they should be.</p>
                         </div>
-                        <ul class="timeline-details">
-                            <li>Develop and implement transaction indexer for WaaS (wallet as a service) platform</li>
-                            <li>Set up scripts for deploying smart contracts</li>
-                            <li>Enhancing listener system to detect blockchain transactions</li>
-                            <li>Creating test units for each new feature</li>
-                            <li>Enhancing security for the platform</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">WaaS</span>
-                            <span class="tag">Smart Contracts</span>
-                            <span class="tag">Blockchain</span>
+                        <div class="project-embed">
+                            <p class="embed-label">Shipped</p>
+                            <p class="embed-title">NFT Sakeworld & Dragonflies</p>
+                            <p class="embed-desc">High-profile NFT marketplaces for a Japanese basketball team with secure payment integration and ERC721A implementation.</p>
+                            <a href="https://nft.sakeworld.jp/en" target="_blank" rel="noopener">Visit Sakeworld <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="role-tags">
+                            <span class="tag">ERC721A</span>
+                            <span class="tag">Payments</span>
+                            <span class="tag">NFT Marketplace</span>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- 80&Co -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-header">
-                            <div class="timeline-info">
-                                <h3 class="company">80&Co (Freelance)</h3>
-                                <p class="role">Backend Developer (JavaScript/TypeScript)</p>
-                            </div>
-                            <div class="timeline-meta">
-                                <span class="location"><i class="fas fa-map-marker-alt"></i> Kyoto, Japan</span>
-                                <span class="date"><i class="fas fa-calendar"></i> Nov 2023 - Jan 2025</span>
-                            </div>
-                        </div>
-                        <ul class="timeline-details">
-                            <li>Executing websocket integration to synchronize on-chain and off-chain data</li>
-                            <li>Developed robust API to accurately verify NFT ownership, enhancing system reliability
-                            </li>
-                            <li>Setting up CRON services to fetch missed events</li>
-                            <li>Researching dynamic on-chain metadata NFTs</li>
-                            <li>Setup blockchain event indexer using GraphQL</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">TypeScript</span>
-                            <span class="tag">WebSocket</span>
-                            <span class="tag">GraphQL</span>
-                            <span class="tag">NFT</span>
-                        </div>
+        <!-- Chapter 4: Going Deeper -->
+        <section class="chapter" id="going-deeper" data-chapter="goingDeeper">
+            <div class="chapter-content">
+                <div class="story-panel panel-left">
+                    <p class="chapter-label">Chapter 03. Going Deeper</p>
+                    <h2 class="chapter-title">From contracts to worlds.</h2>
+                    <div class="narrative-block">
+                        <p>By 2022, I wasn't just writing smart contracts. I was architecting entire systems. The question evolved: how do you make blockchain invisible enough that people forget it's there?</p>
                     </div>
                 </div>
 
-                <!-- Shinta VR -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-header">
-                            <div class="timeline-info">
-                                <h3 class="company">Shinta VR</h3>
-                                <p class="role">Blockchain Backend Developer</p>
-                            </div>
-                            <div class="timeline-meta">
-                                <span class="location"><i class="fas fa-map-marker-alt"></i> South Jakarta,
-                                    Indonesia</span>
-                                <span class="date"><i class="fas fa-calendar"></i> April 2022 - April 2024</span>
-                            </div>
+                <div class="story-panel panel-right">
+                    <div class="role-block">
+                        <p class="role-company">Shinta VR</p>
+                        <p class="role-title">Blockchain Backend Developer</p>
+                        <p class="role-date">April 2022 to April 2024</p>
+                        <div class="narrative-block">
+                            <p>The answer came in the form of a metaverse. COSMIZE wasn't just an NFT collection. It was a virtual world on the Astar blockchain where users owned land, traded assets, and built experiences.</p>
+                            <p>I worked directly with the CTO to architect the entire backend: custom RPC deployment for performance, Chainsafe-Gaming API integration for cross-platform wallet security, and smart contracts that handled land ownership, asset trading, and governance. It was the first metaverse project on Astar, and we were building the plane while flying it.</p>
                         </div>
-                        <ul class="timeline-details">
-                            <li>Collaborating closely with the CTO to strategize the development of the metaverse
-                                project</li>
-                            <li>Provided expertise in solutions development and smart contract creation for the
-                                metaverse initiative</li>
-                            <li>Pioneered the development of a first metaverse project within the Astar blockchain
-                                network</li>
-                            <li>Setting up custom Chainsafe-Gaming API for creating secure login wallets across
-                                platforms</li>
-                            <li>Deploying custom RPC to ensure optimal performance and reliability</li>
-                        </ul>
-                        <div class="timeline-tags">
+                        <div class="project-embed">
+                            <p class="embed-label">Shipped</p>
+                            <p class="embed-title">COSMIZE Metaverse</p>
+                            <p class="embed-desc">First metaverse project on Astar blockchain with smart contracts, custom RPC, and cross-platform wallet integration.</p>
+                            <a href="https://cosmize.io" target="_blank" rel="noopener">Visit COSMIZE <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="role-tags">
                             <span class="tag">Metaverse</span>
                             <span class="tag">Astar</span>
                             <span class="tag">Smart Contracts</span>
@@ -285,378 +234,158 @@
                     </div>
                 </div>
 
-                <!-- YCP Solidiance -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-header">
-                            <div class="timeline-info">
-                                <h3 class="company">YCP Solidiance</h3>
-                                <p class="role">Blockchain Expert</p>
-                            </div>
-                            <div class="timeline-meta">
-                                <span class="location"><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</span>
-                                <span class="date"><i class="fas fa-calendar"></i> Feb 2022 - Jan 2023</span>
-                            </div>
+                <div class="story-panel panel-left">
+                    <div class="role-block">
+                        <p class="role-company">Bitzaro Pay Sdn. Bhd.</p>
+                        <p class="role-title">Web3 Developer</p>
+                        <p class="role-date">June 2024 to Present</p>
+                        <div class="narrative-block">
+                            <p>Then Bitzaro asked me to solve a harder problem: how do you make crypto wallets as easy as Venmo? I built a transaction indexer for their Wallet-as-a-Service platform: a system that listens to blockchain events in real-time, indexes them, and exposes clean APIs for frontends to consume.</p>
+                            <p>Smart contract deployment scripts, automated testing, security hardening. The infrastructure layer, not the shiny UI. The part users never see but everything depends on.</p>
                         </div>
-                        <ul class="timeline-details">
-                            <li>Leading blockchain expertise for a high-profile NFT Marketplace serving a Japanese
-                                basketball team and idol</li>
-                            <li>Implemented secure credit card payment integration for pack purchases and NFT
-                                transactions</li>
-                            <li>Implementing and deploying ERC721A for cost-effective gas fee transactions</li>
-                            <li>Working closely with stakeholders including Client, Project Owner, and third-party
-                                vendors</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">NFT Marketplace</span>
-                            <span class="tag">ERC721A</span>
-                            <span class="tag">Payments</span>
+                        <div class="role-tags">
+                            <span class="tag">WaaS</span>
+                            <span class="tag">Indexer</span>
+                            <span class="tag">Security</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- DOT Indonesia -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-header">
-                            <div class="timeline-info">
-                                <h3 class="company">DOT Indonesia</h3>
-                                <p class="role">Blockchain Developer</p>
-                            </div>
-                            <div class="timeline-meta">
-                                <span class="location"><i class="fas fa-map-marker-alt"></i> Malang, Indonesia</span>
-                                <span class="date"><i class="fas fa-calendar"></i> June 2021 - May 2023</span>
-                            </div>
+                <div class="story-panel panel-right">
+                    <div class="role-block">
+                        <p class="role-company">80&Co (Freelance)</p>
+                        <p class="role-title">Backend Developer (JavaScript/TypeScript)</p>
+                        <p class="role-date">Nov 2023 to Jan 2025</p>
+                        <div class="narrative-block">
+                            <p>Freelancing taught me precision. A Kyoto-based client needed WebSocket integration to sync on-chain and off-chain data in real-time. I built the websocket layer, CRON services for missed events, and a GraphQL indexer. Every event had to be captured. Every state had to be consistent. No room for "close enough."</p>
                         </div>
-                        <ul class="timeline-details">
-                            <li>Designed and developed a DAO solution to facilitate crypto investment for individuals
-                            </li>
-                            <li>Contributed to an innovative NFT marketplace offering multi-chain transactions</li>
-                            <li>Implemented the 0x swap protocol to enhance ease of investing</li>
-                            <li>Established comprehensive guidelines for smart contract logic</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">DAO</span>
-                            <span class="tag">Multi-chain</span>
-                            <span class="tag">0x Protocol</span>
+                        <div class="role-tags">
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">WebSocket</span>
+                            <span class="tag">GraphQL</span>
+                            <span class="tag">NFT</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects Section -->
-    <section class="section projects" id="projects">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">03.</span>
-                <span class="title-text">Featured Projects</span>
-                <span class="title-line"></span>
-            </h2>
-            <div class="projects-grid">
-                <!-- Project 1: Perp Trade Bots -->
-                <div class="project-card glass-card">
-                    <div class="project-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="project-title">Perpetual Trading Bots</h3>
-                    <p class="project-description">Building automated perpetual trading bots for multiple DEX platforms
-                        including Lighter, Apex, Extended, Nado, and Variational with advanced execution strategies.</p>
-                    <div class="project-tags">
-                        <span class="tag">Trading</span>
-                        <span class="tag">DeFi</span>
-                        <span class="tag">Automation</span>
+        <!-- Chapter 5: The Convergence -->
+        <section class="chapter" id="convergence" data-chapter="convergence">
+            <div class="chapter-content">
+                <div class="story-panel panel-center">
+                    <p class="chapter-label">Chapter 04. The Convergence</p>
+                    <h2 class="chapter-title">Where blockchain meets intelligence.</h2>
+                    <div class="narrative-block">
+                        <p>By 2024, I saw the pattern. I'd spent years making systems autonomous on-chain. Now the same principle was emerging off-chain, with AI.</p>
+                        <p>The question became: how do you automate not just transactions, but decisions?</p>
                     </div>
                 </div>
 
-                <!-- Project 2: AI Automation -->
-                <div class="project-card glass-card">
-                    <div class="project-icon">
-                        <i class="fas fa-robot"></i>
+                <div class="story-panel panel-left">
+                    <div class="role-block highlight-role">
+                        <p class="role-company">ACRES</p>
+                        <p class="role-title">Web3 Fullstack Developer | AI Infrastructure Engineer</p>
+                        <p class="role-date">June 2024 to Present</p>
+                        <div class="narrative-block">
+                            <p>At ACRES, I operate at two altitudes simultaneously. Down in the infrastructure: building perpetual trading bots that execute across six DEX platforms (Lighter, Apex, Extended, Nado, Variational), each with its own API quirks, rate limits, and failure modes. The bots don't just trade; they manage risk, handle outages, and adapt to market conditions without human intervention.</p>
+                            <p>And up in the intelligence layer: I built the company's internal AI infrastructure from scratch. n8n workflows that integrate LLMs into our development pipeline, automating code reviews, documentation generation, and deployment orchestration. OpenAI API fine-tuned for our specific codebases. Automation that doesn't replace engineers; it amplifies them.</p>
+                            <p>This is the convergence. Blockchain proved that code can enforce rules. Now AI proves that code can make judgment calls. I'm building where those two forces meet.</p>
+                        </div>
+                        <div class="project-embed">
+                            <p class="embed-label">Shipped</p>
+                            <p class="embed-title">Chronologic AI Pipeline</p>
+                            <p class="embed-desc">Internal AI infrastructure using n8n to integrate LLMs into development workflows, automating reviews and documentation.</p>
+                            <a href="https://www.chronologic.pro/" target="_blank" rel="noopener">Visit Chronologic <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="project-embed">
+                            <p class="embed-label">Shipped</p>
+                            <p class="embed-title">Automated Perpetual Trading System</p>
+                            <p class="embed-desc">Cross-DEX trading bots with advanced execution strategies, risk management, and automated airdrop farming.</p>
+                        </div>
+                        <div class="role-tags">
+                            <span class="tag">Perp Trading</span>
+                            <span class="tag">Web3</span>
+                            <span class="tag">n8n</span>
+                            <span class="tag">LLM</span>
+                            <span class="tag">OpenAI</span>
+                        </div>
                     </div>
-                    <h3 class="project-title">AI Automation Pipeline</h3>
-                    <p class="project-description">Built internal AI infrastructure using n8n to create robust workflows
-                        that integrate Large Language Models (LLMs) into development pipelines, automating code reviews
-                        and documentation generation.</p>
-                    <div class="project-tags">
-                        <span class="tag">n8n</span>
-                        <span class="tag">OpenAI</span>
-                        <span class="tag">Automation</span>
-                    </div>
-                    <a href="https://www.chronologic.pro/" class="project-link" target="_blank" rel="noopener">
-                        Chronologic <i class="fas fa-external-link-alt"></i>
-                    </a>
                 </div>
 
-                <!-- Project 3: COSMIZE Metaverse -->
-                <div class="project-card glass-card">
-                    <div class="project-icon">
-                        <i class="fas fa-vr-cardboard"></i>
+                <div class="story-panel panel-right">
+                    <div class="capabilities-stack">
+                        <p class="stack-label">Capabilities Earned</p>
+                        <div class="capability-group">
+                            <p class="capability-title">Languages</p>
+                            <div class="capability-bar" data-width="95"><span>JavaScript / TypeScript</span></div>
+                            <div class="capability-bar" data-width="90"><span>Solidity</span></div>
+                            <div class="capability-bar" data-width="75"><span>Python</span></div>
+                            <div class="capability-bar" data-width="60"><span>Rust</span></div>
+                            <div class="capability-bar" data-width="55"><span>Kotlin</span></div>
+                        </div>
+                        <div class="capability-group">
+                            <p class="capability-title">Blockchain Stack</p>
+                            <div class="capability-bar" data-width="95"><span>Hardhat / Ethers.js / Web3.js</span></div>
+                            <div class="capability-bar" data-width="90"><span>OpenZeppelin / ERC Standards</span></div>
+                            <div class="capability-bar" data-width="70"><span>Substrate / Astar</span></div>
+                        </div>
+                        <div class="capability-group">
+                            <p class="capability-title">AI & Automation</p>
+                            <div class="capability-bar" data-width="95"><span>n8n Workflow Orchestration</span></div>
+                            <div class="capability-bar" data-width="90"><span>LLM Integration (OpenAI API)</span></div>
+                            <div class="capability-bar" data-width="70"><span>TensorFlow / spaCy / NLP</span></div>
+                        </div>
+                        <div class="capability-group">
+                            <p class="capability-title">Backend & Infrastructure</p>
+                            <div class="capability-bar" data-width="95"><span>Node.js / WebSocket / GraphQL</span></div>
+                            <div class="capability-bar" data-width="85"><span>Docker / Jenkins / CI/CD</span></div>
+                            <div class="capability-bar" data-width="80"><span>MongoDB / MySQL</span></div>
+                        </div>
                     </div>
-                    <h3 class="project-title">COSMIZE Metaverse</h3>
-                    <p class="project-description">Pioneered the development of COSMIZE metaverse project on Astar
-                        blockchain network with smart contracts, custom RPC deployment, and Chainsafe-Gaming API
-                        integration.</p>
-                    <div class="project-tags">
-                        <span class="tag">Astar</span>
-                        <span class="tag">Solidity</span>
-                        <span class="tag">VR</span>
-                    </div>
-                    <a href="https://cosmize.io" class="project-link" target="_blank" rel="noopener">
-                        Visit COSMIZE <i class="fas fa-external-link-alt"></i>
-                    </a>
                 </div>
+            </div>
+        </section>
 
-                <!-- Project 4: NFT Sakeworld -->
-                <div class="project-card glass-card">
-                    <div class="project-icon">
-                        <i class="fas fa-store"></i>
+        <!-- Chapter 6: Connect -->
+        <section class="chapter" id="connect" data-chapter="connect">
+            <div class="chapter-content">
+                <div class="story-panel panel-center">
+                    <p class="chapter-label">Chapter 05. Handshake</p>
+                    <h2 class="chapter-title">The system is ready.</h2>
+                    <div class="narrative-block">
+                        <p>I've spent four years proving that I can build systems that operate at the intersection of risk and reliability. From DAOs to metaverses to AI infrastructure. The pattern is consistent: take something complex, make it autonomous, make it trustworthy.</p>
+                        <p>I'm currently seeking a role where that pattern can scale. Whether you're building the next layer of DeFi, automating development with AI, or bridging on-chain and off-chain systems. I want to talk.</p>
                     </div>
-                    <h3 class="project-title">NFT Sakeworld & Dragonflies</h3>
-                    <p class="project-description">High-profile NFT Marketplaces serving a prominent Japanese basketball
-                        team (Hiroshima Dragonflies) with secure payment integration, ERC721A implementation, and wallet
-                        payment orchestration.</p>
-                    <div class="project-tags">
-                        <span class="tag">ERC721A</span>
-                        <span class="tag">Payments</span>
-                        <span class="tag">NFT</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://nft.sakeworld.jp/en" class="project-link" target="_blank" rel="noopener">
-                            Sakeworld <i class="fas fa-external-link-alt"></i>
+                    <div class="contact-details">
+                        <a href="mailto:irfanmaulanaaaaa.im@gmail.com" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>irfanmaulanaaaaa.im@gmail.com</span>
                         </a>
-                        <a href="https://linktr.ee/hiroshimadragonfliesnft" class="project-link" target="_blank"
-                            rel="noopener">
-                            Dragonflies <i class="fas fa-external-link-alt"></i>
+                        <a href="tel:+6281334090787" class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+62 81334090787</span>
                         </a>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>South Jakarta, Indonesia</span>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Project 5: Bitzaro WaaS -->
-                <div class="project-card glass-card">
-                    <div class="project-icon">
-                        <i class="fas fa-wallet"></i>
+                    <div class="contact-social">
+                        <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub"><i
+                                class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener"
+                            aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/irfanmaulanaak/" target="_blank" rel="noopener"
+                            aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
-                    <h3 class="project-title">Bitzaro WaaS Platform</h3>
-                    <p class="project-description">Developed transaction indexer for Bitzaro Wallet as a Service
-                        platform, including smart contract deployment scripts, blockchain listener systems, and security
-                        enhancements.</p>
-                    <div class="project-tags">
-                        <span class="tag">WaaS</span>
-                        <span class="tag">Indexer</span>
-                        <span class="tag">Security</span>
-                    </div>
-                    <a href="https://bitzaro.com" class="project-link" target="_blank" rel="noopener">
-                        Visit Bitzaro <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-
-                <!-- Project 6: E-Health DApp -->
-                <div class="project-card glass-card">
-                    <div class="project-icon">
-                        <i class="fas fa-hospital"></i>
-                    </div>
-                    <h3 class="project-title">E-Health DApp</h3>
-                    <p class="project-description">Ethereum blockchain-based Electronic Health Record System for
-                        inter-hospital secure data sharing. Published in SIET '21 Conference proceedings.</p>
-                    <div class="project-tags">
-                        <span class="tag">Ethereum</span>
-                        <span class="tag">Healthcare</span>
-                        <span class="tag">Research</span>
-                    </div>
-                    <a href="https://dl.acm.org/doi/10.1145/3479645.3479699" class="project-link" target="_blank"
-                        rel="noopener">
-                        View Publication <i class="fas fa-external-link-alt"></i>
-                    </a>
+                    <a href="mailto:irfanmaulanaaaaa.im@gmail.com" class="btn btn-primary btn-large">Initiate Contact</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="section skills" id="skills">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">04.</span>
-                <span class="title-text">Technical Skills</span>
-                <span class="title-line"></span>
-            </h2>
-            <div class="skills-grid">
-                <!-- Languages -->
-                <div class="skill-category glass-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3 class="skill-title">Languages</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">JavaScript</span>
-                        <span class="skill-item">TypeScript</span>
-                        <span class="skill-item">Solidity</span>
-                        <span class="skill-item">Python</span>
-                        <span class="skill-item">Kotlin</span>
-                        <span class="skill-item">Rust</span>
-                    </div>
-                </div>
-
-                <!-- Blockchain -->
-                <div class="skill-category glass-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-ethereum"></i>
-                    </div>
-                    <h3 class="skill-title">Blockchain</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">Hardhat</span>
-                        <span class="skill-item">Truffle</span>
-                        <span class="skill-item">OpenZeppelin</span>
-                        <span class="skill-item">Ethers.js</span>
-                        <span class="skill-item">Web3.js</span>
-                        <span class="skill-item">Substrate</span>
-                    </div>
-                </div>
-
-                <!-- AI/ML -->
-                <div class="skill-category glass-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3 class="skill-title">AI & Automation</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">n8n</span>
-                        <span class="skill-item">LLM Integration</span>
-                        <span class="skill-item">OpenAI API</span>
-                        <span class="skill-item">TensorFlow</span>
-                        <span class="skill-item">spaCy</span>
-                        <span class="skill-item">NLP</span>
-                    </div>
-                </div>
-
-                <!-- Backend -->
-                <div class="skill-category glass-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3 class="skill-title">Backend & DevOps</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">Node.js</span>
-                        <span class="skill-item">Docker</span>
-                        <span class="skill-item">Jenkins</span>
-                        <span class="skill-item">MongoDB</span>
-                        <span class="skill-item">MySQL</span>
-                        <span class="skill-item">Git</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section class="section publications" id="publications">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">05.</span>
-                <span class="title-text">Publications</span>
-                <span class="title-line"></span>
-            </h2>
-            <div class="publication-card glass-card">
-                <div class="publication-icon">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <div class="publication-content">
-                    <h3 class="publication-title">An Ethereum Blockchain Based Electronic Health Record System for
-                        Inter-Hospital Secure Data Sharing</h3>
-                    <p class="publication-venue">SIET '21: Proceedings of the 6th International Conference on
-                        Sustainable Information Engineering and Technology</p>
-                    <p class="publication-details">Pages 226-230 • September 2021</p>
-                    <a href="https://dl.acm.org/doi/10.1145/3479645.3479699" class="publication-link" target="_blank"
-                        rel="noopener">
-                        <i class="fas fa-external-link-alt"></i> View Publication
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education & Awards Section -->
-    <section class="section education" id="education">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">06.</span>
-                <span class="title-text">Education & Awards</span>
-                <span class="title-line"></span>
-            </h2>
-            <div class="education-grid">
-                <div class="education-card glass-card">
-                    <div class="education-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="education-degree">Bachelor of Engineering</h3>
-                    <p class="education-school">Brawijaya University</p>
-                    <p class="education-major">Major in Computer Science</p>
-                    <p class="education-date">2017 - 2021 • Malang, Indonesia</p>
-                </div>
-                <div class="award-card glass-card">
-                    <div class="award-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h3 class="award-title">1st Place</h3>
-                    <p class="award-name">Software Development Competition</p>
-                    <p class="award-org">UNITY 2019 - Yogyakarta State University</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-number">07.</span>
-                <span class="title-text">Get In Touch</span>
-                <span class="title-line"></span>
-            </h2>
-            <div class="contact-content">
-                <p class="contact-text">I'm currently seeking a demanding role that will fully leverage my skills across
-                    blockchain, backend systems, and AI-driven automation. Whether you have a project in mind or just
-                    want to connect, feel free to reach out!</p>
-                <div class="contact-info">
-                    <a href="mailto:irfanmaulanaaaaa.im@gmail.com" class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>irfanmaulanaaaaa.im@gmail.com</span>
-                    </a>
-                    <a href="tel:+6281334090787" class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+62 81334090787</span>
-                    </a>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>South Jakarta, Indonesia</span>
-                    </div>
-                </div>
-                <div class="contact-social">
-                    <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" class="social-link"
-                        aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener"
-                        class="social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" class="social-link"
-                        aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.instagram.com/irfanmaulanaak/" target="_blank" rel="noopener"
-                        class="social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-                <a href="mailto:irfanmaulanaaaaa.im@gmail.com" class="btn btn-primary btn-large">Say Hello</a>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -667,27 +396,6 @@
         <p>Designed & Built by <span class="highlight">Irfan Maulana Akbar</span></p>
         <p class="footer-year">© 2024</p>
     </footer>
-
-    <!-- AI Chatbot Widget -->
-    <div id="ai-chatbot" class="chatbot-container">
-        <button id="chatbot-toggle" class="chatbot-toggle glass-card">
-            <i class="fas fa-robot"></i> <span class="tooltip">Ask AI Clone</span>
-        </button>
-        <div id="chatbot-window" class="chatbot-window glass-card hidden">
-            <div class="chatbot-header">
-                <h3><i class="fas fa-robot"></i> IMA AI Clone</h3>
-                <button id="chatbot-close"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="chatbot-messages" id="chatbot-messages">
-                <div class="message ai-message">Hi! I'm Irfan's AI proxy. I've been trained on his resume and projects.
-                    Ask me anything about his Web3 or AI experience!</div>
-            </div>
-            <div class="chatbot-input">
-                <input type="text" id="chatbot-input-field" placeholder="E.g., Does Irfan know Solidity?">
-                <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
@@ -703,7 +411,6 @@
     <script src="js/three-bg.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/github-activity.js"></script>
-    <script src="js/chatbot.js"></script>
 </body>
 
 </html>

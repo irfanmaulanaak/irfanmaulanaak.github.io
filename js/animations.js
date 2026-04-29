@@ -1,6 +1,6 @@
 /**
- * GSAP Animations
- * Scroll-triggered animations and hero reveal effects
+ * Scroll-Story Animations
+ * Scrollytelling with terminal decode effects and chapter-aware triggers
  */
 
 (function () {
@@ -10,252 +10,232 @@
     gsap.registerPlugin(ScrollTrigger);
 
     // ==========================================
+    // Global Chapter State (for Three.js)
+    // ==========================================
+    window.scrollStoryState = {
+        currentChapter: 'boot',
+        chapterProgress: 0
+    };
+
+    const chapters = ['boot', 'foundation', 'buildingBlocks', 'goingDeeper', 'convergence', 'connect'];
+
+    // ==========================================
     // Loading Screen
     // ==========================================
 
     function hideLoader() {
         const loader = document.getElementById('loader');
         if (loader) {
-            // Minimum display time for effect
             setTimeout(() => {
                 loader.classList.add('hidden');
-                // Enable scrolling after loader hides
                 document.body.style.overflow = '';
+                // Trigger hero decode after loader
+                setTimeout(decodeHeroElements, 300);
             }, 1500);
         }
     }
 
-    // Disable scrolling while loading
     document.body.style.overflow = 'hidden';
-
-    // Hide loader when page is fully loaded
     window.addEventListener('load', hideLoader);
 
     // ==========================================
-    // Hero Section Animations
+    // Text Decode Effect
     // ==========================================
 
-    function initHeroAnimations() {
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const decodeChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
 
-        tl.to('.hero-greeting', {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: 0.5
-        })
-            .to('.name-part.first', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8
-            }, '-=0.4')
-            .to('.name-part.last', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8
-            }, '-=0.5')
-            .to('.hero-title', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8
-            }, '-=0.4')
-            .to('.hero-tagline', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8
-            }, '-=0.4')
-            .to('.hero-cta', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8
-            }, '-=0.4')
-            .to('.hero-social', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8
-            }, '-=0.4');
+    function decodeText(element, duration = 1200) {
+        const originalText = element.dataset.original || element.textContent;
+        element.dataset.original = originalText;
+        const length = originalText.length;
+        const startTime = performance.now();
+
+        element.style.opacity = '1';
+
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const revealedCount = Math.floor(progress * length);
+
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                if (i < revealedCount) {
+                    result += originalText[i];
+                } else if (originalText[i] === ' ') {
+                    result += ' ';
+                } else {
+                    result += decodeChars[Math.floor(Math.random() * decodeChars.length)];
+                }
+            }
+            element.textContent = result;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                element.textContent = originalText;
+                element.classList.add('decoded');
+            }
+        }
+
+        requestAnimationFrame(update);
+    }
+
+    function decodeHeroElements() {
+        const heroElements = document.querySelectorAll('#boot .decode-text');
+        heroElements.forEach((el, i) => {
+            setTimeout(() => decodeText(el, 1000), i * 200);
+        });
     }
 
     // ==========================================
-    // Section Title Animations
+    // Story Panel Reveals
     // ==========================================
 
-    function initSectionAnimations() {
-        // Section titles with enhanced fade + scale effect
-        gsap.utils.toArray('.section-title').forEach(title => {
-            gsap.to(title, {
+    function initStoryPanelReveals() {
+        const panels = document.querySelectorAll('.story-panel');
+
+        panels.forEach((panel) => {
+            // Skip hero panel (handled separately)
+            if (panel.closest('#boot')) return;
+
+            gsap.to(panel, {
                 scrollTrigger: {
-                    trigger: title,
+                    trigger: panel,
                     start: 'top 85%',
                     end: 'top 50%',
                     toggleActions: 'play none none reverse',
-                    scrub: false
+                    onEnter: () => {
+                        // Decode any text inside
+                        const decodeElements = panel.querySelectorAll('.decode-text');
+                        decodeElements.forEach((el, i) => {
+                            setTimeout(() => decodeText(el, 800), i * 150);
+                        });
+                    }
                 },
                 opacity: 1,
                 y: 0,
-                scale: 1,
-                duration: 1,
-                ease: 'power3.out'
-            });
-
-            // Animate title number and text separately for stagger effect
-            const titleNumber = title.querySelector('.title-number');
-            const titleText = title.querySelector('.title-text');
-
-            if (titleNumber) {
-                gsap.from(titleNumber, {
-                    scrollTrigger: {
-                        trigger: title,
-                        start: 'top 85%',
-                        toggleActions: 'play none none reverse'
-                    },
-                    opacity: 0,
-                    x: -30,
-                    duration: 0.6,
-                    delay: 0.2,
-                    ease: 'power2.out'
-                });
-            }
-
-            if (titleText) {
-                gsap.from(titleText, {
-                    scrollTrigger: {
-                        trigger: title,
-                        start: 'top 85%',
-                        toggleActions: 'play none none reverse'
-                    },
-                    opacity: 0,
-                    y: 30,
-                    scale: 0.95,
-                    duration: 0.8,
-                    delay: 0.3,
-                    ease: 'power3.out'
-                });
-            }
-        });
-
-        // Glass cards with stagger
-        gsap.utils.toArray('.glass-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 90%',
-                    toggleActions: 'play none none reverse'
-                },
-                opacity: 0,
-                y: 60,
-                scale: 0.95,
-                duration: 0.7,
-                delay: i % 3 * 0.1,
-                ease: 'power3.out'
-            });
-        });
-    }
-
-    // ==========================================
-    // About Section Animations
-    // ==========================================
-
-    function initAboutAnimations() {
-        // Image reveal
-        gsap.from('.about-image', {
-            scrollTrigger: {
-                trigger: '.about-content',
-                start: 'top 70%',
-                toggleActions: 'play none none reverse'
-            },
-            opacity: 0,
-            x: -50,
-            duration: 0.8,
-            ease: 'power3.out'
-        });
-
-        // Text paragraphs stagger
-        gsap.from('.about-text p', {
-            scrollTrigger: {
-                trigger: '.about-text',
-                start: 'top 70%',
-                toggleActions: 'play none none reverse'
-            },
-            opacity: 0,
-            y: 30,
-            stagger: 0.2,
-            duration: 0.6,
-            ease: 'power3.out'
-        });
-
-        // Stats counter animation
-        gsap.utils.toArray('.stat-number').forEach(stat => {
-            const value = parseInt(stat.textContent);
-            gsap.from(stat, {
-                scrollTrigger: {
-                    trigger: stat,
-                    start: 'top 85%',
-                    toggleActions: 'play none none reverse'
-                },
-                textContent: 0,
-                duration: 2,
-                ease: 'power1.out',
-                snap: { textContent: 1 },
-                onUpdate: function () {
-                    stat.textContent = Math.round(this.targets()[0].textContent) + '+';
-                }
-            });
-        });
-    }
-
-    // ==========================================
-    // Experience Timeline Animations
-    // ==========================================
-
-    function initExperienceAnimations() {
-        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-            const direction = i % 2 === 0 ? -50 : 50;
-
-            gsap.from(item, {
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                opacity: 0,
-                x: direction,
                 duration: 0.8,
                 ease: 'power3.out'
             });
+        });
+    }
 
-            // Marker animation
-            gsap.from(item.querySelector('.timeline-marker'), {
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                scale: 0,
-                duration: 0.4,
-                delay: 0.3,
-                ease: 'back.out(1.7)'
+    // ==========================================
+    // Chapter State Observer
+    // ==========================================
+
+    function initChapterObserver() {
+        const chapterSections = document.querySelectorAll('.chapter');
+        const chapterDots = document.querySelectorAll('.chapter-dot');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        chapterSections.forEach((section) => {
+            const chapterId = section.dataset.chapter;
+
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top center',
+                end: 'bottom center',
+                onEnter: () => updateChapterState(chapterId),
+                onEnterBack: () => updateChapterState(chapterId),
+                onUpdate: (self) => {
+                    window.scrollStoryState.chapterProgress = self.progress;
+                }
+            });
+        });
+
+        function updateChapterState(chapterId) {
+            window.scrollStoryState.currentChapter = chapterId;
+
+            // Update dots
+            chapterDots.forEach((dot) => {
+                dot.classList.toggle('active', dot.dataset.chapter === chapterId);
+            });
+
+            // Update nav links
+            navLinks.forEach((link) => {
+                const href = link.getAttribute('href').replace('#', '');
+                const targetSection = document.querySelector(`[data-chapter="${href}"]`);
+                link.classList.toggle('active', href === getSectionIdForChapter(chapterId));
+            });
+        }
+
+        function getSectionIdForChapter(chapter) {
+            const map = {
+                'boot': 'boot',
+                'foundation': 'foundation',
+                'buildingBlocks': 'building-blocks',
+                'goingDeeper': 'going-deeper',
+                'convergence': 'convergence',
+                'connect': 'connect'
+            };
+            return map[chapter] || 'boot';
+        }
+    }
+
+    // ==========================================
+    // Capability Bars
+    // ==========================================
+
+    function initCapabilityBars() {
+        const bars = document.querySelectorAll('.capability-bar');
+
+        bars.forEach((bar) => {
+            const width = bar.dataset.width;
+            if (width) {
+                bar.style.setProperty('--bar-width', width + '%');
+            }
+
+            ScrollTrigger.create({
+                trigger: bar,
+                start: 'top 90%',
+                onEnter: () => bar.classList.add('loaded'),
+                onEnterBack: () => bar.classList.add('loaded')
             });
         });
     }
 
     // ==========================================
-    // Skills Animation
+    // Scroll Progress Bar
     // ==========================================
 
-    function initSkillsAnimations() {
-        gsap.utils.toArray('.skill-item').forEach((item, i) => {
-            gsap.from(item, {
-                scrollTrigger: {
-                    trigger: item.closest('.skill-category'),
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.3,
-                delay: i * 0.05,
-                ease: 'back.out(1.7)'
+    function initScrollProgress() {
+        const progressBar = document.getElementById('scroll-progress');
+        if (!progressBar) return;
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
+        }, { passive: true });
+    }
+
+    // ==========================================
+    // Chapter Dot Clicks
+    // ==========================================
+
+    function initChapterNav() {
+        const dots = document.querySelectorAll('.chapter-dot');
+
+        dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                const chapter = dot.dataset.chapter;
+                const sectionId = {
+                    'boot': 'boot',
+                    'foundation': 'foundation',
+                    'buildingBlocks': 'building-blocks',
+                    'goingDeeper': 'going-deeper',
+                    'convergence': 'convergence',
+                    'connect': 'connect'
+                }[chapter];
+
+                const target = document.getElementById(sectionId);
+                if (target && lenis) {
+                    lenis.scrollTo(target, { offset: -80 });
+                } else if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     }
@@ -273,7 +253,7 @@
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
+        }, { passive: true });
 
         // Mobile menu toggle
         const navToggle = document.getElementById('nav-toggle');
@@ -285,8 +265,7 @@
                 navLinks.classList.toggle('active');
             });
 
-            // Close menu when clicking a link
-            navLinks.querySelectorAll('a').forEach(link => {
+            navLinks.querySelectorAll('a').forEach((link) => {
                 link.addEventListener('click', () => {
                     navToggle.classList.remove('active');
                     navLinks.classList.remove('active');
@@ -296,45 +275,12 @@
     }
 
     // ==========================================
-    // Active Nav Link Highlighting
-    // ==========================================
-
-    function initActiveNavLinks() {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        const observerOptions = {
-            root: null,
-            rootMargin: '-50% 0px -50% 0px',
-            threshold: 0
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${entry.target.id}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-    }
-
-    // ==========================================
     // Smooth Scroll & Lenis
     // ==========================================
 
     let lenis;
 
     function initSmoothScroll() {
-        // Initialize Lenis
         if (typeof Lenis !== 'undefined') {
             lenis = new Lenis({
                 duration: 1.2,
@@ -348,8 +294,7 @@
                 infinite: false,
             });
 
-            // Get scroll value
-            lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
+            lenis.on('scroll', () => {
                 ScrollTrigger.update();
             });
 
@@ -359,8 +304,7 @@
 
             gsap.ticker.lagSmoothing(0, 0);
 
-            // Handle anchor link clicks
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
@@ -375,156 +319,118 @@
     }
 
     // ==========================================
-    // Magnetic Micro-Interactions
+    // Milestone Markers Animation
     // ==========================================
 
-    function initMagneticEffects() {
-        const magneticElements = document.querySelectorAll('.btn, .social-link, .nav-link, .hero-social a');
+    function initMilestoneAnimations() {
+        const milestones = document.querySelectorAll('.milestone');
 
-        magneticElements.forEach((elem) => {
-            elem.addEventListener('mousemove', (e) => {
-                // Return if mobile
-                if (window.innerWidth < 768) return;
-
-                const { clientX, clientY } = e;
-                const { height, width, left, top } = elem.getBoundingClientRect();
-                const x = clientX - (left + width / 2);
-                const y = clientY - (top + height / 2);
-
-                gsap.to(elem, {
-                    x: x * 0.3,
-                    y: y * 0.3,
-                    duration: 0.5,
-                    ease: "power3.out"
-                });
+        milestones.forEach((milestone) => {
+            gsap.from(milestone, {
+                scrollTrigger: {
+                    trigger: milestone,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                x: -20,
+                duration: 0.6,
+                ease: 'power3.out'
             });
 
-            elem.addEventListener('mouseleave', () => {
-                gsap.to(elem, {
-                    x: 0,
-                    y: 0,
-                    duration: 0.5,
-                    ease: "elastic.out(1, 0.3)"
-                });
+            gsap.from(milestone.querySelector('.milestone-marker'), {
+                scrollTrigger: {
+                    trigger: milestone,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                },
+                scale: 0,
+                duration: 0.4,
+                delay: 0.2,
+                ease: 'back.out(1.7)'
             });
         });
     }
 
     // ==========================================
-    // Parallax Effects
+    // Project Embed Reveals
+    // ==========================================
+
+    function initProjectEmbeds() {
+        const embeds = document.querySelectorAll('.project-embed');
+
+        embeds.forEach((embed) => {
+            gsap.from(embed, {
+                scrollTrigger: {
+                    trigger: embed,
+                    start: 'top 90%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                x: -30,
+                duration: 0.7,
+                ease: 'power3.out'
+            });
+        });
+    }
+
+    // ==========================================
+    // Parallax on Hero Content
     // ==========================================
 
     function initParallaxEffects() {
-        // Subtle parallax on hero section
-        gsap.to('.hero-content', {
+        gsap.to('#boot .story-panel', {
             scrollTrigger: {
-                trigger: '.hero',
+                trigger: '#boot',
                 start: 'top top',
-                end: 'center top',
+                end: 'bottom top',
                 scrub: true
             },
-            y: 100,
-            opacity: 0
+            y: 80,
+            opacity: 0.3,
+            ease: 'none'
         });
     }
 
     // ==========================================
-    // Contact Section Animation
+    // Publication Card Reveal
     // ==========================================
 
-    function initContactAnimations() {
-        gsap.from('.contact-content', {
+    function initPublicationCard() {
+        const card = document.querySelector('.publication-card');
+        if (!card) return;
+
+        gsap.from(card, {
             scrollTrigger: {
-                trigger: '.contact',
-                start: 'top 70%',
+                trigger: card,
+                start: 'top 90%',
                 toggleActions: 'play none none reverse'
             },
             opacity: 0,
-            y: 50,
+            y: 40,
             duration: 0.8,
             ease: 'power3.out'
         });
-
-        gsap.from('.social-link', {
-            scrollTrigger: {
-                trigger: '.contact-social',
-                start: 'top 85%',
-                toggleActions: 'play none none reverse'
-            },
-            opacity: 0,
-            y: 20,
-            stagger: 0.1,
-            duration: 0.5,
-            ease: 'back.out(1.7)'
-        });
     }
 
     // ==========================================
-    // Horizontal Scroll (Pinned Sections)
-    // ==========================================
-
-    function initHorizontalScroll() {
-        // Reset scroll position on page load to prevent starting at wrong section
-        window.scrollTo(0, 0);
-
-        let mm = gsap.matchMedia();
-
-        // Only apply horizontal scroll on desktop
-        mm.add("(min-width: 769px)", () => {
-            const horizontalSections = [
-                { wrapper: '.experience', container: '.experience-timeline' },
-                { wrapper: '.projects', container: '.projects-grid' }
-            ];
-
-            horizontalSections.forEach(({ wrapper, container }) => {
-                const wrapperEl = document.querySelector(wrapper);
-                const containerEl = document.querySelector(container);
-
-                if (!wrapperEl || !containerEl) return;
-
-                const getScrollAmount = () => {
-                    return Math.max(0, containerEl.scrollWidth - window.innerWidth);
-                };
-
-                if (getScrollAmount() <= 0) return;
-
-                gsap.to(containerEl, {
-                    x: () => -getScrollAmount(),
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: wrapperEl,
-                        start: 'top top',
-                        end: () => `+=${getScrollAmount()}`,
-                        scrub: true, // Switched to true to fix Lenis stuck scrolling
-                        pin: true,
-                        anticipatePin: 1,
-                        invalidateOnRefresh: true
-                    }
-                });
-            });
-        });
-    }
-
-    // ==========================================
-    // Initialize All Animations
+    // Initialize All
     // ==========================================
 
     function init() {
-        initHeroAnimations();
-        initNavbarEffect();
-        initActiveNavLinks();
-        initSectionAnimations();
-        initAboutAnimations();
-        initExperienceAnimations();
-        initSkillsAnimations();
-        initContactAnimations();
-        initParallaxEffects();
-        initHorizontalScroll();
         initSmoothScroll();
-        initMagneticEffects();
+        initNavbarEffect();
+        initScrollProgress();
+        initChapterNav();
+        initChapterObserver();
+        initStoryPanelReveals();
+        initMilestoneAnimations();
+        initProjectEmbeds();
+        initCapabilityBars();
+        initPublicationCard();
+        initParallaxEffects();
     }
 
-    // Wait for DOM to be ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
