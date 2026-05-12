@@ -1,0 +1,13 @@
+# Serena MCP project cache
+.serena/
+
+# Hermes write test artifact
+.hermes-write-test
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
