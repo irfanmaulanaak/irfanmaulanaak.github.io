@@ -123,13 +123,15 @@
         const navLinks = document.getElementById('nav-links');
         if (navToggle && navLinks) {
             navToggle.addEventListener('click', () => {
-                navToggle.classList.toggle('active');
+                const isActive = navToggle.classList.toggle('active');
                 navLinks.classList.toggle('active');
+                navToggle.setAttribute('aria-expanded', String(isActive));
             });
             navLinks.querySelectorAll('a').forEach((link) => {
                 link.addEventListener('click', () => {
                     navToggle.classList.remove('active');
                     navLinks.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
                 });
             });
         }

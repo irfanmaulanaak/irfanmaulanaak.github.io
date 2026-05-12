@@ -5,41 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Irfan Maulana Akbar, Web3 + AI Engineer specializing in blockchain, backend development, and AI automation">
+        content="Irfan Maulana Akbar, Web3 + AI Engineer specializing in blockchain, backend development, and self-hosted LLM infrastructure.">
     <meta name="author" content="Irfan Maulana Akbar">
-    <meta name="keywords" content="Web3, Blockchain, AI, Developer, Solidity, JavaScript, LLM, Hermes, llama.cpp">
+    <meta name="keywords" content="Web3, Blockchain, AI, Developer, Solidity, JavaScript, LLM, Hermes, llama.cpp, Qwen, Gemma">
+    <meta name="theme-color" content="#0e0d0c">
+    <link rel="canonical" href="https://irfanmaulanaak.pages.dev/">
     <title>Irfan Maulana Akbar, Web3 + AI Engineer</title>
+
+    <meta property="og:title" content="Irfan Maulana Akbar, Web3 + AI Engineer">
+    <meta property="og:description" content="Five years building on-chain and intelligent systems. DAOs, metaverses, self-hosted LLM infrastructure.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://irfanmaulanaak.pages.dev/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Irfan Maulana Akbar, Web3 + AI Engineer">
+    <meta name="twitter:description" content="Five years building on-chain and intelligent systems.">
 
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <link rel="stylesheet" href="css/styles.css?v=5">
+    <link rel="stylesheet" href="css/styles.css?v=6">
 </head>
 
 <body>
+    <!-- Inline SVG sprite (drops the 100KB+ Font Awesome dependency) -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+        <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></symbol>
+        <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+        <symbol id="i-twitter" viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></symbol>
+        <symbol id="i-instagram" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.849.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.644.07 4.849 0 3.205-.012 3.584-.07 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol>
+        <symbol id="i-envelope" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m21 7-9 6L3 7"/></g></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></g></symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></g></symbol>
+        <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></g></symbol>
+        <symbol id="i-spinner" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></g></symbol>
+    </svg>
+
     <div class="scroll-progress" id="scroll-progress"></div>
 
-    <div class="chapter-nav" id="chapter-nav">
-        <div class="chapter-dot active" data-chapter="boot" title="boot">01</div>
-        <div class="chapter-dot" data-chapter="foundation" title="foundation">02</div>
-        <div class="chapter-dot" data-chapter="building-blocks" title="building blocks">03</div>
-        <div class="chapter-dot" data-chapter="going-deeper" title="going deeper">04</div>
-        <div class="chapter-dot" data-chapter="convergence" title="convergence">05</div>
-        <div class="chapter-dot" data-chapter="connect" title="connect">06</div>
+    <div class="chapter-nav" id="chapter-nav" aria-label="Chapter navigation">
+        <button type="button" class="chapter-dot active" data-chapter="boot" title="boot" aria-label="Go to Boot chapter">01</button>
+        <button type="button" class="chapter-dot" data-chapter="foundation" title="foundation" aria-label="Go to Foundation chapter">02</button>
+        <button type="button" class="chapter-dot" data-chapter="building-blocks" title="building blocks" aria-label="Go to Building Blocks chapter">03</button>
+        <button type="button" class="chapter-dot" data-chapter="going-deeper" title="going deeper" aria-label="Go to Going Deeper chapter">04</button>
+        <button type="button" class="chapter-dot" data-chapter="convergence" title="convergence" aria-label="Go to Convergence chapter">05</button>
+        <button type="button" class="chapter-dot" data-chapter="connect" title="connect" aria-label="Go to Connect chapter">06</button>
     </div>
 
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" aria-label="Primary">
         <div class="nav-brand">
             <a href="#boot">ima</a>
         </div>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="nav-links">
@@ -84,13 +105,13 @@
                 </div>
 
                 <div class="hero-cta">
-                    <a href="#foundation" class="btn"><span>begin sequence</span> <span class="arrow">→</span></a>
+                    <a href="#foundation" class="btn"><span>begin sequence</span> <span class="arrow" aria-hidden="true">→</span></a>
                 </div>
 
                 <div class="hero-social">
-                    <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub profile"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg></a>
+                    <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener" aria-label="LinkedIn profile"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></a>
+                    <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter profile"><svg class="icon" aria-hidden="true"><use href="#i-twitter"/></svg></a>
                 </div>
             </div>
 
@@ -116,14 +137,14 @@
 
                     <article class="beat beat-milestones">
                         <div class="milestone">
-                            <span class="milestone-marker"></span>
+                            <span class="milestone-marker" aria-hidden="true"></span>
                             <div class="milestone-content">
                                 <p class="milestone-title">B.Eng Computer Science</p>
                                 <p class="milestone-detail">Brawijaya University · 2017 → 2021</p>
                             </div>
                         </div>
                         <div class="milestone">
-                            <span class="milestone-marker"></span>
+                            <span class="milestone-marker" aria-hidden="true"></span>
                             <div class="milestone-content">
                                 <p class="milestone-title">1st Place, Software Development Competition</p>
                                 <p class="milestone-detail">UNITY 2019 · Yogyakarta State University</p>
@@ -135,11 +156,11 @@
                         <p>But curiosity without rigor is just noise. So I channeled it into research.</p>
                         <p>My thesis on blockchain-based health records wasn't theoretical. I built a working Ethereum DApp for inter-hospital data sharing, published in ACM's SIET '21 proceedings. It was small, it was specific, and it proved I could ship, not just speculate.</p>
                         <div class="publication-card">
-                            <i class="fas fa-file-alt"></i>
+                            <svg class="icon icon-pub" aria-hidden="true"><use href="#i-file"/></svg>
                             <div>
                                 <p class="pub-title">An Ethereum Blockchain Based Electronic Health Record System for Inter-Hospital Secure Data Sharing</p>
                                 <p class="pub-venue">SIET '21 · ACM Digital Library · DOI 10.1145/3479645.3479699</p>
-                                <a href="https://dl.acm.org/doi/10.1145/3479645.3479699" target="_blank" rel="noopener">view publication →</a>
+                                <a href="https://dl.acm.org/doi/10.1145/3479645.3479699" target="_blank" rel="noopener">read the SIET '21 publication on ACM →</a>
                             </div>
                         </div>
                     </article>
@@ -198,7 +219,7 @@
                                 <div class="embed-body">
                                     <p class="embed-title">NFT Sakeworld &amp; Dragonflies</p>
                                     <p class="embed-desc">High-profile NFT marketplaces for a Japanese basketball team and idol, with secure crypto + fiat payment integration on ERC721A.</p>
-                                    <a class="embed-link" href="https://nft.sakeworld.jp/en" target="_blank" rel="noopener">visit sakeworld →</a>
+                                    <a class="embed-link" href="https://nft.sakeworld.jp/en" target="_blank" rel="noopener">visit the Sakeworld marketplace →</a>
                                 </div>
                             </div>
                             <div class="role-tags">
@@ -245,7 +266,7 @@
                                 <div class="embed-body">
                                     <p class="embed-title">COSMIZE Metaverse</p>
                                     <p class="embed-desc">First metaverse project on Astar blockchain with custom RPC, smart contracts, and cross-platform wallet integration.</p>
-                                    <a class="embed-link" href="https://cosmize.io" target="_blank" rel="noopener">visit cosmize →</a>
+                                    <a class="embed-link" href="https://cosmize.io" target="_blank" rel="noopener">visit the COSMIZE metaverse →</a>
                                 </div>
                             </div>
                             <div class="role-tags">
@@ -314,7 +335,7 @@
                         <div class="diptych" id="diptych">
                             <div class="diptych-grid">
                                 <div class="diptych-col left">
-                                    <h4>layer a</h4>
+                                    <h3>layer a</h3>
                                     <p class="diptych-title">Blockchain</p>
                                     <p>Code that enforces rules. State that no one owns. Trust replaced with math.</p>
                                 </div>
@@ -322,7 +343,7 @@
                                     <span class="diptych-merge-mark">&amp;</span>
                                 </div>
                                 <div class="diptych-col right">
-                                    <h4>layer b</h4>
+                                    <h3>layer b</h3>
                                     <p class="diptych-title">AI</p>
                                     <p>Code that makes judgment calls. Pipelines that learn. Routine replaced with intelligence.</p>
                                 </div>
@@ -352,19 +373,19 @@
                                 <div class="embed-body">
                                     <p class="embed-title">Chronologic AI Pipeline</p>
                                     <p class="embed-desc">Internal AI infrastructure pairing self-hosted Qwen + Gemma with Hermes-orchestrated agents, automating code reviews, documentation, and deployment workflows across the engineering team.</p>
-                                    <a class="embed-link" href="https://www.chronologic.pro/" target="_blank" rel="noopener">visit chronologic →</a>
-                                </div>
-                            </div>
-                            <div class="project-embed">
-                                <div class="embed-body">
-                                    <p class="embed-title">Automated Perpetual Trading System</p>
-                                    <p class="embed-desc">Cross-DEX trading bots with execution strategies, risk management, and automated airdrop farming.</p>
+                                    <a class="embed-link" href="https://www.chronologic.pro/" target="_blank" rel="noopener">visit the Chronologic pipeline site →</a>
                                 </div>
                             </div>
                             <div class="project-embed">
                                 <div class="embed-body">
                                     <p class="embed-title">Internal LLM &amp; Agent Stack</p>
                                     <p class="embed-desc">Fine-tuned Qwen 3.6 + Gemma 4 with Unsloth/LoRA on internal data; served locally via llama.cpp, Ollama, LM Studio, and MLX on Apple Silicon. Hermes agents wired into engineering and trading workflows. Custom eval harness with DPO loops for continuous improvement.</p>
+                                </div>
+                            </div>
+                            <div class="project-embed">
+                                <div class="embed-body">
+                                    <p class="embed-title">Automated Perpetual Trading System</p>
+                                    <p class="embed-desc">Cross-DEX trading bots with execution strategies, risk management, and automated airdrop farming.</p>
                                 </div>
                             </div>
                             <div class="role-tags">
@@ -393,27 +414,27 @@
                 </div>
                 <div class="contact-details">
                     <a href="mailto:irfanmaulanaaaaa.im@gmail.com" class="contact-item">
-                        <i class="fas fa-envelope"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#i-envelope"/></svg>
                         <span>irfanmaulanaaaaa.im@gmail.com</span>
                     </a>
                     <a href="tel:+6281334090787" class="contact-item">
-                        <i class="fas fa-phone"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
                         <span>+62 813-3409-0787</span>
                     </a>
                     <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
                         <span>South Jakarta, Indonesia</span>
                     </div>
                 </div>
                 <div class="contact-social">
-                    <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/irfanmaulanaak/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub profile"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg></a>
+                    <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener" aria-label="LinkedIn profile"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></a>
+                    <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter profile"><svg class="icon" aria-hidden="true"><use href="#i-twitter"/></svg></a>
+                    <a href="https://www.instagram.com/irfanmaulanaak/" target="_blank" rel="noopener" aria-label="Instagram profile"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a>
                 </div>
                 <a href="mailto:irfanmaulanaaaaa.im@gmail.com" class="btn btn-large btn-signed">
                     <span class="btn-label">initiate contact</span>
-                    <span class="arrow">→</span>
+                    <span class="arrow" aria-hidden="true">→</span>
                 </a>
             </div>
         </section>
@@ -421,8 +442,8 @@
 
     <footer class="footer">
         <div id="github-activity">
-            <div class="activity-pulse"></div>
-            <p><i class="fas fa-circle-notch fa-spin"></i> fetching latest github activity…</p>
+            <div class="activity-pulse" aria-hidden="true"></div>
+            <p><svg class="icon spin" aria-hidden="true"><use href="#i-spinner"/></svg> fetching latest github activity…</p>
         </div>
         <p>Designed &amp; built by <span class="highlight">Irfan Maulana Akbar</span></p>
         <p class="footer-year">© <span id="footer-year">2026</span></p>
@@ -431,8 +452,8 @@
     <script defer src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script defer src="js/animations.js?v=5"></script>
-    <script defer src="js/github-activity.js?v=5"></script>
+    <script defer src="js/animations.js?v=6"></script>
+    <script defer src="js/github-activity.js?v=6"></script>
 </body>
 
 </html>
