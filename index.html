@@ -24,11 +24,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 
-    <link rel="stylesheet" href="css/styles.css?v=6">
+    <link rel="stylesheet" href="css/styles.css?v=7">
 </head>
 
 <body>
@@ -47,14 +47,14 @@
 
     <div class="scroll-progress" id="scroll-progress"></div>
 
-    <div class="chapter-nav" id="chapter-nav" aria-label="Chapter navigation">
+    <nav class="chapter-nav" id="chapter-nav" aria-label="Chapter navigation">
         <button type="button" class="chapter-dot active" data-chapter="boot" title="boot" aria-label="Go to Boot chapter">01</button>
         <button type="button" class="chapter-dot" data-chapter="foundation" title="foundation" aria-label="Go to Foundation chapter">02</button>
         <button type="button" class="chapter-dot" data-chapter="building-blocks" title="building blocks" aria-label="Go to Building Blocks chapter">03</button>
         <button type="button" class="chapter-dot" data-chapter="going-deeper" title="going deeper" aria-label="Go to Going Deeper chapter">04</button>
         <button type="button" class="chapter-dot" data-chapter="convergence" title="convergence" aria-label="Go to Convergence chapter">05</button>
         <button type="button" class="chapter-dot" data-chapter="connect" title="connect" aria-label="Go to Connect chapter">06</button>
-    </div>
+    </nav>
 
     <nav class="navbar" id="navbar" aria-label="Primary">
         <div class="nav-brand">
@@ -452,8 +452,8 @@
     <script defer src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script defer src="js/animations.js?v=6"></script>
-    <script defer src="js/github-activity.js?v=6"></script>
+    <script defer src="js/animations.js?v=7"></script>
+    <script defer src="js/github-activity.js?v=7"></script>
 </body>
 
 </html>

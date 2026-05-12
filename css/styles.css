@@ -681,6 +681,12 @@ strong {
     align-items: center;
     gap: 8px;
     color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+.publication-card a:hover {
+    text-decoration-color: var(--text-primary);
 }
 
 /* ==========================================
@@ -882,8 +888,14 @@ strong {
     gap: 8px;
     color: var(--accent);
     letter-spacing: 0.02em;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
 }
-.project-embed a.embed-link:hover { color: var(--text-primary); }
+.project-embed a.embed-link:hover {
+    color: var(--text-primary);
+    text-decoration-color: currentColor;
+}
 
 /* ==========================================
    Convergence Diptych - editorial pinned scrub
