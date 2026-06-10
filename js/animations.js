@@ -1,28 +1,24 @@
 /**
- * Scroll-Story Animations - Editorial Dark
- * Sticky-rail scrollytelling. No decode-text cosplay, no parallax,
- * no Three.js. Just sticky context + beat reveals + one cinematic diptych beat.
+ * Scroll-Story Animations - Terminal Editorial
+ * Sticky context rails + beat reveals + chain-spine progress + one
+ * scrub-driven diptych beat. Degrades gracefully if CDNs fail.
  */
 
 (function () {
     'use strict';
 
-    gsap.registerPlugin(ScrollTrigger);
-
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
 
-    const chapterIdMap = {
-        boot: 'boot',
-        foundation: 'foundation',
-        buildingBlocks: 'building-blocks',
-        goingDeeper: 'going-deeper',
-        convergence: 'convergence',
-        connect: 'connect'
-    };
+    if (hasGsap) gsap.registerPlugin(ScrollTrigger);
 
     // ==========================================
     // Beat Reveals
     // ==========================================
+
+    function revealAllBeats() {
+        document.querySelectorAll('.beat').forEach((beat) => beat.classList.add('is-visible'));
+    }
 
     function initBeatReveals() {
         const beats = document.querySelectorAll('.beat');
@@ -42,7 +38,7 @@
     }
 
     // ==========================================
-    // Chapter State Observer - drives the right-rail dots + nav highlight
+    // Chapter State Observer - right-rail dots + nav highlight
     // ==========================================
 
     function initChapterObserver() {
@@ -63,13 +59,39 @@
 
         function updateChapterState(chapterId) {
             chapterDots.forEach((dot) => {
-                dot.classList.toggle('active', dot.dataset.chapter === chapterIdMap[chapterId]);
+                dot.classList.toggle('active', dot.dataset.chapter === chapterId);
             });
             navLinks.forEach((link) => {
-                const href = link.getAttribute('href').replace('#', '');
-                link.classList.toggle('active', href === chapterIdMap[chapterId]);
+                const isActive = link.getAttribute('href').replace('#', '') === chapterId;
+                link.classList.toggle('active', isActive);
+                if (isActive) link.setAttribute('aria-current', 'true');
+                else link.removeAttribute('aria-current');
             });
         }
+    }
+
+    // ==========================================
+    // Chain spine - rail line fills with chapter progress
+    // ==========================================
+
+    function initRailLines() {
+        const sections = document.querySelectorAll('.chapter-narrative');
+        sections.forEach((section) => {
+            const fill = section.querySelector('.rail-line span');
+            if (!fill) return;
+            if (prefersReducedMotion) {
+                fill.style.transform = 'scaleY(1)';
+                return;
+            }
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top 60%',
+                end: 'bottom 60%',
+                onUpdate: (self) => {
+                    fill.style.transform = 'scaleY(' + self.progress.toFixed(4) + ')';
+                }
+            });
+        });
     }
 
     // ==========================================
@@ -82,7 +104,7 @@
         const update = () => {
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
             progressBar.style.width = progress + '%';
         };
         window.addEventListener('scroll', update, { passive: true });
@@ -97,13 +119,10 @@
         const dots = document.querySelectorAll('.chapter-dot');
         dots.forEach((dot) => {
             dot.addEventListener('click', () => {
-                const chapter = dot.dataset.chapter;
-                const target = document.getElementById(chapter);
-                if (target && lenis) {
-                    lenis.scrollTo(target, { offset: -80 });
-                } else if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+                const target = document.getElementById(dot.dataset.chapter);
+                if (!target) return;
+                if (lenis) lenis.scrollTo(target, { offset: -80 });
+                else target.scrollIntoView({ behavior: 'smooth' });
             });
         });
     }
@@ -155,27 +174,33 @@
             touchMultiplier: 2,
             infinite: false
         });
-        lenis.on('scroll', () => ScrollTrigger.update());
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0, 0);
 
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        if (hasGsap) {
+            lenis.on('scroll', () => ScrollTrigger.update());
+            gsap.ticker.add((time) => lenis.raf(time * 1000));
+            gsap.ticker.lagSmoothing(0, 0);
+        } else {
+            const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
+            requestAnimationFrame(raf);
+        }
+
+        // Skip link is excluded: it must perform a plain jump for keyboard users.
+        document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach((anchor) => {
             anchor.addEventListener('click', function (e) {
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (!targetElement) return;
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) lenis.scrollTo(targetElement, { offset: -80 });
+                lenis.scrollTo(targetElement, { offset: -80 });
             });
         });
     }
 
     // ==========================================
-    // Milestone Markers
+    // Milestone / Embed / Publication reveals
     // ==========================================
 
     function initMilestoneAnimations() {
-        const milestones = document.querySelectorAll('.milestone');
-        milestones.forEach((milestone) => {
+        document.querySelectorAll('.milestone').forEach((milestone) => {
             gsap.from(milestone, {
                 scrollTrigger: { trigger: milestone, start: 'top 88%', toggleActions: 'play none none reverse' },
                 opacity: 0,
@@ -186,13 +211,8 @@
         });
     }
 
-    // ==========================================
-    // Project Embed Reveals
-    // ==========================================
-
     function initProjectEmbeds() {
-        const embeds = document.querySelectorAll('.project-embed');
-        embeds.forEach((embed) => {
+        document.querySelectorAll('.project-embed').forEach((embed) => {
             gsap.from(embed, {
                 scrollTrigger: { trigger: embed, start: 'top 92%', toggleActions: 'play none none reverse' },
                 opacity: 0,
@@ -202,10 +222,6 @@
             });
         });
     }
-
-    // ==========================================
-    // Publication Card Reveal
-    // ==========================================
 
     function initPublicationCard() {
         const card = document.querySelector('.publication-card');
@@ -334,17 +350,29 @@
         initNavbarEffect();
         initScrollProgress();
         initChapterNav();
+        initPowCounters();
+
+        if (!hasGsap) {
+            // CDN failed: show everything, skip scroll choreography.
+            revealAllBeats();
+            document.querySelectorAll('.rail-line span').forEach((el) => {
+                el.style.transform = 'scaleY(1)';
+            });
+            document.getElementById('diptych')?.classList.add('is-merged');
+            return;
+        }
+
         initChapterObserver();
         initBeatReveals();
+        initRailLines();
         initMilestoneAnimations();
         initProjectEmbeds();
         initPublicationCard();
         initDiptych();
-        initPowCounters();
 
         // Refresh after fonts/images settle so ScrollTrigger positions are accurate.
         window.addEventListener('load', () => {
-            if (window.ScrollTrigger) ScrollTrigger.refresh();
+            ScrollTrigger.refresh();
         });
     }
 
