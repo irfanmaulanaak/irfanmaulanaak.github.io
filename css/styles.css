@@ -94,6 +94,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.1;
+    text-wrap: balance;
 }
 
 a {
@@ -134,7 +135,7 @@ strong {
     left: 16px;
     z-index: 2000;
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     text-transform: lowercase;
     letter-spacing: 0.04em;
     color: var(--text-primary);
@@ -170,7 +171,7 @@ strong {
 }
 
 /* ==========================================
-   Scroll Progress
+   Scroll Progress - scaleX keeps it on the compositor
    ========================================== */
 .scroll-progress {
     position: fixed;
@@ -179,11 +180,30 @@ strong {
     height: 2px;
     background: var(--accent);
     z-index: 1001;
-    width: 0%;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left center;
 }
 
 /* ==========================================
+   Three.js backdrop - sits between grid and content
+   ========================================== */
+.scene-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.4s ease;
+}
+.scene-canvas.is-live { opacity: 0.85; }
+
+/* ==========================================
    Chapter Nav (right rail)
+   Hidden under 1400px: below that width the fixed dots
+   physically overlap the content column.
    ========================================== */
 .chapter-nav {
     position: fixed;
@@ -196,6 +216,10 @@ strong {
     z-index: 100;
 }
 
+@media (max-width: 1400px) {
+    .chapter-nav { display: none; }
+}
+
 .chapter-dot {
     appearance: none;
     -webkit-appearance: none;
@@ -206,7 +230,7 @@ strong {
     display: flex;
     align-items: center;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 500;
     color: var(--text-tertiary);
     border: none;
@@ -239,7 +263,7 @@ strong {
     top: 50%;
     transform: translateY(-50%);
     font-family: var(--font-mono);
-    font-size: 0.66rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
     white-space: nowrap;
     opacity: 0;
@@ -339,7 +363,7 @@ strong {
 .nav-link {
     color: var(--text-tertiary);
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     text-transform: lowercase;
     letter-spacing: 0.05em;
     transition: color 150ms ease;
@@ -415,12 +439,26 @@ strong {
     letter-spacing: -0.025em;
     font-weight: 400;
 }
+/* Each line gets its own clip box so GSAP can mask-rise the text */
+.name-line { display: block; overflow: hidden; }
 .name-part { display: block; }
 .name-part.last { font-style: italic; }
 
+/* Hero entrance initial states - gated on .js so content never hides
+   without scripts. animations.js reveals these (or clears them when
+   the GSAP CDN fails). */
+.js .name-part,
+.js .hero-stagger {
+    opacity: 0;
+}
+.js .hero-revealed .name-part,
+.js .hero-revealed .hero-stagger {
+    opacity: 1;
+}
+
 .hero-title {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     color: var(--accent);
     font-weight: 500;
     margin-bottom: 40px;
@@ -477,7 +515,7 @@ strong {
 }
 .hero-pow-label {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     color: var(--text-tertiary);
     text-transform: lowercase;
     letter-spacing: 0.04em;
@@ -491,12 +529,9 @@ strong {
 }
 
 .hero-social {
-    position: absolute;
-    bottom: -64px;
-    left: 0;
     display: flex;
     gap: 24px;
-    z-index: 5;
+    margin-top: 48px;
 }
 .hero-social a, .contact-social a {
     color: var(--text-tertiary);
@@ -537,7 +572,7 @@ strong {
     padding: 11px 16px;
     border-bottom: 1px solid var(--border);
     color: var(--text-muted);
-    font-size: 0.66rem;
+    font-size: 0.7rem;
     letter-spacing: 0.1em;
     text-transform: lowercase;
 }
@@ -558,7 +593,7 @@ strong {
 }
 
 .boot-line {
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     line-height: 1.5;
     color: var(--text-secondary);
     letter-spacing: 0.02em;
@@ -649,7 +684,7 @@ strong {
 
 .rail-label {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: var(--accent);
     text-transform: lowercase;
     letter-spacing: 0.12em;
@@ -668,7 +703,7 @@ strong {
 
 .rail-tagline {
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     color: var(--text-tertiary);
     line-height: 1.6;
     max-width: 260px;
@@ -707,7 +742,6 @@ strong {
 .js .beat {
     opacity: 0;
     transform: translateY(20px);
-    will-change: opacity, transform;
 }
 
 .js .beat.is-visible {
@@ -717,7 +751,9 @@ strong {
                 transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.beat p {
+/* Direct children only - component typography (.role-company, .pub-title,
+   .embed-title, etc.) must not be overridden by narrative body styles. */
+.beat > p {
     font-size: 1.12rem;
     color: var(--text-secondary);
     margin-bottom: 22px;
@@ -725,7 +761,7 @@ strong {
     font-weight: 400;
 }
 
-.beat p:last-child { margin-bottom: 0; }
+.beat > p:last-child { margin-bottom: 0; }
 
 /* ==========================================
    Milestones
@@ -760,7 +796,7 @@ strong {
 }
 .milestone-detail {
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     color: var(--text-tertiary);
     letter-spacing: 0.02em;
 }
@@ -790,14 +826,14 @@ strong {
 }
 .pub-venue {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: var(--text-tertiary);
     margin-bottom: 14px;
     letter-spacing: 0.02em;
 }
 .publication-card a {
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -845,7 +881,7 @@ strong {
 
 .role-title {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     color: var(--text-tertiary);
     font-weight: 500;
     grid-column: 1;
@@ -855,7 +891,7 @@ strong {
 
 .role-date {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: var(--text-tertiary);
     grid-column: 2;
     grid-row: 1 / 3;
@@ -870,7 +906,7 @@ strong {
     content: 'current';
     margin-left: 14px;
     font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: 0.64rem;
     color: var(--signal);
     border: 1px solid var(--signal);
     padding: 2px 8px;
@@ -890,7 +926,7 @@ strong {
 
 .tag {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     padding: 3px 9px;
     border: 1px solid var(--border);
     color: var(--text-tertiary);
@@ -921,7 +957,7 @@ strong {
 }
 .metric-label {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     color: var(--text-tertiary);
     text-transform: lowercase;
     letter-spacing: 0.04em;
@@ -958,7 +994,7 @@ strong {
 
 .project-embed a.embed-link {
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -1006,7 +1042,7 @@ strong {
 
 .diptych-col h3 {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     text-transform: lowercase;
     letter-spacing: 0.15em;
     margin-bottom: 16px;
@@ -1062,7 +1098,7 @@ strong {
     text-align: center;
     margin-top: 48px;
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     color: var(--text-tertiary);
     letter-spacing: 0.1em;
     text-transform: lowercase;
@@ -1083,7 +1119,7 @@ strong {
 
 .connect-eyebrow {
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     color: var(--accent);
     text-transform: lowercase;
     letter-spacing: 0.12em;
@@ -1106,7 +1142,7 @@ strong {
     align-items: center;
     gap: 10px;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: var(--text-secondary);
     text-transform: lowercase;
     letter-spacing: 0.05em;
@@ -1185,7 +1221,7 @@ strong {
 }
 .footer p {
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     color: var(--text-tertiary);
     margin: 0;
     letter-spacing: 0.02em;
@@ -1204,7 +1240,7 @@ strong {
     align-items: center;
     gap: 10px;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: var(--text-tertiary);
     letter-spacing: 0.02em;
 }
@@ -1224,11 +1260,14 @@ strong {
    Reduced motion
    ========================================== */
 @media (prefers-reduced-motion: reduce) {
-    .js .beat {
+    .js .beat,
+    .js .name-part,
+    .js .hero-stagger {
         opacity: 1 !important;
         transform: none !important;
     }
     .rail-line span { transform: scaleY(1) !important; }
+    .scene-canvas { display: none; }
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-delay: 0s !important;
@@ -1240,16 +1279,12 @@ strong {
 /* ==========================================
    Responsive
    ========================================== */
-/* Collapse hero grid before the fixed chapter dots can collide with the panel */
-@media (max-width: 1360px) {
+@media (max-width: 1180px) {
     .hero-inner {
         grid-template-columns: 1fr;
         gap: 56px;
     }
-    .hero-social {
-        position: static;
-        margin-top: 40px;
-    }
+    .hero-social { margin-top: 40px; }
     .hero-side { max-width: 460px; }
 }
 
@@ -1313,7 +1348,7 @@ strong {
 
     .hero-inner { gap: 48px; }
     .hero-name { font-size: clamp(2.6rem, 13vw, 4rem); margin-bottom: 24px; }
-    .hero-title { font-size: 0.72rem; margin-bottom: 28px; }
+    .hero-title { font-size: 0.76rem; margin-bottom: 28px; }
     .hero-tagline { font-size: 1.2rem; margin-bottom: 40px; }
 
     .hero-pow {
@@ -1334,7 +1369,7 @@ strong {
     .hero-social { margin-top: 36px; }
     .hero-side { max-width: none; }
     .boot-lines { padding: 16px; gap: 9px; }
-    .boot-line { font-size: 0.68rem; }
+    .boot-line { font-size: 0.7rem; }
     .scroll-hint { display: none; }
     .chapter-nav { display: none; }
 
@@ -1359,7 +1394,7 @@ strong {
     .diptych-col .diptych-title { font-size: 2rem; }
 
     .connect-title { font-size: clamp(2rem, 9vw, 3rem); }
-    .status-line { font-size: 0.66rem; }
+    .status-line { font-size: 0.72rem; }
     .contact-item { font-size: 0.84rem; word-break: break-all; }
 }
 
@@ -1369,6 +1404,6 @@ strong {
     .hero-pow-value { font-size: 1.4rem; }
     .role-company { font-size: 1.55rem; }
     .embed-title { font-size: 1.15rem; }
-    .beat p { font-size: 1rem; }
+    .beat > p { font-size: 1rem; }
     .milestone-title { font-size: 1.3rem; }
 }

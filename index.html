@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 
-    <link rel="stylesheet" href="css/styles.css?v=8">
+    <link rel="stylesheet" href="css/styles.css?v=9">
 
     <script type="application/ld+json">
     {
@@ -52,6 +52,10 @@
 </head>
 
 <body>
+    <!-- Three.js particle-network backdrop. Decorative only: skipped on
+         reduced-motion, save-data, or missing WebGL (CSS grid remains). -->
+    <canvas id="scene" class="scene-canvas" aria-hidden="true"></canvas>
+
     <!-- Inline SVG sprite (drops the 100KB+ Font Awesome dependency) -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
         <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></symbol>
@@ -102,43 +106,43 @@
             <div class="hero-inner">
                 <div class="hero-main">
                     <h1 class="hero-name">
-                        <span class="name-part first">Irfan Maulana</span>
-                        <span class="name-part last">Akbar.</span>
+                        <span class="name-line"><span class="name-part first">Irfan Maulana</span></span>
+                        <span class="name-line"><span class="name-part last">Akbar.</span></span>
                     </h1>
-                    <p class="hero-title">web3 + ai engineer</p>
-                    <p class="hero-tagline">Building systems that replace trust with math, and routine with intelligence.</p>
+                    <p class="hero-title hero-stagger">web3 + ai engineer</p>
+                    <p class="hero-tagline hero-stagger">Building systems that replace trust with math, and routine with intelligence.</p>
 
                     <div class="hero-pow">
-                        <div class="hero-pow-card">
+                        <div class="hero-pow-card hero-stagger">
                             <div class="hero-pow-value" data-target="5"><span class="value">0</span><span class="suffix">+</span></div>
                             <div class="hero-pow-label">years building</div>
                         </div>
-                        <div class="hero-pow-card">
+                        <div class="hero-pow-card hero-stagger">
                             <div class="hero-pow-value" data-target="20"><span class="value">0</span><span class="suffix">+</span></div>
                             <div class="hero-pow-label">contracts deployed</div>
                         </div>
-                        <div class="hero-pow-card">
+                        <div class="hero-pow-card hero-stagger">
                             <div class="hero-pow-value" data-target="6"><span class="value">0</span></div>
                             <div class="hero-pow-label">dex integrations</div>
                         </div>
-                        <div class="hero-pow-card">
+                        <div class="hero-pow-card hero-stagger">
                             <div class="hero-pow-value" data-target="10"><span class="value">0</span><span class="suffix">+</span></div>
                             <div class="hero-pow-label">projects shipped</div>
                         </div>
                     </div>
 
-                    <div class="hero-cta">
+                    <div class="hero-cta hero-stagger">
                         <a href="#foundation" class="btn btn-accent"><span>begin sequence</span> <span class="arrow" aria-hidden="true">→</span></a>
                     </div>
 
-                    <div class="hero-social">
+                    <div class="hero-social hero-stagger">
                         <a href="https://github.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="GitHub profile"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg></a>
                         <a href="https://www.linkedin.com/in/irfan-maulana-akbar-18a211155/" target="_blank" rel="noopener" aria-label="LinkedIn profile"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></a>
                         <a href="https://twitter.com/irfanmaulanaak" target="_blank" rel="noopener" aria-label="Twitter profile"><svg class="icon" aria-hidden="true"><use href="#i-twitter"/></svg></a>
                     </div>
                 </div>
 
-                <aside class="hero-side" aria-hidden="true">
+                <aside class="hero-side hero-stagger" aria-hidden="true">
                     <div class="boot-panel">
                         <div class="boot-panel-bar"><span class="boot-panel-dot"></span>sys/boot</div>
                         <div class="boot-lines">
@@ -178,14 +182,14 @@
                         <div class="milestone">
                             <span class="milestone-marker" aria-hidden="true"></span>
                             <div class="milestone-content">
-                                <p class="milestone-title">B.Eng Computer Science</p>
+                                <h3 class="milestone-title">B.Eng Computer Science</h3>
                                 <p class="milestone-detail">Brawijaya University · 2017 → 2021</p>
                             </div>
                         </div>
                         <div class="milestone">
                             <span class="milestone-marker" aria-hidden="true"></span>
                             <div class="milestone-content">
-                                <p class="milestone-title">1st Place, Software Development Competition</p>
+                                <h3 class="milestone-title">1st Place, Software Development Competition</h3>
                                 <p class="milestone-detail">UNITY 2019 · Yogyakarta State University</p>
                             </div>
                         </div>
@@ -197,7 +201,7 @@
                         <div class="publication-card">
                             <svg class="icon icon-pub" aria-hidden="true"><use href="#i-file"/></svg>
                             <div>
-                                <p class="pub-title">An Ethereum Blockchain Based Electronic Health Record System for Inter-Hospital Secure Data Sharing</p>
+                                <h3 class="pub-title">An Ethereum Blockchain Based Electronic Health Record System for Inter-Hospital Secure Data Sharing</h3>
                                 <p class="pub-venue">SIET '21 · ACM Digital Library · DOI 10.1145/3479645.3479699</p>
                                 <a href="https://dl.acm.org/doi/10.1145/3479645.3479699" target="_blank" rel="noopener">read the SIET '21 publication on ACM →</a>
                             </div>
@@ -226,7 +230,7 @@
                     <article class="beat beat-role">
                         <div class="role-block">
                             <div class="role-header">
-                                <p class="role-company">DOT Indonesia</p>
+                                <h3 class="role-company">DOT Indonesia</h3>
                                 <p class="role-title">Blockchain Developer</p>
                                 <span class="role-date">Jun 2021 → May 2023</span>
                             </div>
@@ -244,7 +248,7 @@
                     <article class="beat beat-role">
                         <div class="role-block">
                             <div class="role-header">
-                                <p class="role-company">YCP Solidiance</p>
+                                <h3 class="role-company">YCP Solidiance</h3>
                                 <p class="role-title">Blockchain Expert</p>
                                 <span class="role-date">Feb 2022 → Jan 2023</span>
                             </div>
@@ -257,7 +261,7 @@
                             </div>
                             <div class="project-embed">
                                 <div class="embed-body">
-                                    <p class="embed-title">NFT Sakeworld &amp; Dragonflies</p>
+                                    <h3 class="embed-title">NFT Sakeworld &amp; Dragonflies</h3>
                                     <p class="embed-desc">High-profile NFT marketplaces for a Japanese basketball team and idol, with secure crypto + fiat payment integration on ERC721A.</p>
                                     <a class="embed-link" href="https://nft.sakeworld.jp/en" target="_blank" rel="noopener">visit the Sakeworld marketplace →</a>
                                 </div>
@@ -292,7 +296,7 @@
                     <article class="beat beat-role">
                         <div class="role-block">
                             <div class="role-header">
-                                <p class="role-company">Shinta VR</p>
+                                <h3 class="role-company">Shinta VR</h3>
                                 <p class="role-title">Blockchain Backend Developer</p>
                                 <span class="role-date">Apr 2022 → Apr 2024</span>
                             </div>
@@ -305,7 +309,7 @@
                             </div>
                             <div class="project-embed">
                                 <div class="embed-body">
-                                    <p class="embed-title">COSMIZE Metaverse</p>
+                                    <h3 class="embed-title">COSMIZE Metaverse</h3>
                                     <p class="embed-desc">First metaverse project on Astar blockchain with custom RPC, smart contracts, and cross-platform wallet integration.</p>
                                     <a class="embed-link" href="https://cosmize.io" target="_blank" rel="noopener">visit the COSMIZE metaverse →</a>
                                 </div>
@@ -322,7 +326,7 @@
                     <article class="beat beat-role">
                         <div class="role-block">
                             <div class="role-header">
-                                <p class="role-company">Bitzaro Pay Sdn. Bhd.</p>
+                                <h3 class="role-company">Bitzaro Pay Sdn. Bhd.</h3>
                                 <p class="role-title">Web3 Developer</p>
                                 <span class="role-date">Jun 2024 → Present</span>
                             </div>
@@ -339,7 +343,7 @@
                     <article class="beat beat-role">
                         <div class="role-block">
                             <div class="role-header">
-                                <p class="role-company">80&Co (Freelance)</p>
+                                <h3 class="role-company">80&Co (Freelance)</h3>
                                 <p class="role-title">Backend Developer · JS / TS</p>
                                 <span class="role-date">Nov 2023 → Jan 2025</span>
                             </div>
@@ -397,7 +401,7 @@
                     <article class="beat beat-role">
                         <div class="role-block highlight-role">
                             <div class="role-header">
-                                <p class="role-company">ACRES</p>
+                                <h3 class="role-company">ACRES</h3>
                                 <p class="role-title">Web3 Fullstack · AI Infrastructure Engineer</p>
                                 <span class="role-date">Jun 2024 → Present</span>
                             </div>
@@ -413,20 +417,20 @@
                             </div>
                             <div class="project-embed">
                                 <div class="embed-body">
-                                    <p class="embed-title">Chronologic AI Pipeline</p>
+                                    <h3 class="embed-title">Chronologic AI Pipeline</h3>
                                     <p class="embed-desc">Internal AI infrastructure pairing self-hosted Qwen + Gemma with Hermes-orchestrated agents, automating code reviews, documentation, and deployment workflows across the engineering team.</p>
                                     <a class="embed-link" href="https://www.chronologic.pro/" target="_blank" rel="noopener">visit the Chronologic pipeline site →</a>
                                 </div>
                             </div>
                             <div class="project-embed">
                                 <div class="embed-body">
-                                    <p class="embed-title">Internal LLM &amp; Agent Stack</p>
+                                    <h3 class="embed-title">Internal LLM &amp; Agent Stack</h3>
                                     <p class="embed-desc">Fine-tuned Qwen 3.6 + Gemma 4 with Unsloth/LoRA on internal data; served locally via llama.cpp, Ollama, LM Studio, and MLX on Apple Silicon. Hermes agents wired into engineering and trading workflows. Custom eval harness with DPO loops for continuous improvement.</p>
                                 </div>
                             </div>
                             <div class="project-embed">
                                 <div class="embed-body">
-                                    <p class="embed-title">Automated Perpetual Trading System</p>
+                                    <h3 class="embed-title">Automated Perpetual Trading System</h3>
                                     <p class="embed-desc">Cross-DEX trading bots with execution strategies, risk management, and automated airdrop farming.</p>
                                 </div>
                             </div>
@@ -492,11 +496,12 @@
         <p class="footer-meta">© <span id="footer-year">2026</span> · <a href="https://github.com/irfanmaulanaak/irfanmaulanaak.github.io" target="_blank" rel="noopener">view source →</a></p>
     </footer>
 
-    <script defer src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script defer src="js/animations.js?v=8"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+    <script defer src="js/animations.js?v=9"></script>
     <script defer src="js/github-activity.js?v=9"></script>
+    <script type="module" src="js/scene.js?v=1"></script>
 </body>
 
 </html>

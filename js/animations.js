@@ -1,7 +1,8 @@
 /**
  * Scroll-Story Animations - Terminal Editorial
- * Sticky context rails + beat reveals + chain-spine progress + one
- * scrub-driven diptych beat. Degrades gracefully if CDNs fail.
+ * Hero entrance timeline + sticky context rails + beat reveals +
+ * chain-spine progress + one scrub-driven diptych beat.
+ * Degrades gracefully if CDNs fail.
  */
 
 (function () {
@@ -11,6 +12,41 @@
     const hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
 
     if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+
+    // ==========================================
+    // Hero entrance - masked name rise + stagger
+    // ==========================================
+
+    function revealHeroInstantly() {
+        document.getElementById('boot')?.classList.add('hero-revealed');
+    }
+
+    function initHeroEntrance() {
+        const hero = document.getElementById('boot');
+        if (!hero) return;
+        const nameParts = hero.querySelectorAll('.name-part');
+        const staggerEls = hero.querySelectorAll('.hero-stagger');
+
+        if (prefersReducedMotion) {
+            revealHeroInstantly();
+            runPowCounters();
+            return;
+        }
+
+        gsap.set(nameParts, { yPercent: 110, opacity: 1 });
+        gsap.set(staggerEls, { y: 18, opacity: 0 });
+
+        gsap.timeline({
+            defaults: { ease: 'power3.out' },
+            onComplete: () => {
+                hero.classList.add('hero-revealed');
+                gsap.set([nameParts, staggerEls], { clearProps: 'all' });
+            }
+        })
+            .to(nameParts, { yPercent: 0, duration: 1.05, ease: 'power4.out', stagger: 0.14 }, 0.15)
+            .to(staggerEls, { y: 0, opacity: 1, duration: 0.7, stagger: 0.07 }, 0.5)
+            .call(runPowCounters, null, 0.75);
+    }
 
     // ==========================================
     // Beat Reveals
@@ -33,6 +69,26 @@
                 start: 'top 88%',
                 onEnter: () => beat.classList.add('is-visible'),
                 onEnterBack: () => beat.classList.add('is-visible')
+            });
+        });
+    }
+
+    // ==========================================
+    // Chapter rail headers - number/label/title cascade
+    // ==========================================
+
+    function initRailReveals() {
+        document.querySelectorAll('.chapter-rail').forEach((rail) => {
+            const items = rail.querySelectorAll('.rail-number, .rail-label, .rail-title, .rail-tagline');
+            if (!items.length) return;
+            gsap.from(items, {
+                scrollTrigger: { trigger: rail, start: 'top 82%' },
+                opacity: 0,
+                y: 26,
+                duration: 0.8,
+                ease: 'power3.out',
+                stagger: 0.09,
+                clearProps: 'all'
             });
         });
     }
@@ -95,7 +151,7 @@
     }
 
     // ==========================================
-    // Scroll Progress Bar
+    // Scroll Progress Bar - compositor-only scaleX
     // ==========================================
 
     function initScrollProgress() {
@@ -104,8 +160,8 @@
         const update = () => {
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            progressBar.style.width = progress + '%';
+            const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+            progressBar.style.transform = 'scaleX(' + progress.toFixed(5) + ')';
         };
         window.addEventListener('scroll', update, { passive: true });
         update();
@@ -157,28 +213,25 @@
     }
 
     // ==========================================
-    // Lenis Smooth Scroll
+    // Lenis Smooth Scroll (1.x API)
     // ==========================================
 
     let lenis;
     function initSmoothScroll() {
-        if (typeof Lenis === 'undefined') return;
+        if (typeof Lenis === 'undefined' || prefersReducedMotion) return;
         lenis = new Lenis({
             duration: 1.15,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: !prefersReducedMotion,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-            infinite: false
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            touchMultiplier: 2
         });
 
         if (hasGsap) {
             lenis.on('scroll', () => ScrollTrigger.update());
             gsap.ticker.add((time) => lenis.raf(time * 1000));
-            gsap.ticker.lagSmoothing(0, 0);
+            gsap.ticker.lagSmoothing(0);
         } else {
             const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
             requestAnimationFrame(raf);
@@ -196,7 +249,7 @@
     }
 
     // ==========================================
-    // Milestone / Embed / Publication reveals
+    // Milestone / Embed / Publication / Metric reveals
     // ==========================================
 
     function initMilestoneAnimations() {
@@ -232,6 +285,44 @@
             y: 24,
             duration: 0.7,
             ease: 'power3.out'
+        });
+    }
+
+    function initMetricReveals() {
+        document.querySelectorAll('.role-metrics').forEach((row) => {
+            const metrics = row.querySelectorAll('.metric');
+            if (!metrics.length) return;
+            gsap.from(metrics, {
+                scrollTrigger: { trigger: row, start: 'top 92%' },
+                opacity: 0,
+                y: 14,
+                duration: 0.5,
+                ease: 'power2.out',
+                stagger: 0.08,
+                clearProps: 'all'
+            });
+        });
+    }
+
+    // ==========================================
+    // Connect chapter - closing cascade
+    // ==========================================
+
+    function initConnectReveal() {
+        const connect = document.getElementById('connect');
+        if (!connect) return;
+        const items = connect.querySelectorAll(
+            '.connect-eyebrow, .connect-title, .status-line, .connect-narrative p, .contact-item, .contact-social, .btn-signed'
+        );
+        if (!items.length) return;
+        gsap.from(items, {
+            scrollTrigger: { trigger: connect, start: 'top 72%' },
+            opacity: 0,
+            y: 22,
+            duration: 0.75,
+            ease: 'power3.out',
+            stagger: 0.07,
+            clearProps: 'all'
         });
     }
 
@@ -287,14 +378,12 @@
     }
 
     // ==========================================
-    // Hero PoW counters
+    // Hero PoW counters - fired by the entrance timeline
+    // (or immediately when GSAP is unavailable)
     // ==========================================
 
-    function initPowCounters() {
-        const cards = document.querySelectorAll('.hero-pow-value');
-        if (!cards.length) return;
-
-        const runCounter = (card) => {
+    function runPowCounters() {
+        document.querySelectorAll('.hero-pow-value').forEach((card) => {
             if (card.dataset.counted === '1') return;
             card.dataset.counted = '1';
             const target = parseInt(card.dataset.target, 10);
@@ -314,21 +403,7 @@
                 if (progress < 1) requestAnimationFrame(tick);
                 else valueEl.textContent = target;
             })(performance.now());
-        };
-
-        if ('IntersectionObserver' in window) {
-            const io = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        runCounter(entry.target);
-                        io.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.25 });
-            cards.forEach((c) => io.observe(c));
-        } else {
-            cards.forEach(runCounter);
-        }
+        });
     }
 
     // ==========================================
@@ -350,10 +425,11 @@
         initNavbarEffect();
         initScrollProgress();
         initChapterNav();
-        initPowCounters();
 
         if (!hasGsap) {
             // CDN failed: show everything, skip scroll choreography.
+            revealHeroInstantly();
+            runPowCounters();
             revealAllBeats();
             document.querySelectorAll('.rail-line span').forEach((el) => {
                 el.style.transform = 'scaleY(1)';
@@ -362,12 +438,16 @@
             return;
         }
 
+        initHeroEntrance();
         initChapterObserver();
         initBeatReveals();
+        initRailReveals();
         initRailLines();
         initMilestoneAnimations();
         initProjectEmbeds();
         initPublicationCard();
+        initMetricReveals();
+        initConnectReveal();
         initDiptych();
 
         // Refresh after fonts/images settle so ScrollTrigger positions are accurate.
