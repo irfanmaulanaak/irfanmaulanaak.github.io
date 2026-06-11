@@ -1,5 +1,5 @@
 /* ==========================================
-   Design Tokens — Terminal Editorial
+   Design Tokens - Terminal Editorial
    Editorial serif backbone + terminal/mono system details.
    Fonts loaded via <link> in index.html for non-blocking parallel fetch.
    ========================================== */
@@ -992,7 +992,7 @@ strong {
     line-height: 1.6;
 }
 
-.project-embed a.embed-link {
+a.embed-link {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     display: inline-flex;
@@ -1004,7 +1004,7 @@ strong {
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
 }
-.project-embed a.embed-link:hover {
+a.embed-link:hover {
     color: var(--text-primary);
     text-decoration-color: currentColor;
 }
