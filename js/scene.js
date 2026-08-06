@@ -10,15 +10,30 @@
  * or missing WebGL - the CSS grid backdrop remains as the fallback.
  */
 
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js';
-
-(function () {
+(async function () {
     'use strict';
 
     const canvas = document.getElementById('scene');
     if (!canvas) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (navigator.connection && navigator.connection.saveData) return;
+
+    await new Promise((resolve) => {
+        const schedule = () => {
+            if ('requestIdleCallback' in window) requestIdleCallback(resolve, { timeout: 600 });
+            else setTimeout(resolve, 200);
+        };
+
+        if (document.readyState === 'complete') schedule();
+        else window.addEventListener('load', schedule, { once: true });
+    });
+
+    let THREE;
+    try {
+        THREE = await import('https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js');
+    } catch (error) {
+        return;
+    }
 
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const finePointer = window.matchMedia('(pointer: fine)').matches;
@@ -324,16 +339,5 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.m
     });
     canvas.addEventListener('webglcontextrestored', () => start());
 
-    // Lazy start: never compete with first paint
-    if (document.readyState === 'complete') {
-        start();
-    } else {
-        window.addEventListener('load', () => {
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(start, { timeout: 600 });
-            } else {
-                setTimeout(start, 200);
-            }
-        });
-    }
+    if (!document.hidden) start();
 })();

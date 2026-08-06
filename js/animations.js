@@ -197,17 +197,51 @@
         const navToggle = document.getElementById('nav-toggle');
         const navLinks = document.getElementById('nav-links');
         if (navToggle && navLinks) {
+            const links = Array.from(navLinks.querySelectorAll('a'));
+
+            const setMenuOpen = (isOpen, restoreFocus = false) => {
+                navToggle.classList.toggle('active', isOpen);
+                navLinks.classList.toggle('active', isOpen);
+                navToggle.setAttribute('aria-expanded', String(isOpen));
+                navToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+                document.body.classList.toggle('nav-open', isOpen);
+
+                if (isOpen) links[0]?.focus();
+                else if (restoreFocus) navToggle.focus();
+            };
+
             navToggle.addEventListener('click', () => {
-                const isActive = navToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                navToggle.setAttribute('aria-expanded', String(isActive));
+                setMenuOpen(!navLinks.classList.contains('active'), true);
             });
-            navLinks.querySelectorAll('a').forEach((link) => {
+
+            links.forEach((link) => {
                 link.addEventListener('click', () => {
-                    navToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    navToggle.setAttribute('aria-expanded', 'false');
+                    setMenuOpen(false, true);
                 });
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (!navLinks.classList.contains('active')) return;
+
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    setMenuOpen(false, true);
+                    return;
+                }
+
+                if (event.key !== 'Tab' || !links.length) return;
+                const lastLink = links[links.length - 1];
+                if (event.shiftKey && document.activeElement === navToggle) {
+                    event.preventDefault();
+                    lastLink.focus();
+                } else if (!event.shiftKey && document.activeElement === lastLink) {
+                    event.preventDefault();
+                    navToggle.focus();
+                }
+            });
+
+            window.matchMedia('(max-width: 768px)').addEventListener('change', (event) => {
+                if (!event.matches) setMenuOpen(false);
             });
         }
     }

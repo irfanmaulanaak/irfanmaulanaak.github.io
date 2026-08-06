@@ -46,7 +46,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 
-    <link rel="stylesheet" href="css/styles.css?v=10">
+    <link rel="stylesheet" href="css/styles.css?v=11">
 
     <script type="application/ld+json">
     {
@@ -140,7 +140,7 @@
         <div class="nav-brand">
             <a href="#boot">ima</a>
         </div>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">
             <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="nav-links">
@@ -164,7 +164,12 @@
                         <span class="name-line"><span class="name-part last">Akbar.</span></span>
                     </h1>
                     <p class="hero-title hero-stagger">web3 + ai fullstack developer</p>
-                    <p class="hero-tagline hero-stagger">Building systems that replace trust with math, and routine with intelligence.</p>
+                    <p class="hero-tagline hero-stagger">I build production Web3 infrastructure and self-hosted AI systems—from smart contracts and real-time indexers to trading automation and vision-model pipelines.</p>
+
+                    <p class="hero-availability hero-stagger">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Open to new opportunities · South Jakarta, Indonesia
+                    </p>
 
                     <div class="hero-pow">
                         <div class="hero-pow-card hero-stagger">
@@ -186,7 +191,8 @@
                     </div>
 
                     <div class="hero-cta hero-stagger">
-                        <a href="#foundation" class="btn btn-accent"><span>begin sequence</span> <span class="arrow" aria-hidden="true">→</span></a>
+                        <a href="#convergence" class="btn btn-accent"><span>view selected work</span> <span class="arrow" aria-hidden="true">→</span></a>
+                        <a href="#connect" class="btn"><span>contact me</span> <span class="arrow" aria-hidden="true">→</span></a>
                     </div>
 
                     <div class="hero-social hero-stagger">
@@ -561,12 +567,17 @@
         <p class="footer-meta">© <span id="footer-year">2026</span> · <a href="https://github.com/irfanmaulanaak/irfanmaulanaak.github.io" target="_blank" rel="noopener">view source →</a></p>
     </footer>
 
+    <script>
+        window.setTimeout(() => {
+            document.getElementById('boot')?.classList.add('hero-revealed');
+        }, 1800);
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-    <script defer src="js/animations.js?v=9"></script>
+    <script defer src="js/animations.js?v=10"></script>
     <script defer src="js/github-activity.js?v=9"></script>
-    <script type="module" src="js/scene.js?v=1"></script>
+    <script type="module" src="js/scene.js?v=2"></script>
 </body>
 
 </html>
