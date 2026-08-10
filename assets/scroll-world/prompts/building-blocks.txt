@@ -1,0 +1,9 @@
+Use the provided image only as the visual style reference. Preserve its architectural language, materials, lighting, lens, atmosphere, palette, and premium restraint, but create a clearly different environment for this chapter rather than copying its corridor or central device.
+
+Subject: a disciplined smart-contract foundry representing the first production Web3 systems. A central route passes between interlocking protocol blocks, an elegant circular governance chamber, and a gallery of unique digital objects held on minimal physical plinths. Two parallel payment pathways—one warm and material, one cool and luminous—merge cleanly into the same marketplace infrastructure, suggesting fiat and crypto without coins or literal interface elements. The construction feels functional and shipped, not speculative: precise joints, tested modules, secure boundaries, and a clear passage continuing forward.
+
+Full-bleed editorial product-film composition, low wide-angle camera, restrained depth of field, subtle atmospheric haze, delicate volumetric light, realistic materials, sharp architectural detail, soft cinematic grain, premium VFX quality. Keep the central forward route visually unobstructed so a camera can later glide through it. Preserve generous dark negative space in the upper-left and left third for accessible HTML hero copy. Keep all important forms within the central 70 percent of the frame.
+
+Use only this cohesive palette: near-black graphite #0B0A09, charcoal #171613, warm bone #F1E9DC, electric signal green #9EFF6B, muted amber #D9A441, and restrained smoke blue #7189A5. Warm bone is the primary light, signal green and amber are sparse functional accents.
+
+Absolutely no people, faces, silhouettes, text, letters, numbers, logos, brand marks, code, readable screens, user-interface panels, crypto coins, neon cyberpunk city, fantasy objects, or copied visual elements. Original artwork only. Wide 3:2 landscape composition.

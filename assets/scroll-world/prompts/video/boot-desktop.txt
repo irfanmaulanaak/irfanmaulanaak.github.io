@@ -1,0 +1,5 @@
+Single continuous cinematic camera move, no cuts. Start exactly from the supplied architectural systems-world frame and continue a slow, steady forward glide through the dark graphite hall toward the luminous central kernel. Create subtle parallax in the foreground rails and neural filaments while sparse warm-bone, signal-green, and amber lights breathe softly.
+
+Preserve the source frame's architecture, materials, lighting, restrained color palette, and premium editorial VFX character. Do not rotate, orbit, pull back, zoom out, reveal people, add text, logos, symbols, screens, or new objects. Keep the motion smooth and graceful with no sudden acceleration, camera shake, or scene cut.
+
+In the final second, settle into the same slow, steady forward glide through the central opening so the next environment can continue directly from the final frame. Minimal ambient sound only; the audio will be removed.
