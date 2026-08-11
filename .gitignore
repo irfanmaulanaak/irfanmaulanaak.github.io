@@ -7,8 +7,8 @@
 # OS / editor cruft
 .DS_Store
 Thumbs.db
+.env
 *.swp
 *.swo
 .vscode/
 .idea/
-.env
