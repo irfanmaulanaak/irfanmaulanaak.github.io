@@ -68,7 +68,7 @@
                 "isPartOf": { "@id": "https://irfanmaulanaak.pages.dev/#website" },
                 "mainEntity": { "@id": "https://irfanmaulanaak.pages.dev/#person" },
                 "image": "https://irfanmaulanaak.pages.dev/assets/img/og-card.jpg",
-                "dateModified": "2026-06-11",
+                "dateModified": "2026-09-02",
                 "inLanguage": "en"
             },
             {
@@ -97,7 +97,8 @@
                     "Fullstack Development", "Web3", "Blockchain", "Smart Contracts", "Solidity",
                     "DeFi", "NFT", "Ethereum", "JavaScript", "TypeScript", "Node.js", "Python", "Rust",
                     "GraphQL", "LLM Infrastructure", "LLM Fine-tuning", "AI Agents", "Trading Bots",
-                    "Computer Vision", "Next.js", "React"
+                    "Computer Vision", "Next.js", "React",
+                    "AI Evaluation", "Benchmark Design", "Agent Evals", "Kubernetes", "Embedded Systems", "LLVM"
                 ]
             }
         ]
@@ -164,7 +165,7 @@
                         <span class="name-line"><span class="name-part last">Akbar.</span></span>
                     </h1>
                     <p class="hero-title hero-stagger">web3 + ai fullstack developer</p>
-                    <p class="hero-tagline hero-stagger">I build production Web3 infrastructure and self-hosted AI systems—from smart contracts and real-time indexers to trading automation and vision-model pipelines.</p>
+                    <p class="hero-tagline hero-stagger">I build production Web3 infrastructure and self-hosted AI systems—from smart contracts and real-time indexers to trading automation, vision-model pipelines, and benchmarks that measure where agents break.</p>
 
                     <p class="hero-availability hero-stagger">
                         <span class="status-dot" aria-hidden="true"></span>
@@ -211,7 +212,8 @@
                             <p class="boot-line" style="--i:2"><span class="ok">[ok]</span> models mounted · qwen 3.6 · gemma 4</p>
                             <p class="boot-line" style="--i:3"><span class="ok">[ok]</span> hermes agents online · 24/7</p>
                             <p class="boot-line" style="--i:4"><span class="ok">[ok]</span> trading bots armed · 6 dex venues</p>
-                            <p class="boot-line rdy" style="--i:5"><span class="lbl">[rdy]</span> awaiting input · scroll to begin<span class="caret"></span></p>
+                            <p class="boot-line" style="--i:5"><span class="ok">[ok]</span> eval harness sealed · 3 benchmark subjects</p>
+                            <p class="boot-line rdy" style="--i:6"><span class="lbl">[rdy]</span> awaiting input · scroll to begin<span class="caret"></span></p>
                         </div>
                     </div>
                 </aside>
@@ -470,12 +472,14 @@
                             <p><em>Up in the intelligence layer:</em> I fine-tuned <strong>Qwen 3.6</strong> and <strong>Gemma 4</strong> with Unsloth + LoRA on our internal codebases and trading logs, then ran inference locally across <strong>llama.cpp</strong> (with llama-server), <strong>Ollama</strong>, <strong>LM Studio</strong>, and <strong>MLX</strong> on Apple Silicon, depending on the deployment target. Everything performance-critical or sensitive runs on weights we own, bypassing API rate limits and keeping proprietary signals out of third-party providers.</p>
                             <p>On top of that sits the agent layer: <strong>Hermes</strong> agents handle orchestration, function calling, and structured outputs that drive code review and trade execution. I built the eval harness too: curated datasets, agent benchmarks, DPO loops to keep the models honest. <em>Without evals, "AI infrastructure" is just vibes; with them, you actually know what your stack is doing.</em></p>
                             <p>The newest altitude is product. <strong>Flur</strong> turns 2D floorplans into photorealistic, brand-furnished interiors and 360° panoramas for hotels and enterprise retail. I build its vision pipeline: synthetic floorplan dataset generation, Qwen and Gemma LoRA fine-tunes trained on GH200s, and golden-fixture evals that gate what ships. <em>Accepted into the NVIDIA Inception program.</em></p>
+                            <p>Evals grew into their own body of work. <strong>data-horizon</strong> is our benchmark programme: agent tasks built to find where frontier models actually break, packaged as datasets any lab can run with one command. I design and build the benchmarks &mdash; three subjects so far, spanning embedded, infrastructure, and compiler engineering. <em>Every one is graded by a program, never by another model, and every environment is sealed and reproducible, so a result recorded today still means the same thing a year from now.</em></p>
                             <p>This is the convergence. Blockchain proved code can enforce rules. AI proves code can make judgment calls, when you train and serve the models yourself instead of renting them. <em>I'm building where those two forces meet.</em></p>
                             <div class="role-metrics">
                                 <div class="metric"><span class="metric-value">6</span><span class="metric-label">dex integrations</span></div>
                                 <div class="metric"><span class="metric-value">24/7</span><span class="metric-label">autonomous bots</span></div>
                                 <div class="metric"><span class="metric-value">2</span><span class="metric-label">models fine-tuned · Qwen / Gemma</span></div>
                                 <div class="metric"><span class="metric-value">4</span><span class="metric-label">inference runtimes · self-hosted</span></div>
+                                <div class="metric"><span class="metric-value">3</span><span class="metric-label">benchmark subjects authored</span></div>
                             </div>
                             <div class="project-embed">
                                 <div class="embed-body">
@@ -499,6 +503,12 @@
                             </div>
                             <div class="project-embed">
                                 <div class="embed-body">
+                                    <h3 class="embed-title">data-horizon &middot; Long-Horizon Agent Benchmarks</h3>
+                                    <p class="embed-desc">A benchmark programme measuring where coding agents fail on work that takes hours, not minutes. I design and build the benchmarks and their training datasets &mdash; three subjects across embedded, infrastructure, and compiler engineering. Each ships as a containerised dataset with a deterministic grader, a sealed and fully reproducible environment, and a standardized run harness that keeps model comparisons honest across providers.</p>
+                                </div>
+                            </div>
+                            <div class="project-embed">
+                                <div class="embed-body">
                                     <h3 class="embed-title">Automated Perpetual Trading System</h3>
                                     <p class="embed-desc">Cross-DEX trading bots with execution strategies, risk management, and automated airdrop farming.</p>
                                     <a class="embed-link" href="https://joinacres.com/" target="_blank" rel="noopener">visit the ACRES platform →</a>
@@ -513,6 +523,9 @@
                                 <span class="tag">Ollama · LM Studio · MLX</span>
                                 <span class="tag">Hermes Agents</span>
                                 <span class="tag">DPO · Evals</span>
+                                <span class="tag">Benchmark Design</span>
+                                <span class="tag">Eval Datasets</span>
+                                <span class="tag">Reproducible Envs</span>
                             </div>
                         </div>
                     </article>
