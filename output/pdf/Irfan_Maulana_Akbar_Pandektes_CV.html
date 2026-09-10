@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Irfan Maulana Akbar — CV</title>
+<style>
+  @page { size: Letter; margin: 0.52in 0.68in 0.45in 0.68in; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Liberation Serif", "Times New Roman", Times, serif;
+    font-size: 9.35pt;
+    line-height: 1.145;
+    color: #000;
+    margin: 0;
+  }
+
+  /* ---------- header ---------- */
+  .name {
+    text-align: center;
+    font-size: 17pt;
+    font-weight: bold;
+    letter-spacing: 0.5pt;
+    margin: 0 0 1pt 0;
+  }
+  .role {
+    text-align: center;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 0 0 3pt 0;
+  }
+  .contact {
+    text-align: center;
+    font-size: 9.2pt;
+    margin: 0;
+    line-height: 1.32;
+  }
+
+  /* ---------- sections ---------- */
+  h2 {
+    font-size: 10.6pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 7pt 0 0 0;
+    padding: 0 0 1pt 0;
+    border-bottom: 1.1pt solid #000;
+    letter-spacing: 0.2pt;
+  }
+  h2 + p, h2 + .job, h2 + ul { margin-top: 3.5pt; }
+
+  p.summary {
+    text-align: justify;
+    margin: 3.5pt 0 0 0;
+  }
+
+  /* ---------- jobs ---------- */
+  .job { margin-top: 5.5pt; }
+  .job:first-of-type { margin-top: 4pt; }
+
+  .line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-weight: bold;
+    gap: 12pt;
+  }
+  .line .left  { text-align: left; }
+  .line .right { text-align: right; white-space: nowrap; }
+  .company { text-transform: uppercase; }
+  .degree  { font-style: italic; }
+
+  /* ---------- bullets ---------- */
+  ul {
+    margin: 1.5pt 0 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    position: relative;
+    padding-left: 12pt;
+    text-align: justify;
+    margin-top: 0.9pt;
+  }
+  li::before {
+    content: "\2022";
+    position: absolute;
+    left: 2pt;
+    top: 0;
+  }
+  li.plain { text-align: left; }
+  .pub-line { display: block; }
+
+  a { color: #000; text-decoration: none; }
+
+  /* keep a role's heading with at least its first lines */
+  li { break-inside: avoid; }
+  .line { break-after: avoid; }
+</style>
+</head>
+<body>
+
+  <div class="name">IRFAN MAULANA AKBAR</div>
+  <div class="role">Backend &amp; AI Product Engineer</div>
+  <p class="contact">South Jakarta &bull; irfanmaulanaaaaa.im@gmail.com &bull; + 62 81334090787</p>
+  <p class="contact">10 Jan 2000 &bull; Github: irfanmaulanaak &bull; Twitter: irfanmaulanaak</p>
+
+  <h2>Professional Summary</h2>
+  <p class="summary">Software engineer with five years of experience building TypeScript backends, data integrations, and AI products, with hands-on experience in NestJS, PostgreSQL, Prisma, GraphQL, and OpenAI. Built production APIs and real-time transaction indexers with recovery for missed events and chain reorganizations. Currently building Flur, an AI interior visualization platform, and designing long-horizon agent benchmarks for data-horizon. Experienced in working with stakeholders to shape technical solutions, integrating AI into engineering workflows, and building reliable systems for real users.</p>
+
+  <h2>Professional Experience</h2>
+
+  <div class="job">
+    <div class="line"><span class="left company">Horizon Analytics Labs</span><span class="right">Singapore</span></div>
+    <div class="line"><span class="left">Web3 Fullstack &amp; AI Infrastructure Engineer</span><span class="right">JUNE 2024 &ndash; PRESENT</span></div>
+    <ul>
+      <li>Building Flur, an AI interior visualization platform for hotels and enterprise retail that turns 2D floorplans into photorealistic, brand-furnished interiors and 360&deg; panoramas; accepted into the NVIDIA Inception Program.</li>
+      <li>Engineered Flur's floorplan understanding pipeline: synthetic dataset generation, a YOLO-based perception service, and Qwen/Gemma vision LoRA fine-tunes trained on GH200 GPUs, gated by golden-fixture evaluations before production rollout.</li>
+      <li>Design and build long-horizon agent benchmarks and training datasets for <em>data-horizon</em>, the team's model-evaluation programme, covering embedded, infrastructure, and compiler engineering using Harbor, Robot Framework, Daytona sandboxes, and Docker.</li>
+      <li>Ship each benchmark as a containerized dataset with deterministic graders, sealed and fully reproducible environments, and a standardized run harness that keeps model comparisons honest across providers.</li>
+      <li>Built an evaluation harness with curated datasets, agent benchmarks, and DPO loops to keep model behavior measurable and reliable.</li>
+      <li>Orchestrate Hermes agents with function calling and structured outputs to automate code review, documentation, and trade execution workflows.</li>
+      <li>Fine-tuned Qwen 3.6 and Gemma 4 with Unsloth + LoRA on internal codebases and trading logs to specialize models for engineering and trading tasks.</li>
+      <li>Self-host LLM inference across llama.cpp (llama-server), Ollama, LM Studio, and MLX on Apple Silicon, bypassing API rate limits and keeping proprietary signals in-house.</li>
+      <li>Built and operate perpetual-futures trading bots executing across six DEX venues (Lighter, Apex, Extended, Nado, and Variational among them), covering execution strategies, risk management, automated airdrop farming, and recovery from venue outages.</li>
+      <li>Developed user account registration and profile setup using Web3 crypto wallet connections, applying security best practices to protect user data and linked wallets.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="line"><span class="left company">Bitzaro Pay Sdn. Bhd.</span><span class="right">Selangor, Malaysia</span></div>
+    <div class="line"><span class="left">Web3 Developer</span><span class="right">JUNE 2024 &ndash; PRESENT</span></div>
+    <ul>
+      <li>Built a real-time transaction indexer for the Wallet-as-a-Service (WaaS) platform, listening to chain events and exposing clean APIs, with indexed state kept consistent across missed events and reorganizations.</li>
+      <li>Developed smart contract deployment scripts with automated testing to keep releases reproducible.</li>
+      <li>Implemented security hardening across the wallet infrastructure layer.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="line"><span class="left company">80&amp;Co (Freelance)</span><span class="right">Kyoto, Japan</span></div>
+    <div class="line"><span class="left">Backend Developer (Javascript/Typescript)</span><span class="right">NOV 2023 &ndash; JAN 2025</span></div>
+    <ul>
+      <li>Executing websocket integration to synchronize on-chain and off-chain data.</li>
+      <li>Developed and implemented a robust API to accurately verify NFT ownership, enhancing system reliability and user trust.</li>
+      <li>Setting up a CRON service to fetch events that have been missed.</li>
+      <li>Offered insights and mentorship to guide the team in the execution of web3 projects.</li>
+      <li>Researching dynamic on-chain metadata NFTs.</li>
+      <li>Helped the team solve blockchain issues.</li>
+      <li>Set up a blockchain event indexer using GraphQL.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="line"><span class="left company">Shinta VR</span><span class="right">South Jakarta, Jakarta, Indonesia</span></div>
+    <div class="line"><span class="left">Blockchain Backend Developer</span><span class="right">APRIL 2022 &ndash; APRIL 2024</span></div>
+    <ul>
+      <li>Collaborating closely with the Chief Technology Officer (CTO) to strategize the development of the metaverse project.</li>
+      <li>Provided expertise in solutions development and smart contract creation for the metaverse initiative.</li>
+      <li>Offered valuable insights and mentorship to guide the team in the execution of their inaugural web3 project.</li>
+      <li>Pioneered the development of a first metaverse project within the Astar blockchain network.</li>
+      <li>Deploying a custom RPC (Remote Procedure Call) to ensure optimal performance and reliability.</li>
+      <li>Setting up a custom Chainsafe-Gaming API for creating secure login wallets across desktop, Android, and iOS platforms.</li>
+      <li>Developed smart contracts for the metaverse platform.</li>
+      <li>Creating an indexer for seamless communication with the backend system.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="line"><span class="left company">YCP Solidiance</span><span class="right">Jakarta, Indonesia</span></div>
+    <div class="line"><span class="left">Blockchain Expert</span><span class="right">FEBRUARY 2022 &ndash; JANUARY 2023</span></div>
+    <ul>
+      <li>Leading blockchain expertise for a high-profile NFT Marketplace project serving a prominent Japanese basketball team and a renowned Japanese idol.</li>
+      <li>Implemented secure credit card payment integration for pack purchases and NFT transactions.</li>
+      <li>Orchestrated wallet payment for Intellectual Property Holders and Project Managers.</li>
+      <li>Executed seamless integration for a market maker.</li>
+      <li>Enabled Web3 integration for player moments.</li>
+      <li>Implementing and deploying ERC721A for cost-effective and efficient gas fee transactions.</li>
+      <li>Working closely with all project stakeholders, including the Client, Project Owner, and third-party vendors.</li>
+      <li>Providing technical solutions and innovative ideas to align project goals with successful outcomes.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="line"><span class="left company">Dot Indonesia</span><span class="right">Malang, Indonesia</span></div>
+    <div class="line"><span class="left">Blockchain Developer</span><span class="right">JUNE 2021 &ndash; MAY 2023</span></div>
+    <ul>
+      <li>Designed and developed a DAO (Decentralized Autonomous Organization) solution to facilitate crypto investment for individuals lacking experience. The project involved creating parties where participants could pool funds, with party leaders responsible for managing and generating substantial profits.</li>
+      <li>Contributed to the development of an innovative NFT marketplace offering multi-chain transactions, distinguishing it from competitors in the market.</li>
+      <li>Implemented the 0x swap protocol to enhance the ease of investing, streamlining the investment process for users.</li>
+      <li>Facilitated stakeholder comprehension of blockchain technology by providing educational guidance and explanations.</li>
+      <li>Established comprehensive guidelines for smart contract logic, defining permissible actions and limitations to ensure efficiency of the development.</li>
+    </ul>
+  </div>
+
+  <h2>Education</h2>
+  <div class="job">
+    <div class="line"><span class="left company">Brawijaya University</span><span class="right">Malang, Indonesia</span></div>
+    <div class="line"><span class="left degree">Bachelor of Engineering, Major in Computer Science.</span><span class="right">2017&ndash;2021</span></div>
+  </div>
+
+  <h2>Award</h2>
+  <ul>
+    <li class="plain">1st place on Software Development Competition UNITY2019 at Yogyakarta State University</li>
+  </ul>
+
+  <h2>Publications</h2>
+  <ul>
+    <li class="plain">
+      <span class="pub-line">An Ethereum Blockchain Based Electronic Health Record System for Inter-Hospital Secure Data Sharing</span>
+      <span class="pub-line">SIET '21: Proceedings of the 6th International Conference on Sustainable Information Engineering and Technology</span>
+      <span class="pub-line">Pages 226 - 230</span>
+      <span class="pub-line"><a href="https://doi.org/10.1145/3479645.3479699">https://doi.org/10.1145/3479645.3479699</a></span>
+    </li>
+  </ul>
+
+  <h2>Technical Skills</h2>
+  <ul>
+    <li><b>AI/LLM Infrastructure:</b> OpenAI integration; fine-tuning Qwen/Gemma with Unsloth + LoRA; local inference via llama.cpp, Ollama, LM Studio, MLX; Hermes agents (function calling, structured outputs); evaluation harnesses and DPO; vision LLM fine-tuning and synthetic dataset generation for floorplan understanding.</li>
+    <li><b>Evaluation &amp; Benchmarks:</b> benchmark and dataset design; deterministic graders with granular partial credit; sealed, reproducible container environments; multi-model comparison runs; Harbor, Robot Framework, Daytona sandboxes.</li>
+    <li><b>Programming Languages:</b> JavaScript, TypeScript, Solidity, Kotlin, Rust, Python, Go</li>
+    <li><b>Frameworks/Tools:</b> NestJS, Prisma ORM, Hardhat, Truffle, OpenZeppelin, Ethers.js, Web3.js, Remix IDE, Subsquid, Substrate, TypeORM, GraphQL, Next.js, React Three Fiber, Git</li>
+    <li><b>Databases:</b> PostgreSQL, MariaDB, MySQL, MongoDB, Redis</li>
+    <li><b>Other:</b> NodeJS, Jenkins, Docker, Docker Compose, Kubernetes (k3s), WebSocket services, CRON pipelines</li>
+  </ul>
+
+  <h2>Knowledge</h2>
+  <ul>
+    <li>Deep understanding of blockchain architectures and decentralized application development</li>
+    <li>Expertise in cybersecurity best practices and threat mitigation</li>
+    <li>Proficiency in network routing and optimization techniques</li>
+    <li>Comprehensive knowledge of web3 implementation strategies</li>
+    <li>Hands-on experience self-hosting and fine-tuning open-weight LLMs (SFT, LoRA, DPO) and building agentic workflows</li>
+    <li>Practical knowledge of model evaluation: curated datasets, agent benchmarks, and continuous evaluation loops</li>
+    <li>Benchmark and dataset design for long-horizon agent work: mechanical grading, held-out splits for contamination control, reproducible sealed environments</li>
+  </ul>
+
+  <h2>Language Proficiency</h2>
+  <ul>
+    <li class="plain">English: Professional Proficiency</li>
+    <li class="plain">Indonesian: Native</li>
+  </ul>
+
+</body>
+</html>
