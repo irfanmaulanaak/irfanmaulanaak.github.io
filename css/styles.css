@@ -83,11 +83,13 @@ h3 { font-size: 32px; }
 .project-detail > p:not(.eyebrow):not(.detail-label) { font-size: 15px; line-height: 1.7; }
 .project-note { color: var(--secondary); font-size: 14px; margin-top: 16px; }
 .more-projects { border-top: 1px solid var(--border); padding-top: 42px; }
-.project-archive { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 42px; }
-.archive-project { border-top: 1px solid var(--border); padding-block: 24px; }
-.archive-project h3 { font-size: 22px; margin-bottom: 10px; }
-.archive-project p { font-size: 16px; }
-.archive-project .text-link { margin-top: 12px; }
+.project-archive { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }
+.project-archive.text-only { margin-top: 16px; }
+.archive-project { display: flex; flex-direction: column; border-top: 1px solid var(--border); padding-block: 24px; }
+.archive-project .project-links { margin-top: auto; padding-top: 8px; }
+.archive-project h3 { font-size: 21px; margin-bottom: 10px; }
+.archive-project p { font-size: 16px; margin-bottom: 8px; }
+.archive-project .text-link { margin-top: 0; }
 .job { display: grid; grid-template-columns: 230px 1fr; gap: 42px; border-top: 1px solid var(--border); padding: 24px 0; }
 .job h3 { font-size: 22px; }
 .job-date { color: var(--secondary); font: 14px/1.7 var(--mono); padding-top: 3px; }
@@ -113,6 +115,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
  .project { grid-template-columns: 1fr 270px; gap: 24px; }
  .project-number { grid-column: 1 / -1; }
  .about-grid { gap: 45px; }
+ .project-archive { gap: 0 24px; }
 }
 @media (max-width: 700px) {
  html { scroll-padding-top: 120px; }
@@ -140,6 +143,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
  .project { grid-template-columns: 1fr; padding-block: 28px; gap: 18px; }
  .project-detail { margin-top: 4px; }
  .project-archive { grid-template-columns: 1fr; gap: 0; }
+ .project-archive.text-only { margin-top: 0; }
  .project h3 { font-size: 28px; }
  .job { grid-template-columns: 1fr; gap: 8px; padding-block: 22px; }
  .job-date { padding-top: 0; }
