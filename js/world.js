@@ -118,6 +118,7 @@ addEventListener('resize', resize); resize();
 
 // ---------- scroll state ----------
 const hero = document.querySelector('#home');
+const anchor = document.querySelector('.hero .availability');
 const sections = ['#home', '#work', '#flur', '#data-horizon', '#indexer', '#more-projects', '#experience', '#about', '#contact']
   .map((q) => document.querySelector(q)).filter(Boolean);
 let calm = 0, progress = 0, lastY = scrollY, speed = 0, active = null;
@@ -151,7 +152,14 @@ function frame(now) {
   progress += (scrollY / maxY - progress) * ease;
   speed += (Math.abs(scrollY - lastY) / Math.max(dt, 0.001) - speed) * (1 - Math.exp(-dt * 8));
   lastY = scrollY;
-  if (MOBILE) placeCamera(t, progress, 0, 0.66 - calm * 0.66);
+  if (MOBILE) {
+    // pin the field just below the hero text, whatever the screen height
+    const pxPerUnit = innerHeight / (2 * (innerWidth < innerHeight ? 15 / (innerWidth / innerHeight) : 13));
+    const fieldHalf = COLS * 0.53 * pxPerUnit;
+    const below = anchor ? anchor.getBoundingClientRect().bottom : innerHeight * 0.6;
+    const lift = ((below + fieldHalf + 12) - innerHeight / 2) / (innerHeight / 2);
+    placeCamera(t, progress, 0, lift * (1 - calm));
+  }
   else placeCamera(t, progress, 0.62 + calm * 0.16, 0);
   canvas.style.opacity = String(Math.min(1, (now - born) / 1400) * (1 - calm * (MOBILE ? 0.55 : 0.42)));
 

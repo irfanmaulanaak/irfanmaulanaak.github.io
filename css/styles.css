@@ -195,6 +195,6 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
 .world .now-panel { display: none; }
 .world .hero { grid-template-columns: minmax(0, 620px) 1fr; min-height: calc(100vh - 82px); }
 @media (max-width: 700px) {
- .world .hero { grid-template-columns: 1fr; min-height: calc(100svh - 108px); align-content: start; padding-bottom: 44svh; }
+ .world .hero { grid-template-columns: 1fr; align-content: start; padding-bottom: 470px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
