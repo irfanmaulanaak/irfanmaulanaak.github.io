@@ -53,6 +53,18 @@
     });
   }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
   targets.forEach(function (el) { observer.observe(el); });
+  // Anything already scrolled past (fast scroll, or a jump link) is shown too.
+  function revealPassed() {
+    for (var i = 0; i < targets.length; i++) {
+      var el = targets[i];
+      if (!el.classList.contains('in') && el.getBoundingClientRect().top < window.innerHeight * 0.9) {
+        el.classList.add('in');
+        el.querySelectorAll('[data-count]').forEach(countUp);
+        observer.unobserve(el);
+      }
+    }
+  }
+  window.addEventListener('scroll', revealPassed, { passive: true });
 
   // Numbers count up once.
   function countUp(el) {

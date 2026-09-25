@@ -75,7 +75,7 @@ h3 { font-size: 32px; }
 .archive-project .shot { margin: 0 0 20px; }
 .loop { margin: 4px 0 22px; border: 1px solid var(--border); background: var(--bg); overflow: hidden; }
 .loop video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; }
-.shot.live { position: relative; margin: 0 0 20px; }
+.shot.live { position: relative; margin: 6px 0 18px; }
 .shot.live > span { position: absolute; left: 8px; bottom: 8px; padding: 3px 8px; background: var(--bg); color: var(--text); font: 13px/1.5 var(--mono); }
 .project-detail { background: var(--surface); border: 1px solid var(--border); padding: 22px; align-self: start; }
 .project-detail .eyebrow { font-size: 14px; color: var(--text); }
@@ -189,4 +189,9 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
 .motion .project .pipeline li:nth-child(2) { transition-delay: 560ms; }
 .motion .project .pipeline li:nth-child(3) { transition-delay: 720ms; }
 .motion .project.in .pipeline li { opacity: 1; transform: none; }
+/* Live 3D tile field (js/world.js). Only when the head script adds .world. */
+.world-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0; }
+.world main, .world footer { position: relative; z-index: 1; }
+.world .now-panel { display: none; }
+.world .hero { grid-template-columns: minmax(0, 620px) 1fr; min-height: calc(100vh - 82px); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
