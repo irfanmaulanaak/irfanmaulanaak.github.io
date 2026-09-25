@@ -6,7 +6,8 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 
 const root = document.documentElement;
 
-const COLS = 26, ROWS = 26, N = COLS * ROWS;
+const MOBILE = Math.min(innerWidth, innerHeight) < 700 || innerWidth < 900;
+const COLS = MOBILE ? 18 : 26, ROWS = COLS, N = COLS * ROWS;
 const FLOOR = new THREE.Color('#1d1d1d');
 const QUIET = new THREE.Color('#181818');
 const CLAY = new THREE.Color('#e6e3dc');
@@ -18,7 +19,7 @@ canvas.setAttribute('aria-hidden', 'true');
 document.body.prepend(canvas);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, MOBILE ? 1.25 : 1.5));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.AgXToneMapping;
@@ -31,7 +32,7 @@ scene.add(new THREE.HemisphereLight('#ffffff', '#151515', 1.0));
 const sun = new THREE.DirectionalLight('#ffffff', 2.8);
 sun.position.set(-12, 24, 9);
 sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.mapSize.set(MOBILE ? 1024 : 2048, MOBILE ? 1024 : 2048);
 Object.assign(sun.shadow.camera, { left: -20, right: 20, top: 20, bottom: -20, near: 1, far: 70 });
 sun.shadow.bias = -0.0005;
 scene.add(sun);
@@ -82,17 +83,22 @@ const glow = new Float32Array(N);   // broken tiles stay lit for a moment after 
 const pointer = { x: 0, z: 0, seen: 0 };
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), hit = new THREE.Vector3();
 const ground = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-window.addEventListener('pointermove', (e) => {
+const aim = (e) => {
   ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
   ray.setFromCamera(ndc, camera);
   if (ray.ray.intersectPlane(ground, hit)) { pointer.x = hit.x; pointer.z = hit.z; pointer.seen = performance.now(); }
-}, { passive: true });
+};
+window.addEventListener('pointermove', aim, { passive: true });
+window.addEventListener('pointerdown', aim, { passive: true });
 
 // ---------- camera: iso view that turns and tilts as the page scrolls ----------
 const right = new THREE.Vector3();
 const D2R = THREE.MathUtils.degToRad;
-function placeCamera(t, progress, shift) {
-  const aspect = innerWidth / innerHeight, half = 13;
+const up = new THREE.Vector3();
+function placeCamera(t, progress, shift, lift) {
+  const aspect = innerWidth / innerHeight;
+  // portrait screens: fit the field to the width instead of the height
+  const half = aspect < 1 ? 15 / aspect : 13;
   Object.assign(camera, { left: -half * aspect, right: half * aspect, top: half, bottom: -half });
   const az = D2R(42) + progress * D2R(120) + Math.sin(t * 0.1) * 0.05;
   const el = D2R(48) - Math.sin(progress * Math.PI) * D2R(16);
@@ -102,6 +108,8 @@ function placeCamera(t, progress, shift) {
   camera.updateMatrixWorld();
   right.setFromMatrixColumn(camera.matrixWorld, 0);
   camera.position.addScaledVector(right, -shift * half * aspect);
+  up.setFromMatrixColumn(camera.matrixWorld, 1);
+  camera.position.addScaledVector(up, lift * half);
   camera.updateMatrixWorld();
   camera.updateProjectionMatrix();
 }
@@ -143,8 +151,9 @@ function frame(now) {
   progress += (scrollY / maxY - progress) * ease;
   speed += (Math.abs(scrollY - lastY) / Math.max(dt, 0.001) - speed) * (1 - Math.exp(-dt * 8));
   lastY = scrollY;
-  placeCamera(t, progress, 0.62 + calm * 0.16);
-  canvas.style.opacity = String(Math.min(1, (now - born) / 1400) * (1 - calm * 0.42));
+  if (MOBILE) placeCamera(t, progress, 0, 0.66 - calm * 0.66);
+  else placeCamera(t, progress, 0.62 + calm * 0.16, 0);
+  canvas.style.opacity = String(Math.min(1, (now - born) / 1400) * (1 - calm * (MOBILE ? 0.55 : 0.42)));
 
   // scrolling drops ripples on a path that drifts with the page
   if (speed > 120 && now - lastRipple > 140) {

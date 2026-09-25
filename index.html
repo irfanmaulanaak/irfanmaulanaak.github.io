@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"></noscript>
 
-    <link rel="stylesheet" href="css/styles.css?v=22">
+    <link rel="stylesheet" href="css/styles.css?v=23">
 
     <script type="application/ld+json">
     {
@@ -103,12 +103,12 @@
     </script>
     <script>
     (function () {
-        var ok = window.innerWidth >= 900 && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var ok = !matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (ok) { try { var c = document.createElement('canvas'); ok = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { ok = false; } }
         if (!ok) return;
         var root = document.documentElement; root.classList.add('world');
         setTimeout(function () { if (!root.classList.contains('world-ready')) root.classList.remove('world'); }, 6000);
-        document.addEventListener('DOMContentLoaded', function () { var m = document.createElement('script'); m.type = 'module'; m.src = 'js/world.js?v=8'; document.body.appendChild(m); });
+        document.addEventListener('DOMContentLoaded', function () { var m = document.createElement('script'); m.type = 'module'; m.src = 'js/world.js?v=10'; document.body.appendChild(m); });
     })();
     </script>
     <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
