@@ -73,6 +73,10 @@ h3 { font-size: 32px; }
 .shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; transition: transform .4s ease; }
 .shot:hover img { transform: scale(1.02); }
 .archive-project .shot { margin: 0 0 20px; }
+.loop { margin: 4px 0 22px; border: 1px solid var(--border); background: var(--bg); overflow: hidden; }
+.loop video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; }
+.shot.live { position: relative; margin: 0 0 20px; }
+.shot.live > span { position: absolute; left: 8px; bottom: 8px; padding: 3px 8px; background: var(--bg); color: var(--text); font: 13px/1.5 var(--mono); }
 .project-detail { background: var(--surface); border: 1px solid var(--border); padding: 22px; align-self: start; }
 .project-detail .eyebrow { font-size: 14px; color: var(--text); }
 .pipeline { list-style: none; margin: 12px 0 22px; counter-reset: step; }

@@ -67,6 +67,21 @@
     requestAnimationFrame(step);
   }
 
+  // 3D loops play only while on screen.
+  var videos = document.querySelectorAll('.loop video');
+  var videoObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var v = entry.target;
+      if (entry.isIntersecting) {
+        if (v.preload === 'none') { v.preload = 'auto'; }
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      } else {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.25 });
+  videos.forEach(function (v) { videoObserver.observe(v); });
+
   // Thin reading-progress bar under the navbar.
   var bar = document.createElement('div');
   bar.className = 'scroll-progress';
