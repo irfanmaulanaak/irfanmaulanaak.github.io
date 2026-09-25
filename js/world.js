@@ -88,14 +88,16 @@ window.addEventListener('pointermove', (e) => {
   if (ray.ray.intersectPlane(ground, hit)) { pointer.x = hit.x; pointer.z = hit.z; pointer.seen = performance.now(); }
 }, { passive: true });
 
-// ---------- camera: iso view, field sits in the right half of the screen ----------
-const EL = THREE.MathUtils.degToRad(48), AZ = THREE.MathUtils.degToRad(42);
+// ---------- camera: iso view that turns and tilts as the page scrolls ----------
 const right = new THREE.Vector3();
-function placeCamera(t, shift) {
+const D2R = THREE.MathUtils.degToRad;
+function placeCamera(t, progress, shift) {
   const aspect = innerWidth / innerHeight, half = 13;
   Object.assign(camera, { left: -half * aspect, right: half * aspect, top: half, bottom: -half });
-  const az = AZ + Math.sin(t * 0.1) * 0.05, d = 60;
-  camera.position.set(Math.sin(az) * Math.cos(EL) * d, Math.sin(EL) * d, Math.cos(az) * Math.cos(EL) * d);
+  const az = D2R(42) + progress * D2R(120) + Math.sin(t * 0.1) * 0.05;
+  const el = D2R(48) - Math.sin(progress * Math.PI) * D2R(16);
+  const d = 60;
+  camera.position.set(Math.sin(az) * Math.cos(el) * d, Math.sin(el) * d, Math.cos(az) * Math.cos(el) * d);
   camera.lookAt(0, 0, 0);
   camera.updateMatrixWorld();
   right.setFromMatrixColumn(camera.matrixWorld, 0);
@@ -106,25 +108,54 @@ function placeCamera(t, shift) {
 const resize = () => renderer.setSize(innerWidth, innerHeight, false);
 addEventListener('resize', resize); resize();
 
-// ---------- hero weight from scroll ----------
+// ---------- scroll state ----------
 const hero = document.querySelector('#home');
-let calm = 0;   // 0 = hero, 1 = quiet
+const sections = ['#home', '#work', '#flur', '#data-horizon', '#indexer', '#more-projects', '#experience', '#about', '#contact']
+  .map((q) => document.querySelector(q)).filter(Boolean);
+let calm = 0, progress = 0, lastY = scrollY, speed = 0, active = null;
 function heroTarget() {
   const r = hero.getBoundingClientRect();
   return Math.min(1, Math.max(0, -r.top / (r.height * 0.8)));
 }
+function activeSection() {
+  const mid = innerHeight * 0.5;
+  for (const el of sections) { const r = el.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) return el; }
+  return active;
+}
+
+// ripples from scrolling, and a scan line each time a new section arrives
+const ripples = [];      // { x, z, t0, amp }
+let lastRipple = 0;
+let scan = null;         // { t0, dir }
 
 // ---------- frame loop ----------
 const m4 = new THREE.Matrix4(), pos = new THREE.Vector3(), q = new THREE.Quaternion(), s = new THREE.Vector3();
 const col = new THREE.Color();
+const RIPPLE = new THREE.Color('#4a4a48');
 let last = performance.now();
 const born = last;
 function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
   const t = now / 1000;
-  calm += (heroTarget() - calm) * (1 - Math.exp(-dt * 4));
-  placeCamera(t, 0.62);
-  canvas.style.opacity = String(Math.min(1, (now - born) / 1400) * (1 - calm * 0.6));
+  const ease = 1 - Math.exp(-dt * 4);
+  calm += (heroTarget() - calm) * ease;
+  const maxY = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  progress += (scrollY / maxY - progress) * ease;
+  speed += (Math.abs(scrollY - lastY) / Math.max(dt, 0.001) - speed) * (1 - Math.exp(-dt * 8));
+  lastY = scrollY;
+  placeCamera(t, progress, 0.62 + calm * 0.16);
+  canvas.style.opacity = String(Math.min(1, (now - born) / 1400) * (1 - calm * 0.42));
+
+  // scrolling drops ripples on a path that drifts with the page
+  if (speed > 120 && now - lastRipple > 140) {
+    lastRipple = now;
+    ripples.push({ x: Math.sin(progress * 9) * 7, z: Math.cos(progress * 6) * 7, t0: t, amp: Math.min(0.9, speed / 2500) });
+    if (ripples.length > 8) ripples.shift();
+  }
+  const sec = activeSection();
+  if (sec && sec !== active) { if (active) scan = { t0: t, dir: scan ? -scan.dir : 1 }; active = sec; }
+  const scanPos = scan ? (t - scan.t0) * 22 - 18 : 99;     // sweeps from -18 to +18 in about 1.6 s
+  if (scan && scanPos > 20) scan = null;
 
   // when the cursor is idle or elsewhere, a slow scanner drifts across the field
   const idle = now - pointer.seen > 2500;
@@ -136,13 +167,28 @@ function frame(now) {
     const d2 = (x - px) ** 2 + (z - pz) ** 2;
     const bump = Math.exp(-d2 / 6.5) * (1 - calm);
     const wave = Math.sin(t * 0.9 + x * 0.32 + z * 0.24 + phase[i] * 0.15);
-    const target = 0.12 + bump * 1.5 + wave * (0.05 + calm * 0.04) + calm * 0.02;
-    heights[i] += (target - heights[i]) * (1 - Math.exp(-dt * 7));
-    if (broken[i]) glow[i] = Math.max(glow[i] - dt * 0.6, bump > 0.35 ? 1 : 0);
 
-    col.copy(FLOOR).lerp(QUIET, calm).lerp(CLAY, Math.min(1, bump * 1.2) * 0.6);
-    if (broken[i]) col.lerp(BLUE, glow[i] * (1 - calm));
-    pos.set(x, broken[i] ? glow[i] * 0.3 * (1 - calm) : 0, z);
+    let rip = 0;
+    for (const r of ripples) {
+      const age = t - r.t0; if (age > 2.6) continue;
+      const d = Math.hypot(x - r.x, z - r.z) - age * 9;
+      rip += r.amp * Math.exp(-d * d / 2.2) * (1 - age / 2.6);
+    }
+    let sweep = 0;
+    if (scan) {
+      const along = scan.dir > 0 ? x + z * 0.35 : -x + z * 0.35;
+      sweep = Math.exp(-((along - scanPos) ** 2) / 1.4);
+      if (broken[i] && sweep > 0.5) glow[i] = 1;
+    }
+
+    const target = 0.12 + bump * 1.5 + wave * (0.05 + calm * 0.04) + calm * 0.02 + rip * 0.9 + sweep * 0.35;
+    heights[i] += (target - heights[i]) * (1 - Math.exp(-dt * 7));
+    if (broken[i]) glow[i] = Math.max(glow[i] - dt * 0.9, bump > 0.35 ? 1 : 0);
+
+    col.copy(FLOOR).lerp(QUIET, calm).lerp(CLAY, Math.min(1, bump * 1.2) * 0.6).lerp(RIPPLE, Math.min(1, rip * 1.5));
+    col.lerp(BLUE, sweep * 0.4);
+    if (broken[i]) col.lerp(BLUE, glow[i] * (1 - calm * 0.35));
+    pos.set(x, broken[i] ? glow[i] * 0.3 : 0, z);
     s.set(1, Math.max(0.03, heights[i]), 1);
     tiles.setMatrixAt(i, m4.compose(pos, q, s));
     tiles.setColorAt(i, col);
