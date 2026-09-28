@@ -7,7 +7,7 @@
   root.classList.add('motion');
 
   // Split headings into lines that rise out of a mask.
-  document.querySelectorAll('h1, h2').forEach(function (heading) {
+  document.querySelectorAll('h1, h2, .chapter-title').forEach(function (heading) {
     var parts = heading.innerHTML.split(/<br\s*\/?>/i);
     heading.innerHTML = parts.map(function (part, i) {
       return '<span class="line"><span class="line-inner" style="--i:' + i + '">' + part + '</span></span>';
@@ -23,6 +23,7 @@
   // Everything else plays when it scrolls into view.
   var groups = [
     '.section-heading',
+    '.chapter-copy',
     '.project',
     '.archive-project',
     '.job',

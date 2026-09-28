@@ -197,4 +197,33 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
 @media (max-width: 700px) {
  .world .hero { grid-template-columns: 1fr; align-content: start; padding-bottom: 470px; }
 }
+/* Scroll story. Without the 3D field it is three plain columns. */
+.chapters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }
+.chapter { border-top: 1px solid var(--border); padding-block: 24px; }
+.chapter-title { font-size: 26px; margin: 10px 0 16px; letter-spacing: -.02em; }
+.steps { list-style: none; counter-reset: step; }
+.steps li { counter-increment: step; padding: 8px 0; border-bottom: 1px dashed var(--border); color: var(--secondary); font-size: 16px; }
+.steps li::before { content: counter(step) '. '; font-family: var(--mono); color: var(--secondary); }
+.chapter-bar { display: none; }
+.chapter .text-link { margin-top: 10px; }
+.world .chapters { display: block; }
+.world .chapter { min-height: 175vh; border-top: 0; padding: 0; }
+.world .chapter-copy { position: sticky; top: 24vh; max-width: 440px; padding: 24px 0; }
+.world .chapter-title { font-size: clamp(32px, 3.4vw, 46px); line-height: 1.08; letter-spacing: -.03em; }
+.world .steps li { transition: color .5s ease, border-color .5s ease, transform .6s cubic-bezier(.2, .7, .1, 1); transform: translateX(0); color: #6d6d6a; }
+.world .steps li.on { color: var(--text); transform: translateX(6px); }
+.world .steps li.on::before { color: var(--accent); }
+.world .chapter-bar { display: block; height: 2px; margin: 18px 0 4px; background: var(--border); overflow: hidden; }
+.world .chapter-bar::after { content: ''; display: block; height: 100%; background: var(--accent); transform: scaleX(var(--p, 0)); transform-origin: 0 50%; }
+@media (max-width: 700px) {
+ .chapters { grid-template-columns: 1fr; }
+ .world .chapter { min-height: 190svh; }
+ .world .chapter-copy { top: 54svh; padding: 16px; background: #111111e6; border: 1px solid var(--border); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+ .world .chapter-copy .eyebrow { font-size: 12px; }
+ .world .chapter-title { margin: 6px 0 10px; }
+ .world .chapter-title { font-size: 24px; }
+ .world .steps li { font-size: 14px; padding: 4px 0; }
+ .world .chapter-bar { margin: 10px 0 0; }
+ .world .chapter .text-link { padding-block: 6px 0; margin-top: 6px; }
+}
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
