@@ -1,8 +1,3 @@
-// Live 3D tile field behind the page, driven by scroll.
-//   hero     tiles rise under the cursor, hidden broken tiles light blue
-//   story    three chapters; the field rebuilds into each project and scroll scrubs the animation
-//   rest     a slow dim wave, ripples when scrolling, a scan line when a new section arrives
-// Only runs when the head script added the .world class (motion allowed, WebGL available).
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 
@@ -17,7 +12,6 @@ const P = {
   darksteel: hex('#4d4e52'), sandstone: hex('#c2a883'), plastic: hex('#efede8'),
 };
 
-// ---------- renderer, camera, lights ----------
 const canvas = document.createElement('canvas');
 canvas.className = 'world-canvas';
 canvas.setAttribute('aria-hidden', 'true');
@@ -41,7 +35,6 @@ Object.assign(sun.shadow.camera, { left: -24, right: 24, top: 24, bottom: -24, n
 sun.shadow.bias = -0.0005;
 scene.add(sun);
 
-// Stone surface drawn once in a small canvas.
 function stoneTexture() {
   const size = 256, c = document.createElement('canvas'); c.width = c.height = size;
   const g = c.getContext('2d'), img = g.createImageData(size, size);
@@ -74,7 +67,6 @@ tiles.castShadow = tiles.receiveShadow = true;
 tiles.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
 scene.add(tiles);
 
-// ---------- grid helpers ----------
 const cx = (COLS - 1) / 2, cz = (ROWS - 1) / 2;
 const I = (c, r) => r * COLS + c;
 const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
@@ -87,13 +79,10 @@ function each(c0, c1, r0, r1, fn) {
 }
 const tmp = new THREE.Color();
 
-// ---------- hero data ----------
 const broken = Array.from({ length: N }, () => rand() < 0.09);
 const phase = Float32Array.from({ length: N }, () => rand() * Math.PI * 2);
 const glow = new Float32Array(N);
 
-// ---------- scene 1: Flur floor plan ----------
-// kind 0 outside, 1 room floor, 2 wall, 3 furniture
 const F = { kind: new Uint8Array(N), order: new Float32Array(N), h: new Float32Array(N), col: new Array(N).fill(P.floor) };
 {
   const x0 = Math.round(COLS * 0.14), x1 = Math.round(COLS * 0.86) - 1;
@@ -105,21 +94,21 @@ const F = { kind: new Uint8Array(N), order: new Float32Array(N), h: new Float32A
   });
   const gap = (a0, a1, b0, b1) => each(X(a0), X(a1), Z(b0), Z(b1), (i) => { F.kind[i] = 1; });
   wall(0, 1, 0, 0); wall(0, 1, 1, 1); wall(0, 0, 0, 1); wall(1, 1, 0, 1);
-  wall(0.62, 0.62, 0, 1); gap(0.62, 0.62, 0.42, 0.56);                              // bedroom wall with a door
-  wall(0, 0.28, 0.68, 0.68); wall(0.28, 0.28, 0.68, 1); gap(0.28, 0.28, 0.8, 0.9);  // bathroom
-  gap(0.12, 0.2, 0, 0);                                                              // front door
+  wall(0.62, 0.62, 0, 1); gap(0.62, 0.62, 0.42, 0.56);
+  wall(0, 0.28, 0.68, 0.68); wall(0.28, 0.28, 0.68, 1); gap(0.28, 0.28, 0.8, 0.9);
+  gap(0.12, 0.2, 0, 0);
   const furniture = [
-    [0.06, 0.5, 0.16, 0.5, 0.07, P.blue],      // rug
-    [0.06, 0.5, 0.05, 0.12, 0.45, P.sofa],     // sofa
-    [0.2, 0.36, 0.26, 0.38, 0.3, P.walnut],    // coffee table
-    [0.44, 0.54, 0.2, 0.32, 0.42, P.sofa],     // armchair
-    [0.34, 0.58, 0.9, 0.96, 0.82, P.marble],   // kitchen counter
-    [0.36, 0.54, 0.64, 0.78, 0.6, P.walnut],   // dining table
-    [0.7, 0.94, 0.56, 0.88, 0.45, P.linen],    // bed
-    [0.7, 0.94, 0.92, 0.96, 0.9, P.walnut],    // headboard
-    [0.72, 0.94, 0.05, 0.14, 0.66, P.oak],     // desk
-    [0.54, 0.58, 0.05, 0.1, 0.75, P.leaf],     // plant
-    [0.04, 0.2, 0.74, 0.94, 0.45, P.marble],   // bathtub
+    [0.06, 0.5, 0.16, 0.5, 0.07, P.blue],
+    [0.06, 0.5, 0.05, 0.12, 0.45, P.sofa],
+    [0.2, 0.36, 0.26, 0.38, 0.3, P.walnut],
+    [0.44, 0.54, 0.2, 0.32, 0.42, P.sofa],
+    [0.34, 0.58, 0.9, 0.96, 0.82, P.marble],
+    [0.36, 0.54, 0.64, 0.78, 0.6, P.walnut],
+    [0.7, 0.94, 0.56, 0.88, 0.45, P.linen],
+    [0.7, 0.94, 0.92, 0.96, 0.9, P.walnut],
+    [0.72, 0.94, 0.05, 0.14, 0.66, P.oak],
+    [0.54, 0.58, 0.05, 0.1, 0.75, P.leaf],
+    [0.04, 0.2, 0.74, 0.94, 0.45, P.marble],
   ];
   furniture.forEach(([a0, a1, b0, b1, h, col], k) => each(X(a0), X(a1), Z(b0), Z(b1), (i) => {
     if (F.kind[i] === 2) return;
@@ -147,7 +136,6 @@ function flur(i, t, time, out) {
   }
 }
 
-// ---------- scene 2: Horizon audit grid ----------
 const H = { block: new Int16Array(N).fill(-1), bcol: new Float32Array(N), bad: [], minC: 0, maxC: 0 };
 {
   let b = 0, first = true;
@@ -184,7 +172,6 @@ function horizon(i, t, time, out, c) {
   if (scanning && Math.abs(c - scanX) < 0.7) { out.h += 0.14; out.c.lerp(P.blue, 0.7); }
 }
 
-// ---------- scene 3: Bitzaro chains -> wallet -> terminal ----------
 const Bz = {
   kind: new Uint8Array(N), idx: new Int8Array(N).fill(-1), h: new Float32Array(N), col: new Array(N).fill(P.floor),
   pathId: new Int8Array(N).fill(-1), pathT: new Float32Array(N), towers: [], term: null, wallet: null,
@@ -199,11 +186,11 @@ const Bz = {
     const a = Math.PI * (0.1 + 0.8 * (k / 5));
     const tc = Math.round(cx - Math.cos(a) * COLS * 0.38), tr = Math.round(ROWS * 0.52 + Math.sin(a) * ROWS * 0.36);
     each(tc - 1, tc, tr - 1, tr, (i) => { Bz.kind[i] = 1; Bz.idx[i] = k; Bz.h[i] = heights[k]; Bz.col[i] = cols[k]; });
-    Bz.towers.push({ c: tc - 0.5, r: tr - 0.5 });
+    Bz.towers.push({ c: tc - 0.5, r: tr - 0.5, tile: I(tc, tr) });
   }
-  const tc = Math.round(COLS * 0.82), tr = Math.round(ROWS * 0.12);
+  const tc = Math.round(COLS * 0.72), tr = Math.round(ROWS * 0.18);
   each(tc, tc + 1, tr, tr, (i) => { Bz.kind[i] = 3; });
-  Bz.term = { c: tc + 0.5, r: tr };
+  Bz.term = { c: tc + 0.5, r: tr, tile: I(tc, tr) };
   const mark = (from, to, id) => {
     const vx = to.c - from.c, vz = to.r - from.r, L2 = vx * vx + vz * vz;
     for (let i = 0; i < N; i++) {
@@ -219,13 +206,13 @@ const Bz = {
 }
 function bitzaro(i, t, time, out, c, r) {
   const k = Bz.kind[i];
-  if (k === 1) {                                   // chain towers
+  if (k === 1) {
     const rise = sm((t - Bz.idx[i] * 0.03) / 0.18);
     out.h = 0.06 + rise * (Bz.h[i] - 0.06);
     out.c.copy(P.floor).lerp(Bz.col[i], rise);
     return;
   }
-  if (k === 2) {                                   // wallet grows as coins arrive
+  if (k === 2) {
     let arrived = 0;
     for (let p = 0; p < 6; p++) if (t > 0.58 + p * 0.045) arrived++;
     const rise = sm((t - 0.08) / 0.16);
@@ -233,7 +220,7 @@ function bitzaro(i, t, time, out, c, r) {
     out.c.copy(P.floor).lerp(P.steel, rise);
     return;
   }
-  if (k === 3) {                                   // terminal turns blue when the payment lands
+  if (k === 3) {
     const rise = sm((t - 0.12) / 0.16), paid = sm((t - 0.86) / 0.05);
     out.h = 0.06 + rise * 0.64;
     out.c.copy(P.floor).lerp(P.plastic, rise).lerp(P.blue, paid * 0.85);
@@ -250,7 +237,7 @@ function bitzaro(i, t, time, out, c, r) {
     if (t > 0.9) g = Math.max(g, 0.55 * Math.exp(-((Bz.pathT[i] - ((time * 0.35 + id * 0.17) % 1)) ** 2) / 0.006));
     out.h += g * 0.32; out.c.lerp(P.blue, clamp01(g * 1.2));
   }
-  if (t > 0.86) {                                  // contactless rings around the terminal
+  if (t > 0.86) {
     const d = Math.hypot(c - Bz.term.c, r - Bz.term.r);
     const grow = clamp01((t - 0.86) / 0.14);
     let ring = Math.exp(-((d - grow * 7) ** 2) / 0.8) * (1 - grow * 0.5);
@@ -261,7 +248,6 @@ function bitzaro(i, t, time, out, c, r) {
 }
 const sceneFns = [flur, horizon, bitzaro];
 
-// ---------- pointer (projected onto the ground) ----------
 const pointer = { x: 0, z: 0, seen: 0 };
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), hit = new THREE.Vector3();
 const ground = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
@@ -273,7 +259,6 @@ const aim = (e) => {
 addEventListener('pointermove', aim, { passive: true });
 addEventListener('pointerdown', aim, { passive: true });
 
-// ---------- camera ----------
 const right = new THREE.Vector3(), up = new THREE.Vector3();
 const D2R = THREE.MathUtils.degToRad;
 function placeCamera(az, el, half, shift, lift) {
@@ -293,7 +278,6 @@ function placeCamera(az, el, half, shift, lift) {
 const resize = () => renderer.setSize(innerWidth, innerHeight, false);
 addEventListener('resize', resize); resize();
 
-// ---------- scroll state ----------
 const hero = document.querySelector('#home');
 const heroAnchor = document.querySelector('.hero .availability');
 const chapters = [...document.querySelectorAll('.chapter')].map((el) => ({
@@ -302,7 +286,7 @@ const chapters = [...document.querySelectorAll('.chapter')].map((el) => ({
 const sections = ['#home', '#story', '#work', '#flur', '#data-horizon', '#indexer', '#more-projects', '#experience', '#about', '#contact']
   .map((q) => document.querySelector(q)).filter(Boolean);
 let lastY = scrollY, speed = 0, active = null, progress = 0;
-const W = new Float32Array(5);      // hero, flur, horizon, bitzaro, quiet
+const W = new Float32Array(5);
 const Wt = new Float32Array(5);
 const ripples = []; let lastRipple = 0; let scan = null;
 function readScroll() {
@@ -312,7 +296,7 @@ function readScroll() {
   let used = Wt[0];
   chapters.forEach((ch, k) => {
     const r = ch.el.getBoundingClientRect();
-    ch.target = clamp01(((mid - r.top) / r.height) / 0.85);
+    ch.target = clamp01(((mid - r.top) / r.height) / (MOBILE ? 0.68 : 0.85));
     const w = sm((mid - r.top) / (0.3 * vh)) * sm((r.bottom - mid) / (0.3 * vh));
     Wt[k + 1] = w; used += w;
     ch.el.style.setProperty('--p', ch.target.toFixed(3));
@@ -327,14 +311,75 @@ function activeSection() {
   return active;
 }
 
-// ---------- frame loop ----------
 const m4 = new THREE.Matrix4(), pos = new THREE.Vector3(), q = new THREE.Quaternion(), s = new THREE.Vector3();
 const heights = new Float32Array(N).fill(0.12), lifts = new Float32Array(N);
+const labelLayer = document.createElement('div');
+labelLayer.className = 'world-labels';
+labelLayer.setAttribute('aria-hidden', 'true');
+canvas.after(labelLayer);
+const chainNames = ['Bitcoin', 'Ethereum', 'Tron', 'Solana', 'TON', 'XRP'];
+const labels = [
+  ...Bz.towers.map((tw, k) => ({ text: chainNames[k], c: tw.c, r: tw.r, tile: tw.tile })),
+  { text: 'Wallet', c: Bz.wallet.c, r: Bz.wallet.r, tile: I(Bz.wallet.c, Bz.wallet.r), strong: true },
+  { text: 'Card terminal', c: Bz.term.c, r: Bz.term.r, tile: Bz.term.tile, strong: true },
+].map((l) => {
+  const el = document.createElement('span');
+  el.className = l.strong ? 'world-label strong' : 'world-label';
+  el.textContent = l.text;
+  labelLayer.appendChild(el);
+  return { ...l, el };
+});
+const projected = new THREE.Vector3();
+const navbar = document.querySelector('.navbar');
+let navBottom = 0;
+const placed = [];
+const drawOrder = [...labels].sort((a, b) => (b.strong ? 1 : 0) - (a.strong ? 1 : 0));
+function placeLabels() {
+  const w = W[3];
+  navBottom = navbar ? navbar.getBoundingClientRect().bottom : 0;
+  labelLayer.style.opacity = String(sm((w - 0.4) / 0.4));
+  if (w < 0.05) return;
+  placed.length = 0;
+  for (const l of drawOrder) {
+    const h = heights[l.tile];
+    projected.set(l.c - cx, h + lifts[l.tile] + 0.35, l.r - cz).project(camera);
+    const lw = l.el.offsetWidth, lh = l.el.offsetHeight;
+    const x = Math.min(innerWidth - lw / 2 - 8, Math.max(lw / 2 + 8, (projected.x + 1) / 2 * innerWidth));
+    const y = Math.max(navBottom + lh + 6, (1 - projected.y) / 2 * innerHeight);
+    const box = { l: x - lw / 2 - 3, r: x + lw / 2 + 3, t: y - lh - 3, b: y + 3 };
+    const clash = placed.some((p) => box.l < p.r && box.r > p.l && box.t < p.b && box.b > p.t);
+    const show = h > 0.3 && !clash;
+    if (show) placed.push(box);
+    l.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -100%)`;
+    l.el.style.opacity = show ? '1' : '0';
+  }
+}
+
 const col = new THREE.Color();
 const out = { h: 0, lift: 0, c: new THREE.Color() };
 let last = performance.now();
 const born = last;
-window.__world = { W, chapters };   // read by the end-to-end test
+window.__world = { W, chapters };
+
+const fitRight = new THREE.Vector3(), fitUp = new THREE.Vector3(), fitDir = new THREE.Vector3(), corner = new THREE.Vector3();
+const WORLD_UP = new THREE.Vector3(0, 1, 0);
+function fitView(az, el, top, room) {
+  fitDir.set(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el));
+  fitRight.crossVectors(WORLD_UP, fitDir).normalize();
+  fitUp.crossVectors(fitDir, fitRight);
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  for (const x of [-COLS / 2, COLS / 2]) for (const z of [-ROWS / 2, ROWS / 2]) for (const y of [0, 2.3]) {
+    corner.set(x, y, z);
+    const sx = corner.dot(fitRight), sy = corner.dot(fitUp);
+    minX = Math.min(minX, sx); maxX = Math.max(maxX, sx); minY = Math.min(minY, sy); maxY = Math.max(maxY, sy);
+  }
+  const aspect = innerWidth / innerHeight;
+  const half = Math.max(((maxY - minY) * innerHeight) / (2 * room), ((maxX - minX) * innerHeight) / (2 * (innerWidth - 16)));
+  const ppu = innerHeight / (2 * half);
+  const lift = ((maxY + minY) / 2 - (innerHeight / 2 - (top + room / 2)) / ppu) / half;
+  const shift = -((maxX + minX) / 2) / (half * aspect);
+  return { half, lift, shift };
+}
 
 function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
@@ -351,7 +396,6 @@ function frame(now) {
   speed += (Math.abs(scrollY - lastY) / Math.max(dt, 0.001) - speed) * (1 - Math.exp(-dt * 8));
   lastY = scrollY;
 
-  // camera: each part of the page has its own view, blended by weight; chapters turn as they scroll
   const aspect = innerWidth / innerHeight;
   const baseHalf = MOBILE ? (COLS * 0.83) / Math.min(1, aspect) : 13;
   const ch = (k) => (chapters[k] ? chapters[k].t : 0);
@@ -359,15 +403,17 @@ function frame(now) {
     { az: 42, el: 48, half: baseHalf, shift: 0.62, lift: 0 },
     { az: 28 + ch(0) * 26, el: 54, half: baseHalf * 1.08, shift: 0.46, lift: 0 },
     { az: 62 - ch(1) * 24, el: 50, half: baseHalf * 1.08, shift: 0.46, lift: 0 },
-    { az: 36 + ch(2) * 22, el: 52, half: baseHalf * 1.12, shift: 0.46, lift: 0 },
-    { az: 42 + progress * 120, el: 48 - Math.sin(progress * Math.PI) * 16, half: baseHalf, shift: 0.78, lift: 0 },
+    { az: 36 + ch(2) * 22, el: 52, half: baseHalf * 1.2, shift: 0.36, lift: 0 },
+    { az: 42 + progress * 120, el: 48 - Math.sin(progress * Math.PI) * 16, half: baseHalf, shift: 1.2, lift: 0 },
   ];
   if (MOBILE) {
     const pxPerUnit = innerHeight / (2 * baseHalf);
     const below = heroAnchor ? heroAnchor.getBoundingClientRect().bottom : innerHeight * 0.6;
     views[0].lift = ((below + COLS * 0.53 * pxPerUnit + 12) - innerHeight / 2) / (innerHeight / 2);
-    for (let k = 1; k <= 3; k++) { views[k].lift = -0.46; views[k].half = baseHalf * 0.78; }
-    for (const v of views) v.shift = 0;
+    const top = (navbar ? navbar.getBoundingClientRect().bottom : 100) + 8;
+    const room = Math.max(120, innerHeight * 0.54 - top - 10);
+    for (let k = 1; k <= 3; k++) Object.assign(views[k], fitView(D2R(views[k].az), D2R(views[k].el), top, room));
+    views[0].shift = 0; views[4].shift = 0;
   }
   let az = 0, el = 0, half = 0, shift = 0, lift = 0;
   for (let k = 0; k < 5; k++) {
@@ -375,9 +421,8 @@ function frame(now) {
     shift += views[k].shift * W[k]; lift += views[k].lift * W[k];
   }
   placeCamera(D2R(az) + Math.sin(time * 0.1) * 0.04, D2R(el), half, shift, lift);
-  canvas.style.opacity = String(Math.min(1, (now - born) / 1400) * (1 - W[4] * (MOBILE ? 0.55 : 0.42)));
+  canvas.style.opacity = String(Math.min(1, (now - born) / 700) * (1 - W[4] * (MOBILE ? 0.55 : 0.6)));
 
-  // ripples and section scans belong to the quiet part of the page
   if (speed > 120 && now - lastRipple > 140 && W[4] > 0.3) {
     lastRipple = now;
     ripples.push({ x: Math.sin(progress * 9) * 7, z: Math.cos(progress * 6) * 7, t0: time, amp: Math.min(0.9, speed / 2500) });
@@ -399,7 +444,7 @@ function frame(now) {
     col.setRGB(0, 0, 0);
     const wave = Math.sin(time * 0.9 + x * 0.32 + z * 0.24 + phase[i] * 0.15);
 
-    if (W[0] > 0.002) {                               // hero
+    if (W[0] > 0.002) {
       const w = W[0];
       const bump = Math.exp(-((x - px) ** 2 + (z - pz) ** 2) / 6.5);
       if (broken[i]) glow[i] = Math.max(glow[i] - dt * 0.9, bump > 0.35 ? 1 : 0);
@@ -408,14 +453,14 @@ function frame(now) {
       if (broken[i]) { tmp.lerp(P.blue, glow[i]); lf += w * glow[i] * 0.3; }
       col.r += tmp.r * w; col.g += tmp.g * w; col.b += tmp.b * w;
     }
-    for (let k = 0; k < 3; k++) {                     // story chapters
+    for (let k = 0; k < 3; k++) {
       const w = W[k + 1]; if (w < 0.002) continue;
       out.h = 0; out.lift = 0;
       sceneFns[k](i, ch(k), time, out, c, r);
       h += w * (out.h + wave * 0.015); lf += w * out.lift;
       col.r += out.c.r * w; col.g += out.c.g * w; col.b += out.c.b * w;
     }
-    if (W[4] > 0.002) {                               // rest of the page
+    if (W[4] > 0.002) {
       const w = W[4];
       let rip = 0;
       for (const rp of ripples) {
@@ -446,6 +491,7 @@ function frame(now) {
   }
   tiles.instanceMatrix.needsUpdate = true;
   tiles.instanceColor.needsUpdate = true;
+  placeLabels();
   renderer.render(scene, camera);
   requestAnimationFrame(frame);
 }

@@ -157,7 +157,6 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
  footer { flex-wrap: wrap; gap: 8px 20px; }
  footer p:first-child { width: 100%; }
 }
-/* Motion. Only active when js/motion.js adds the .motion class. */
 .line { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
 .line-inner { display: inline-block; }
 .text-link span, .button span, .contact-email span { display: inline-block; transition: transform .25s ease; }
@@ -189,15 +188,17 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
 .motion .project .pipeline li:nth-child(2) { transition-delay: 560ms; }
 .motion .project .pipeline li:nth-child(3) { transition-delay: 720ms; }
 .motion .project.in .pipeline li { opacity: 1; transform: none; }
-/* Live 3D tile field (js/world.js). Only when the head script adds .world. */
 .world-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0; }
 .world main, .world footer { position: relative; z-index: 1; }
+.world-labels { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; }
+.world-label { position: absolute; left: 0; top: 0; padding: 2px 7px; font: 12px/1.5 var(--mono); color: var(--text); background: #111111d9; border: 1px solid var(--border); white-space: nowrap; transition: opacity .3s ease; }
+.world-label.strong { color: #111; background: var(--text); border-color: var(--text); }
+@media (max-width: 700px) { .world-label { font-size: 10px; padding: 1px 5px; } }
 .world .now-panel { display: none; }
 .world .hero { grid-template-columns: minmax(0, 620px) 1fr; min-height: calc(100vh - 82px); }
 @media (max-width: 700px) {
  .world .hero { grid-template-columns: 1fr; align-content: start; padding-bottom: 470px; }
 }
-/* Scroll story. Without the 3D field it is three plain columns. */
 .chapters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }
 .chapter { border-top: 1px solid var(--border); padding-block: 24px; }
 .chapter-title { font-size: 26px; margin: 10px 0 16px; letter-spacing: -.02em; }
@@ -206,8 +207,10 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
 .steps li::before { content: counter(step) '. '; font-family: var(--mono); color: var(--secondary); }
 .chapter-bar { display: none; }
 .chapter .text-link { margin-top: 10px; }
+.story > .section-heading { display: block; }
+.story > .section-heading > p { margin-top: 18px; max-width: 440px; }
 .world .chapters { display: block; }
-.world .chapter { min-height: 175vh; border-top: 0; padding: 0; }
+.world .chapter { min-height: 135vh; border-top: 0; padding: 0; }
 .world .chapter-copy { position: sticky; top: 24vh; max-width: 440px; padding: 24px 0; }
 .world .chapter-title { font-size: clamp(32px, 3.4vw, 46px); line-height: 1.08; letter-spacing: -.03em; }
 .world .steps li { transition: color .5s ease, border-color .5s ease, transform .6s cubic-bezier(.2, .7, .1, 1); transform: translateX(0); color: #6d6d6a; }
@@ -217,7 +220,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding-block
 .world .chapter-bar::after { content: ''; display: block; height: 100%; background: var(--accent); transform: scaleX(var(--p, 0)); transform-origin: 0 50%; }
 @media (max-width: 700px) {
  .chapters { grid-template-columns: 1fr; }
- .world .chapter { min-height: 190svh; }
+ .world .chapter { min-height: 175svh; }
  .world .chapter-copy { top: 54svh; padding: 16px; background: #111111e6; border: 1px solid var(--border); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
  .world .chapter-copy .eyebrow { font-size: 12px; }
  .world .chapter-title { margin: 6px 0 10px; }

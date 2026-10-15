@@ -1,4 +1,3 @@
-// Text and scroll animations. The page is fully readable without this file.
 (function () {
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -6,7 +5,6 @@
   var root = document.documentElement;
   root.classList.add('motion');
 
-  // Split headings into lines that rise out of a mask.
   document.querySelectorAll('h1, h2, .chapter-title').forEach(function (heading) {
     var parts = heading.innerHTML.split(/<br\s*\/?>/i);
     heading.innerHTML = parts.map(function (part, i) {
@@ -15,12 +13,10 @@
     heading.classList.add('split');
   });
 
-  // Hero plays on load.
   requestAnimationFrame(function () {
     requestAnimationFrame(function () { root.classList.add('loaded'); });
   });
 
-  // Everything else plays when it scrolls into view.
   var groups = [
     '.section-heading',
     '.chapter-copy',
@@ -54,7 +50,6 @@
     });
   }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
   targets.forEach(function (el) { observer.observe(el); });
-  // Anything already scrolled past (fast scroll, or a jump link) is shown too.
   function revealPassed() {
     for (var i = 0; i < targets.length; i++) {
       var el = targets[i];
@@ -67,7 +62,6 @@
   }
   window.addEventListener('scroll', revealPassed, { passive: true });
 
-  // Numbers count up once.
   function countUp(el) {
     var end = parseInt(el.getAttribute('data-count'), 10);
     var start = performance.now();
@@ -80,7 +74,6 @@
     requestAnimationFrame(step);
   }
 
-  // 3D loops play only while on screen.
   var videos = document.querySelectorAll('.loop video');
   var videoObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
@@ -95,7 +88,6 @@
   }, { threshold: 0.25 });
   videos.forEach(function (v) { videoObserver.observe(v); });
 
-  // Thin reading-progress bar under the navbar.
   var bar = document.createElement('div');
   bar.className = 'scroll-progress';
   bar.setAttribute('aria-hidden', 'true');
