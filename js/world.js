@@ -17,9 +17,9 @@ canvas.className = 'world-canvas';
 canvas.setAttribute('aria-hidden', 'true');
 document.body.prepend(canvas);
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !MOBILE, alpha: true, powerPreference: MOBILE ? 'low-power' : 'high-performance' });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, MOBILE ? 1.25 : 1.5));
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = !MOBILE;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.AgXToneMapping;
 renderer.toneMappingExposure = 1.2;
@@ -29,7 +29,7 @@ const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 200);
 scene.add(new THREE.HemisphereLight('#ffffff', '#151515', 1.0));
 const sun = new THREE.DirectionalLight('#ffffff', 2.8);
 sun.position.set(-12, 24, 9);
-sun.castShadow = true;
+sun.castShadow = !MOBILE;
 sun.shadow.mapSize.set(MOBILE ? 1024 : 2048, MOBILE ? 1024 : 2048);
 Object.assign(sun.shadow.camera, { left: -24, right: 24, top: 24, bottom: -24, near: 1, far: 80 });
 sun.shadow.bias = -0.0005;
@@ -63,7 +63,7 @@ const rough = stone.clone(); rough.colorSpace = THREE.NoColorSpace;
 const geo = new RoundedBoxGeometry(0.9, 1, 0.9, 2, 0.08);
 geo.translate(0, 0.5, 0);
 const tiles = new THREE.InstancedMesh(geo, new THREE.MeshStandardMaterial({ map: stone, roughnessMap: rough, roughness: 1.0 }), N);
-tiles.castShadow = tiles.receiveShadow = true;
+tiles.castShadow = tiles.receiveShadow = !MOBILE;
 tiles.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
 scene.add(tiles);
 
@@ -248,16 +248,39 @@ function bitzaro(i, t, time, out, c, r) {
 }
 const sceneFns = [flur, horizon, bitzaro];
 
-const pointer = { x: 0, z: 0, seen: 0 };
+const pointer = { x: 0, z: 0, seen: 0, vx: 0, vz: 0, speed: 0, t: 0 };
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), hit = new THREE.Vector3();
 const ground = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-const aim = (e) => {
+function project(e) {
   ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
   ray.setFromCamera(ndc, camera);
-  if (ray.ray.intersectPlane(ground, hit)) { pointer.x = hit.x; pointer.z = hit.z; pointer.seen = performance.now(); }
+  return ray.ray.intersectPlane(ground, hit);
+}
+const aim = (e) => {
+  if (!project(e)) return;
+  const now = performance.now(), gap = (now - pointer.t) / 1000;
+  if (gap > 0.004 && gap < 0.25) {
+    const k = 0.35;
+    pointer.vx += ((hit.x - pointer.x) / gap - pointer.vx) * k;
+    pointer.vz += ((hit.z - pointer.z) / gap - pointer.vz) * k;
+  } else { pointer.vx = 0; pointer.vz = 0; }
+  pointer.x = hit.x; pointer.z = hit.z; pointer.seen = now; pointer.t = now;
 };
 addEventListener('pointermove', aim, { passive: true });
-addEventListener('pointerdown', aim, { passive: true });
+const shocks = [];
+let down = null;
+addEventListener('pointerdown', (e) => { aim(e); down = { x: e.clientX, y: e.clientY, t: performance.now() }; }, { passive: true });
+addEventListener('pointerup', (e) => {
+  if (!down) return;
+  const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), held = performance.now() - down.t;
+  down = null;
+  if (moved > 12 || held > 500 || W[0] < 0.3) return;
+  if (e.target.closest && e.target.closest('a, button, input, textarea, select, label')) return;
+  if (!project(e)) return;
+  if (Math.abs(hit.x) > COLS / 2 + 1 || Math.abs(hit.z) > ROWS / 2 + 1) return;
+  shocks.push({ x: hit.x, z: hit.z, t0: performance.now() / 1000 });
+  if (shocks.length > 4) shocks.shift();
+}, { passive: true });
 
 const right = new THREE.Vector3(), up = new THREE.Vector3();
 const D2R = THREE.MathUtils.degToRad;
@@ -280,7 +303,7 @@ addEventListener('resize', resize); resize();
 
 const hero = document.querySelector('#home');
 const heroAnchor = document.querySelector('.hero .availability');
-const chapters = [...document.querySelectorAll('.chapter')].map((el) => ({
+const chapters = (root.classList.contains('film-on') ? [] : [...document.querySelectorAll('.chapter')]).map((el) => ({
   el, steps: [...el.querySelectorAll('.steps li')], t: 0, target: 0,
 }));
 const sections = ['#home', '#story', '#work', '#flur', '#data-horizon', '#indexer', '#more-projects', '#experience', '#about', '#contact']
@@ -312,6 +335,66 @@ function activeSection() {
 }
 
 const m4 = new THREE.Matrix4(), pos = new THREE.Vector3(), q = new THREE.Quaternion(), s = new THREE.Vector3();
+const disp = new Float32Array(N), vel = new Float32Array(N), ext = new Float32Array(N), wake = new Float32Array(N);
+const ang = new Float32Array(N), angVel = new Float32Array(N), angTarget = new Float32Array(N);
+const flipBack = new Float32Array(N);
+const revealed = new Uint8Array(N);
+const brokenTotal = broken.reduce((n, b) => n + (b ? 1 : 0), 0);
+let foundCount = 0, shownCount = -1;
+const hint = document.querySelector('.world-hint .wh-count');
+const UNDER = hex('#3b3b39');
+const axis = new THREE.Vector3(), centre = new THREE.Vector3();
+function startFlip(i, time, hold) {
+  if (angTarget[i] !== 0 || Math.abs(ang[i]) > 0.05) return;
+  angTarget[i] = Math.PI;
+  flipBack[i] = time + hold;
+  if (!revealed[i]) { revealed[i] = 1; foundCount++; }
+}
+function physics(dt, time, wPhys, px, pz, idle) {
+  const spd = idle ? 0 : Math.hypot(pointer.vx, pointer.vz);
+  pointer.vx *= Math.exp(-dt * 6); pointer.vz *= Math.exp(-dt * 6);
+  const push = Math.min(spd, 45) / 45;
+  const canFlip = W[0] > 0.6;
+  for (let i = 0; i < N; i++) {
+    const x = (i % COLS) - cx, z = ((i / COLS) | 0) - cz;
+    const d2 = (x - px) ** 2 + (z - pz) ** 2;
+    let f = 0;
+    if (push > 0 && d2 < 9) {
+      f += 80 * push * Math.exp(-d2 / 2.2);
+      wake[i] = Math.max(wake[i], push * 0.7 * Math.exp(-d2 / 1.6));
+    }
+    if (canFlip && broken[i] && !idle && d2 < 1.6) startFlip(i, time, 5);
+    for (const sh of shocks) {
+      const age = time - sh.t0; if (age > 1.8) continue;
+      const d = Math.hypot(x - sh.x, z - sh.z) - age * 15;
+      if (d > -1.2 && d < 1.2) {
+        f += 200 * Math.exp(-d * d / 0.5) * (1 - age / 1.8) * (age * 15 < 6.5 ? 1 : 0.35);
+        if (broken[i] && Math.abs(d) < 0.6 && age * 15 < 6.5) startFlip(i, time, 6);
+      }
+    }
+    ext[i] = f * wPhys;
+    wake[i] *= Math.exp(-dt * 1.6);
+    if (angTarget[i] !== 0 && time > flipBack[i] && Math.abs(ang[i] - angTarget[i]) < 0.05) angTarget[i] = 0;
+  }
+  for (let k = shocks.length - 1; k >= 0; k--) if (time - shocks[k].t0 > 1.8) shocks.splice(k, 1);
+  const steps = Math.min(4, Math.ceil(dt / (1 / 120)));
+  const h = dt / steps;
+  for (let st = 0; st < steps; st++) {
+    for (let i = 0; i < N; i++) {
+      const c = i % COLS, r = (i / COLS) | 0;
+      const nb = (c > 0 ? disp[i - 1] : disp[i]) + (c < COLS - 1 ? disp[i + 1] : disp[i]) + (r > 0 ? disp[i - COLS] : disp[i]) + (r < ROWS - 1 ? disp[i + COLS] : disp[i]);
+      const a = -70 * disp[i] - 7.5 * vel[i] + 80 * (nb * 0.25 - disp[i]) + ext[i];
+      vel[i] += a * h;
+    }
+    for (let i = 0; i < N; i++) {
+      disp[i] = Math.max(-0.5, Math.min(2.4, disp[i] + vel[i] * h));
+      const aa = 110 * (angTarget[i] - ang[i]) - 21 * angVel[i];
+      angVel[i] += aa * h;
+      ang[i] += angVel[i] * h;
+    }
+  }
+  if (hint && foundCount !== shownCount) { shownCount = foundCount; hint.textContent = `${foundCount} of ${brokenTotal} broken tiles found`; }
+}
 const heights = new Float32Array(N).fill(0.12), lifts = new Float32Array(N);
 const labelLayer = document.createElement('div');
 labelLayer.className = 'world-labels';
@@ -359,7 +442,7 @@ const col = new THREE.Color();
 const out = { h: 0, lift: 0, c: new THREE.Color() };
 let last = performance.now();
 const born = last;
-window.__world = { W, chapters };
+window.__world = { W, chapters, shocks, get found() { return foundCount; }, get flipping() { let n = 0; for (let i = 0; i < N; i++) if (Math.abs(ang[i]) > 0.1) n++; return n; } };
 
 const fitRight = new THREE.Vector3(), fitUp = new THREE.Vector3(), fitDir = new THREE.Vector3(), corner = new THREE.Vector3();
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
@@ -381,11 +464,22 @@ function fitView(az, el, top, room) {
   return { half, lift, shift };
 }
 
+const filmStage = document.querySelector('.film-stage');
 function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
   const time = now / 1000;
   const ease = 1 - Math.exp(-dt * 5);
   readScroll();
+  const fr = root.classList.contains('film-on') && filmStage ? filmStage.getBoundingClientRect() : null;
+  const covered = fr && fr.top <= 1 && fr.bottom >= innerHeight - 1;
+  const away = MOBILE && Wt[0] < 0.01 && W[0] < 0.01;
+  if (covered || away || document.hidden) {
+    canvas.style.visibility = 'hidden';
+    labelLayer.style.opacity = '0';
+    requestAnimationFrame(frame);
+    return;
+  }
+  canvas.style.visibility = '';
   for (let k = 0; k < 5; k++) W[k] += (Wt[k] - W[k]) * ease;
   for (const ch of chapters) {
     ch.t += (ch.target - ch.t) * (1 - Math.exp(-dt * 6));
@@ -436,6 +530,8 @@ function frame(now) {
   const idle = now - pointer.seen > 2500;
   const px = idle ? Math.sin(time * 0.33) * 8 : pointer.x;
   const pz = idle ? Math.cos(time * 0.21) * 8 : pointer.z;
+  const wPhys = Math.min(1, W[0] + W[4]);
+  physics(dt, time, wPhys, px, pz, idle);
 
   for (let i = 0; i < N; i++) {
     const c = i % COLS, r = (i / COLS) | 0;
@@ -484,8 +580,24 @@ function frame(now) {
     const k = 1 - Math.exp(-dt * 9);
     heights[i] += (h - heights[i]) * k;
     lifts[i] += (lf - lifts[i]) * k;
-    pos.set(x, lifts[i], z);
-    s.set(1, Math.max(0.03, heights[i]), 1);
+    const hh = Math.max(0.03, heights[i] + (disp[i] + wake[i] * 0.35) * wPhys);
+    const a = ang[i] * wPhys;
+    if (wake[i] > 0.02) col.lerp(P.clay, Math.min(0.45, wake[i] * 0.5) * W[0]);
+    if (Math.abs(a) > 0.002) {
+      axis.set(0.7071, 0, -0.7071);
+      q.setFromAxisAngle(axis, a);
+      centre.set(0, hh / 2, 0).applyQuaternion(q);
+      const under = Math.cos(a) < 0;
+      if (under) {
+        if (broken[i]) { glow[i] = 1; col.copy(P.blue); }
+        else col.lerp(UNDER, 0.85);
+      }
+      pos.set(x - centre.x, lifts[i] + hh / 2 - centre.y + Math.abs(Math.sin(a)) * 0.55, z - centre.z);
+    } else {
+      q.identity();
+      pos.set(x, lifts[i], z);
+    }
+    s.set(1, hh, 1);
     tiles.setMatrixAt(i, m4.compose(pos, q, s));
     tiles.setColorAt(i, col);
   }

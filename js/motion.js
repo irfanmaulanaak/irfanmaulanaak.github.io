@@ -1,4 +1,9 @@
 (function () {
+  if (window.innerWidth < 760) {
+    document.querySelectorAll('.loop video').forEach(function (v) {
+      v.poster = v.poster.replace('-poster.webp', '-poster-m.webp');
+    });
+  }
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -19,7 +24,6 @@
 
   var groups = [
     '.section-heading',
-    '.chapter-copy',
     '.project',
     '.archive-project',
     '.job',
@@ -79,7 +83,14 @@
     entries.forEach(function (entry) {
       var v = entry.target;
       if (entry.isIntersecting) {
-        if (v.preload === 'none') { v.preload = 'auto'; }
+        if (!v.dataset.ready) {
+          v.dataset.ready = '1';
+          v.querySelectorAll('source[data-src]').forEach(function (src) {
+            src.src = window.innerWidth < 760 ? src.dataset.src.replace(/-loop\.(webm|mp4)$/, '-loop-m.$1') : src.dataset.src;
+          });
+          v.preload = 'auto';
+          v.load();
+        }
         var p = v.play(); if (p && p.catch) p.catch(function () {});
       } else {
         v.pause();
